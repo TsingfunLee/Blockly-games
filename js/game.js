@@ -56,7 +56,6 @@ Game.init = function() {
 	Game.role = new Image();
 
 	// Set width and height of canvas.
-	// var animationDiv = document.getElementById('animationDiv');
 	Game.canvas.width = 400;
 	Game.canvas.height = 400;
 
@@ -118,6 +117,10 @@ Game.turnright = function() {
 };
 
 Game.turnleft = function() {
+	
+};
+
+Game.interpreter = function() {
 	
 };
 

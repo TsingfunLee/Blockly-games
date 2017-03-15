@@ -89,6 +89,7 @@ body{
 	display: none;
 	padding: 10px;
 	box-sizing: border-box;
+	line-height: 150%;
 }
 
 .right{
