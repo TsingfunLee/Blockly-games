@@ -5,8 +5,21 @@
  */
 var Game = {};
 
+/**
+ * The animation region.
+ */
 Game.canvas = null;
+
+/**
+ * The context of canvas.
+ */
 Game.context = null;
+
+/**
+ * Role of the game.
+ * It is a image.
+ */
+Game.role = null;
 
 /**
  * Initialize Game.
@@ -14,11 +27,12 @@ Game.context = null;
 Game.init = function() {
 	Game.canvas = document.getElementById('canvas');
 	Game.context = Game.canvas.getContext('2d');
+	Game.role = new Image();
 
-	// Set width and height of canvas the same as the animation div.
-	var animationDiv = document.getElementById('animationDiv');
-	Game.canvas.width = animationDiv.clientWidth;
-	Game.canvas.height = animationDiv.clientHeight;
+	// Set width and height of canvas.
+	// var animationDiv = document.getElementById('animationDiv');
+	Game.canvas.width = 400;
+	Game.canvas.height = 400;
 
 	Game.drawRole();
 	
@@ -28,20 +42,33 @@ Game.init = function() {
 };
 
 Game.drawRole = function() {
-	var img = new Image();
-
-	img.onload = function() {
-		Game.context.drawImage(img, 0, 0, 100, 100);
+	Game.role.onload = function() {
+		Game.context.drawImage(Game.role, 0, 0, 50, 50);
 	};
-	img.src = 'img/worm.png';
+	Game.role.src = 'img/role.jpg';
+};
+
+Game.drawEarth = function() {
+	var earth = new Image();
+	earth.onload = function() {
+		
+	};
 };
 
 Game.onresize = function() {
-	var animationDiv = document.getElementById('animationDiv');
-	Game.canvas.width = animationDiv.clientWidth;
-	Game.canvas.height = animationDiv.clientHeight;
 
-	Game.drawRole();
+};
+
+Game.step = function() {
+	
+};
+
+Game.turnright = function() {
+	
+};
+
+Game.turnleft = function() {
+	
 };
 
 Game.play = function() {

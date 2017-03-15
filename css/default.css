@@ -2,8 +2,8 @@ html{
 	height: 100%;
 }
 body{
+	height: calc(100% - 38px);
 	overflow: hidden;
-	height: 100%;
 }
 
 .bar{
@@ -28,32 +28,35 @@ body{
 .workplace{
 	position: relative;
 	width: 100%;
-	height: calc(100% - 38px);
+	height: 100%;
 }
 
 .left{
-	width: 30%;
+	width: 430px;
 	height: 100%;
 	position: relative;
 	float: left;
 	display: block;
 }
 
-#animationDiv{
+#visilazation{
 	position: absolute;
-	width: 100%;
-	height: 50%;
+	width: auto;
+	height: auto;
 	top: 0;
 	border: solid #BFCBDF 1px;
+	margin-left: 15px;
+	margin-right: 15px;
 }
 
 #codeDiv{
 	position: absolute;
-	width: 100%;
 	bottom: 0;
-	height: 50%;
+	width: 400px;
+	height: calc(100% - 415px);
 	border: solid #BFCBDF 1px;
-	box-sizing: border-box;
+	margin-left: 15px;
+	margin-right: 15px;
 }
 
 #tabs{
@@ -82,13 +85,14 @@ body{
 
 #codeDiv pre {
 	border-top: solid #BFCBDF 1px;
-	height: 100%;
+	height: calc(100% - 32px);
 	display: none;
 	padding: 10px;
+	box-sizing: border-box;
 }
 
 .right{
-	width: 70%;
+	width: calc(100% - 430px);
 	height: 100%;
 	position: relative;
 	float: right;
