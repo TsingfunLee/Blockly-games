@@ -1,0 +1,105 @@
+html{
+	height: 100%;
+}
+body{
+	overflow: hidden;
+	height: 100%;
+}
+
+.bar{
+	width: 100%;
+	height: 38px;
+}
+
+#languageMenu{
+	position: relative;
+	left: 10px;
+	width: 100px;
+	height: 20px;
+	top: 9px;
+}
+
+#playBtn{
+	position: relative;
+	left: 10px;
+	top: 9px;
+}
+
+.workplace{
+	position: relative;
+	width: 100%;
+	height: calc(100% - 38px);
+}
+
+.left{
+	width: 30%;
+	height: 100%;
+	position: relative;
+	float: left;
+	display: block;
+}
+
+#animationDiv{
+	position: absolute;
+	width: 100%;
+	height: 50%;
+	top: 0;
+	border: solid #BFCBDF 1px;
+}
+
+#codeDiv{
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	height: 50%;
+	border: solid #BFCBDF 1px;
+	box-sizing: border-box;
+}
+
+#tabs{
+	width: 100%;
+	height: 32px;
+}
+
+#tabs div{
+	float: left;
+	padding: 5px;
+	margin: 5px 3px 0 3px;
+	border: solid #BFCBDF 1px;
+}
+
+#tabs div:hover,active{
+	background-color: #BFCBDF;
+}
+
+.tabon{
+	background-color: #B2B4BF;
+}
+
+.taboff{
+	background-color: #fff;
+}
+
+#codeDiv pre {
+	border-top: solid #BFCBDF 1px;
+	height: 100%;
+	display: none;
+	padding: 10px;
+}
+
+.right{
+	width: 70%;
+	height: 100%;
+	position: relative;
+	float: right;
+}
+
+#blocklyDiv{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#blocklyDiv .blocklyToolboxDiv{
+	width: 130px;
+}

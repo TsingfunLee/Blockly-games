@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>积木块编程工具</title>
+		<link href="css/reset.css" rel="stylesheet" />
+		<link href="css/default.css" rel="stylesheet" />
+		
+		<script type="text/javascript" src="blockly/blockly_uncompressed.js"></script>
+		<!-- Begin define blocks -->
+		<script type="text/javascript" src="blockly/blocks/variables.js"></script>
+		<script type="text/javascript" src="blockly/blocks/text.js"></script>
+		<script type="text/javascript" src="blockly/blocks/logic.js"></script>
+		<script type="text/javascript" src="blockly/blocks/loops.js"></script>
+		<script type="text/javascript" src="blockly/blocks/lists.js"></script>
+		<script type="text/javascript" src="blockly/blocks/colour.js"></script>
+		<script type="text/javascript" src="blockly/blocks/math.js"></script>
+		<script type="text/javascript" src="blockly/blocks/procedures.js"></script>
+		
+		<!-- Custom blocks -->
+		<script type="text/javascript" src="blocks/action.js"></script>
+		<!-- End difine blocks -->
+		
+		<!-- Begin generating code from blocks -->
+		<script type="text/javascript" src="blockly/generators/javascript.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/logic.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/loops.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/colour.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/lists.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/math.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/procedures.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/text.js"></script>
+		<script type="text/javascript" src="blockly/generators/javascript/variables.js"></script>
+		<!-- Custom JavaScript generators -->
+		<script type="text/javascript" src="generators/JavaScript/action.js"></script>
+		
+		<script type="text/javascript" src="blockly/generators/python.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/colour.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/lists.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/logic.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/loops.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/math.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/procedures.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/text.js"></script>
+		<script type="text/javascript" src="blockly/generators/python/variables.js"></script>
+		
+		
+		<!-- End generating code from blocks -->
+		
+		<script type="text/javascript" src="blockly/msg/messages.js"></script>
+		<script type="text/javascript" src="msg/messages.js"></script>
+			
+		<!-- Begin syntax hightlight -->
+		<link rel="stylesheet" href="prettify/prettify.css" />
+		<script type="text/javascript" src="prettify/prettify.js"></script>
+		<!-- End syntax hightlight -->
+
+	    <script type="text/javascript" src="js/game.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		
+		<!-- Disable right-click menu -->
+		<script type="text/javascript">
+//			if(window.Event)
+//				document.captureEvents(Event.MOUSEUP);
+
+			function nocontextmenu() {
+				event.cancelBubble = true;
+				event.returnValue = false;
+
+				return false;
+			}
+
+			function norightclick(e) {
+				if(window.Event) {
+					if(e.which == 2 || e.which == 3)
+						return false;
+				} else if(event.button == 2 || event.button == 3) {
+					event.cancelBubble = true;
+					event.returnValue = false;
+					return false;
+				}
+
+			}
+
+			document.oncontextmenu = nocontextmenu;  // for IE5+
+			document.onmousedown = norightclick;     // for all others
+		</script>
+	</head>
+
+	<body>
+		<!-- Begin menu bar -->
+		<div class="bar">
+			<select id="languageMenu">
+				<option>中文</option>
+				<option>English</option>
+			</select>
+			
+			<button type="button" id="playBtn">Play</button>
+		</div>
+		<!-- End menu bar -->
+		
+		<!-- Begin main area -->
+		<div class="workplace">
+			<div class="left">
+				<!-- Animation area that shows result from blocks -->
+				<div id="animationDiv">
+					<canvas id="canvas"></canvas>
+				</div>
+				
+				<!-- Area that shows code -->
+				<div id="codeDiv">
+					<div id="tabs">
+						<div id="tab_javascript">JavaScript</div>
+						<div id="tab_python">Python</div>
+						<div id="tab_dart">Dart</div>
+						<div id="tab_php">PHP</div>
+						<div id="tab_lua">Lua</div>
+					</div>
+					<pre id="content_javascript"></pre>
+					<pre id="content_python"></pre>
+					<pre id="content_dart"></pre>
+					<pre id="content_php"></pre>
+					<pre id="content_lua"></pre>
+				</div>
+			</div>
+
+			<!-- Blockly programming area -->
+			<div class="right">
+				<div id="blocklyDiv"></div>
+			</div>
+		</div>
+		<!-- End main area -->
+
+		<xml id="toolbox" style="display: none">
+			<category name="{catAction}" colour="210">
+				<block type="action_forward"></block>
+				<block type="action_turnright"></block>
+			</category>
+		</xml>
+			
+	</body>
+
+</html>
