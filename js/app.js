@@ -267,13 +267,7 @@ App.initLanguage = function() {
 	for(var lang in App.LANGUAGE_NAME) {
 		languages.push([App.LANGUAGE_NAME[lang], lang]);
 	}
-//	var comp = function(a, b) {
-//		// Sort based on first argument ('English', '中文', etc).
-//		if(a[0] > b[0]) return 1;
-//		if(a[0] < b[0]) return -1;
-//		return 0;
-//	};
-//	languages.sort(comp);
+
 	// Populate the language selection menu.
 	var languageMenu = document.getElementById('languageMenu');
 	languageMenu.options.length = 0;
@@ -292,27 +286,6 @@ App.initLanguage = function() {
 	document.getElementById('playBtn').textContent = MSG['play'];
 };
 
-/**
- * Execute the user's code.
- * Just a quick and dirty eval.  Catch infinite loops.
- */
-//App.runJS = function() {
-//Blockly.JavaScript.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
-//var timeouts = 0;
-//var checkTimeout = function() {
-//  if (timeouts++ > 1000000) {
-//    throw MSG['timeout'];
-//  }
-//};
-//var code = Blockly.JavaScript.workspaceToCode(App.workspace);
-//Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-//try {
-//  eval(code);
-//} catch (e) {
-//  alert(MSG['badCode'].replace('%1', e));
-//}
-//};
-//
 ///**
 // * Discard all blocks from the workspace.
 // */

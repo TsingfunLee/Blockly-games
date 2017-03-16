@@ -38,7 +38,7 @@ Game.path = [
 ];
 
 /**
- * Path constants
+ * Path constants.
  */
 Game.pathType = {
 	WALL: 0,
@@ -48,33 +48,53 @@ Game.pathType = {
 };
 
 /**
+ * JS interpreter.
+ */
+Game.interpreter = null;
+
+/**
  * Initialize Game.
  */
 Game.init = function() {
 	Game.canvas = document.getElementById('canvas');
 	Game.context = Game.canvas.getContext('2d');
 	Game.role = new Image();
+	Game.role.direction = {
+		FORWARD: 0,
+		LEFT: 1,
+		RIGHT: 2,
+		BACK: 3
+	};
 
 	// Set width and height of canvas.
 	Game.canvas.width = 400;
 	Game.canvas.height = 400;
 
-    Game.drawPath();
-	Game.drawRole();
+    Game.initPath();
+	Game.initRole();
 	
 	document.getElementById('playBtn').addEventListener('click', Game.play);
 
 	window.onresize = Game.onresize;
 };
 
-Game.drawRole = function() {
+Game.initRole = function() {
 	Game.role.onload = function() {
 		Game.context.drawImage(Game.role, Game.role.start_.x, Game.role.start_.y, 50, 50);
 	};
 	Game.role.src = 'img/role.jpg';
 };
 
-Game.drawPath = function() {
+/**
+ * 
+ * @param {Number} x. X coodinate of role.
+ * @param {Number} y. Y coodinate of role.
+ */
+Game.drawRole = function(x, y) {
+	Game.context.drawImage(Game.role, x, y, 50, 50);
+};
+
+Game.initPath = function() {
 	var earth = new Image();
 	var destination = new Image();
 	earth.onload = function() {
@@ -87,6 +107,10 @@ Game.drawPath = function() {
 					Game.role.start_ = {
 						x: j * 50,
 						y: i * 50
+					};
+					Game.role.position_ = {
+						x: Game.role.start_.x,
+						y: Game.role.start_.y
 					};
 				}else if(Game.path[i][j] === Game.pathType.FINISH){
 					Game.role.finish_ = {
@@ -109,7 +133,14 @@ Game.onresize = function() {
 };
 
 Game.moveforward = function() {
+	Game.role.position_.x += 2;
+	Game.drawRole(Game.role.position_.x, Game.role.position_.y);
 	
+	var raf = window.requestAnimationFrame(Game.moveforward);
+	
+	if(Game.role.position_.x === Game.role.finish_.x && Game.role.position_.y === Game.role.finish_.y){
+		window.cancelAnimationFrame(raf);
+	}	
 };
 
 Game.turnright = function() {
@@ -120,15 +151,34 @@ Game.turnleft = function() {
 	
 };
 
-Game.interpreter = function() {
-	
+/**
+ * API added to interpreter.
+ * @param {Interpreter} Game.interpreter.
+ * @param {Object} scope.
+ */
+Game.initApi = function(interpreter, scope) {
+	// Add an API function for moveforward() block.
+	var wrapper = function() {
+		return interpreter.createPrimitive(Game.moveforward());
+	};
+	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));
+};
+
+/**
+ * Excute code generated from blocks.
+ */
+Game.excute = function() {
+	if(Game.interpreter.step()){
+		window.setTimeout(Game.excute, 500);
+	}
 };
 
 Game.play = function() {
 	var code = Blockly.JavaScript.workspaceToCode(App.workspace);
 	Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+	Game.interpreter = new Interpreter(code, Game.initApi);
 	try {
-		eval(code);
+		Game.excute();
 	} catch(e) {
 		alert(MSG['badCode'].replace('%1', e));
 	}
