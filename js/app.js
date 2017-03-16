@@ -284,6 +284,7 @@ App.initLanguage = function() {
 
 	// Inject language strings.
 	document.getElementById('playBtn').textContent = MSG['play'];
+	document.getElementById('resetBtn').textContent = MSG['reset'];
 };
 
 ///**

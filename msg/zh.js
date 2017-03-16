@@ -21,5 +21,6 @@ var MSG = {
   linkAlert: "通过这个链接分享您的模块：\n\n%1",
   hashError: "对不起，没有任何已保存的程序对应'%1' 。",
   
-  play: "运行"
+  play: "运行",
+  reset: "重置"
 };

@@ -21,5 +21,6 @@ var MSG = {
   linkAlert: "Share your blocks with this link:\n\n%1",
   hashError: "Sorry, '%1' doesn't correspond with any saved program.",
   
-  play: "Play"
+  play: "Play",
+  reset: "Reset"
 };

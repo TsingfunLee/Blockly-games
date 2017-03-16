@@ -59,6 +59,22 @@ Game.init = function() {
 	Game.canvas = document.getElementById('canvas');
 	Game.context = Game.canvas.getContext('2d');
 	Game.role = new Image();
+	Game.role.start_ = {
+		x: 0,
+		y: 0
+	};
+	Game.role.finish_ = {
+		x: 0,
+		y: 0
+	};
+	Game.role.position_ = {
+		x: 0,
+		y: 0
+	};
+	Game.role.lastPosition_ = {
+		x: 0,
+		y: 0
+	}
 	Game.role.direction = {
 		FORWARD: 0,
 		LEFT: 1,
@@ -74,6 +90,7 @@ Game.init = function() {
 	Game.initRole();
 	
 	document.getElementById('playBtn').addEventListener('click', Game.play);
+	document.getElementById('resetBtn').addEventListener('click', Game.reset);
 
 	window.onresize = Game.onresize;
 };
@@ -133,12 +150,13 @@ Game.onresize = function() {
 };
 
 Game.moveforward = function() {
-	Game.role.position_.x += 2;
+	
+	Game.role.position_.x += 1;
 	Game.drawRole(Game.role.position_.x, Game.role.position_.y);
 	
 	var raf = window.requestAnimationFrame(Game.moveforward);
 	
-	if(Game.role.position_.x === Game.role.finish_.x && Game.role.position_.y === Game.role.finish_.y){
+	if(Game.role.position_.x >= Game.role.lastPosition_.x + 50){
 		window.cancelAnimationFrame(raf);
 	}	
 };
@@ -169,7 +187,12 @@ Game.initApi = function(interpreter, scope) {
  */
 Game.excute = function() {
 	if(Game.interpreter.step()){
-		window.setTimeout(Game.excute, 500);
+		// Remenber last postion so that judge if the moving length is equal to side length of a square.
+		Game.role.lastPosition_ = {
+			x: Game.role.position_.x,
+			y: Game.role.position_.y
+	    };
+		window.setTimeout(Game.excute, 50);
 	}
 };
 
@@ -183,5 +206,9 @@ Game.play = function() {
 		alert(MSG['badCode'].replace('%1', e));
 	}
 };
+
+Game.reset = function() {
+	init();
+}
 
 window.addEventListener('load', Game.init, false);

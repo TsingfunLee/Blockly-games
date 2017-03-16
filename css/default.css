@@ -19,7 +19,7 @@ body{
 	top: 9px;
 }
 
-#playBtn{
+.bar-btn{
 	position: relative;
 	left: 10px;
 	top: 9px;
