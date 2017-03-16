@@ -22,19 +22,29 @@ Game.context = null;
 Game.role = null;
 
 /**
+ * Path image.
+ */
+Game.earth = null;
+
+/**
+ * Destination image.
+ */
+Game.destination = null;
+
+/**
  * Path that role can walk.
  * Create an array to store path block.
  * 1 --- path; 0 --- wall; 2 --- start; 3 --- finish.
  */
 Game.path = [
-[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 2, 1, 3, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0]
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 2, 1, 3, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
 /**
@@ -86,9 +96,8 @@ Game.init = function() {
 	Game.canvas.width = 400;
 	Game.canvas.height = 400;
 
-    Game.initPath().then(Game.initRole);
-	//Game.initRole();
-	
+	Game.initPath().then(Game.initRole);
+
 	document.getElementById('playBtn').addEventListener('click', Game.play);
 	document.getElementById('resetBtn').addEventListener('click', Game.reset);
 
@@ -112,15 +121,15 @@ Game.drawRole = function(x, y) {
 };
 
 Game.initPath = function() {
-	var earth = new Image();
-	var destination = new Image();
-	earth.onload = function() {
+	Game.earth = new Image();
+	Game.destination = new Image();
+	Game.earth.onload = function() {
 		var i, j;
-		for(i = 0; i < 8; ++i){
-			for(j = 0; j < 8; ++j){
-				if(Game.path[i][j] === Game.pathType.PATH){
+		for(i = 0; i < 8; ++i) {
+			for(j = 0; j < 8; ++j) {
+				if(Game.path[i][j] === Game.pathType.PATH) {
 					Game.context.drawImage(this, j * 50, i * 50, 50, 50);
-				}else if(Game.path[i][j] === Game.pathType.START){
+				} else if(Game.path[i][j] === Game.pathType.START) {
 					Game.role.start_ = {
 						x: j * 50,
 						y: i * 50
@@ -129,24 +138,38 @@ Game.initPath = function() {
 						x: Game.role.start_.x,
 						y: Game.role.start_.y
 					};
-				}else if(Game.path[i][j] === Game.pathType.FINISH){
+				} else if(Game.path[i][j] === Game.pathType.FINISH) {
 					Game.role.finish_ = {
 						x: j * 50,
 						y: i * 50
 					};
-					
+
 					// draw destination image.					
-					Game.context.drawImage(destination, j * 50, i * 50, 50, 50);					
+					Game.context.drawImage(Game.destination, j * 50, i * 50, 50, 50);
 				}
-			}		
-		}		
+			}
+		}
 	};
-	earth.src = 'img/earth.jpg';
-	destination.src = 'img/destination.jpg';
+	Game.earth.src = 'img/earth.jpg';
+	Game.destination.src = 'img/destination.jpg';
 
 	return new Promise((resolve, reject) => {
 		resolve();
 	});
+};
+
+Game.drawPath = function() {
+	var i, j;
+	for(i = 0; i < 8; ++i) {
+		for(j = 0; j < 8; ++j) {
+			if(Game.path[i][j] === Game.pathType.PATH || Game.path[i][j] === Game.pathType.START) {
+				Game.context.drawImage(Game.earth, j * 50, i * 50, 50, 50);
+			} else if(Game.path[i][j] === Game.pathType.FINISH) {
+				// draw destination image.					
+				Game.context.drawImage(Game.destination, j * 50, i * 50, 50, 50);
+			}
+		}
+	}
 };
 
 Game.onresize = function() {
@@ -154,23 +177,23 @@ Game.onresize = function() {
 };
 
 Game.moveforward = function() {
-	
 	Game.role.position_.x += 1;
+	Game.drawPath();
 	Game.drawRole(Game.role.position_.x, Game.role.position_.y);
-	
+
 	var raf = window.requestAnimationFrame(Game.moveforward);
-	
-	if(Game.role.position_.x >= Game.role.lastPosition_.x + 50){
+
+	if(Game.role.position_.x >= Game.role.lastPosition_.x + 50) {
 		window.cancelAnimationFrame(raf);
-	}	
+	}
 };
 
 Game.turnright = function() {
-	
+
 };
 
 Game.turnleft = function() {
-	
+
 };
 
 /**
@@ -190,12 +213,12 @@ Game.initApi = function(interpreter, scope) {
  * Excute code generated from blocks.
  */
 Game.excute = function() {
-	if(Game.interpreter.step()){
+	if(Game.interpreter.step()) {
 		// Remenber last postion so that judge if the moving length is equal to side length of a square.
 		Game.role.lastPosition_ = {
 			x: Game.role.position_.x,
 			y: Game.role.position_.y
-	    };
+		};
 		window.setTimeout(Game.excute, 50);
 	}
 };
@@ -212,7 +235,7 @@ Game.play = function() {
 };
 
 Game.reset = function() {
-	init();
+	Game.initPath().then(initRole);
 }
 
 window.addEventListener('load', Game.init, false);
