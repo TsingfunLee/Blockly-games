@@ -86,8 +86,8 @@ Game.init = function() {
 	Game.canvas.width = 400;
 	Game.canvas.height = 400;
 
-    Game.initPath();
-	Game.initRole();
+    Game.initPath().then(Game.initRole);
+	//Game.initRole();
 	
 	document.getElementById('playBtn').addEventListener('click', Game.play);
 	document.getElementById('resetBtn').addEventListener('click', Game.reset);
@@ -143,6 +143,10 @@ Game.initPath = function() {
 	};
 	earth.src = 'img/earth.jpg';
 	destination.src = 'img/destination.jpg';
+
+	return new Promise((resolve, reject) => {
+		resolve();
+	});
 };
 
 Game.onresize = function() {
