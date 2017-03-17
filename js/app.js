@@ -1,5 +1,7 @@
 'use strict';
 
+goog.provide('App');
+
 /**
  * The namespace of the application.
  */
@@ -250,6 +252,10 @@ App.init = function() {
 	
 	// onresize();
 	Blockly.svgResize(App.workspace);
+	
+	// Switch to zero-based indexing so that later JS levels match the blocks.
+    Blockly.Blocks && (Blockly.Blocks.ONE_BASED_INDEXING = false);
+    Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
 
 	// Lazy-load the syntax-highlighting.
 	window.setTimeout(App.importPrettify, 1);
