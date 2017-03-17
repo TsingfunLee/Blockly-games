@@ -258,12 +258,18 @@ Game.play = function() {
 	} catch(e) {
 		alert(MSG['badCode'].replace('%1', e));
 	}
+	
+	document.getElementById('resetBtn').style.visibility = 'visible';
+	document.getElementById('playBtn').style.visibility = 'hidden';
 };
 
 Game.reset = function() {
 	// Clear canvas.
 	Game.canvas.width = Game.canvas.width;
 	Game.initPath().then(Game.initRole);
+	
+	document.getElementById('playBtn').style.visibility = 'visible';
+	document.getElementById('resetBtn').style.visibility = 'hidden';
 }
 
 window.addEventListener('load', Game.init, false);
