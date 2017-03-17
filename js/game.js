@@ -97,6 +97,8 @@ Game.init = function() {
 	Game.canvas.width = Game.WIDTH;
 	Game.canvas.height = Game.HEIGHT;
 	
+	Game.DIRECTION = Game.directionType.EAST;
+	
 	// Set start point and finish point.
 	for (var i = 0, j = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
@@ -125,12 +127,12 @@ Game.init = function() {
 Game.initRole = function() {
 	Game.role = new Image();
 	Game.role.position = {
-		x: 0,
-		y: 0
+		x: Game.start.x,
+		y: Game.start.y
 	};
 	Game.role.lastPosition = {
-		x: 0,
-		y: 0
+		x: Game.role.position.x,
+		y: Game.role.position.y
 	};
 	Game.role.onload = function() {
 		Game.context.drawImage(Game.role, Game.start.x, Game.start.y, Game.SQUERE, Game.SQUERE);
@@ -181,8 +183,8 @@ Game.onresize = function() {
 /**
  * @param {Number} direction. Game.directionType.
  */
-Game.moveforward = function(direction) {
-	switch(direction){
+Game.moveforward = function() {
+	switch(Game.DIRECTION){
 		case Game.directionType.NORTH:
 			Game.role.position.y --;
 			break;
@@ -202,11 +204,11 @@ Game.moveforward = function(direction) {
 	Game.drawPath();
 	Game.drawRole(Game.role.position.x, Game.role.position.y);
 
-//	var raf = window.requestAnimationFrame(Game.moveforward);
-//
-//	if(Game.role.position.x >= Game.role.lastPosition.x + Game.SQUERE) {
-//		window.cancelAnimationFrame(raf);
-//	}
+	var raf = window.requestAnimationFrame(Game.moveforward);
+
+	if(Game.role.position.x >= Game.role.lastPosition.x + Game.SQUERE) {
+		window.cancelAnimationFrame(raf);
+	}
 };
 
 Game.turnright = function() {
@@ -224,8 +226,8 @@ Game.turnleft = function() {
  */
 Game.initApi = function(interpreter, scope) {
 	// Add an API function for moveforward() block.
-	var wrapper = function(direction) {
-		return interpreter.createPrimitive(Game.moveforward(direction));
+	var wrapper = function() {
+		return interpreter.createPrimitive(Game.moveforward());
 	};
 	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));
 };
@@ -241,7 +243,9 @@ Game.excute = function(interpreter) {
 			x: Game.role.position.x,
 			y: Game.role.position.y
 		};
-		window.setTimeout(function(), 50);
+		window.setTimeout(function() {
+			Game.excute(interpreter);
+		}, 50);
 	}
 };
 
