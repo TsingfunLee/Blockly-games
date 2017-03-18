@@ -12,40 +12,17 @@ Game.HEIGHT = Game.WIDTH;
 Game.COLS = 8;
 Game.ROWS = Game.COLS;
 
-Game.SQUERE = Game.WIDTH / Game.COLS;
+/**
+ * Length of a square's side.
+ */
+Game.SQUARE = Game.WIDTH / Game.COLS;
 
 /**
  * Pictures source.
  */
 Game.ROLESRC = 'img/role.jpg';
 Game.EARTHSRC = 'img/earth.jpg';
-Game.DESTINATION = 'img/destination.jpg';
-
-///**
-// * The animation region.
-// */
-//Game.canvas = null;
-//
-///**
-// * The context of canvas.
-// */
-//Game.context = null;
-//
-///**
-// * Role of the game.
-// * It is a image.
-// */
-//Game.role = null;
-//
-///**
-// * Path image.
-// */
-//Game.earth = null;
-//
-///**
-// * Destination image.
-// */
-//Game.destination = null;
+Game.DESTINATIONARC = 'img/destination.jpg';
 
 /**
  * 1 --- path; 0 --- wall; 2 --- start; 3 --- finish.
@@ -86,14 +63,6 @@ Game.directionType = {
  */
 Game.delta = 0;
 
-///**
-// * JS interpreter.
-// */
-//Game.interpreter = null;
-
-/**
- * Initialize Game.
- */
 Game.init = function() {
 	Game.canvas = document.getElementById('canvas');
 	Game.context = Game.canvas.getContext('2d');
@@ -109,13 +78,13 @@ Game.init = function() {
 		for (j = 0; j < Game.COLS; ++j) {
 			if(Game.path[i][j] == Game.pathType.START){
 				Game.start = {
-					x: j * Game.SQUERE,
-					y: i * Game.SQUERE
+					x: j * Game.SQUARE,
+					y: i * Game.SQUARE
 				};
 			}else if(Game.path[i][j] == Game.pathType.FINISH){
 				Game.finish = {
-					x: j * Game.SQUERE,
-					y: i * Game.SQUERE
+					x: j * Game.SQUARE,
+					y: i * Game.SQUARE
 				};
 			}
 		}
@@ -140,7 +109,7 @@ Game.initRole = function() {
 		y: Game.role.position.y
 	};
 	Game.role.onload = function() {
-		Game.context.drawImage(Game.role, Game.start.x, Game.start.y, Game.SQUERE, Game.SQUERE);
+		Game.context.drawImage(Game.role, Game.start.x, Game.start.y, Game.SQUARE, Game.SQUARE);
 	};
 	Game.role.src = Game.ROLESRC;
 };
@@ -150,17 +119,17 @@ Game.initRole = function() {
  * @param {Number} y. Y coodinate of role.
  */
 Game.drawRole = function(x, y) {
-	Game.context.drawImage(Game.role, x, y, Game.SQUERE, Game.SQUERE);
+	Game.context.drawImage(Game.role, x, y, Game.SQUARE, Game.SQUARE);
 };
 
 Game.initPath = function() {
 	Game.earth = new Image();
 	Game.destination = new Image();
+	Game.earth.src = Game.EARTHSRC;
+	Game.destination.src = Game.DESTINATIONARC;
 	Game.earth.onload = function() {
 		Game.drawPath();
-	};
-	Game.earth.src = Game.EARTHSRC;
-	Game.destination.src = Game.DESTINATION;
+	};	
 
 	return new Promise((resolve, reject) => {
 		resolve();
@@ -172,10 +141,10 @@ Game.drawPath = function() {
 	for(i = 0; i < Game.ROWS; ++i) {
 		for(j = 0; j < Game.COLS; ++j) {
 			if(Game.path[i][j] === Game.pathType.PATH || Game.path[i][j] === Game.pathType.START) {
-				Game.context.drawImage(Game.earth, j * Game.SQUERE, i * Game.SQUERE, Game.SQUERE, Game.SQUERE);
+				Game.context.drawImage(Game.earth, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			} else if(Game.path[i][j] === Game.pathType.FINISH) {
 				// draw destination image.					
-				Game.context.drawImage(Game.destination, j * Game.SQUERE, i * Game.SQUERE, Game.SQUERE, Game.SQUERE);
+				Game.context.drawImage(Game.destination, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}
 		}
 	}
@@ -212,7 +181,7 @@ Game.moveforward = function() {
 	Game.drawRole(Game.role.position.x, Game.role.position.y);
 	
 	var raf = window.requestAnimationFrame(Game.moveforward);
-	if(Game.delta === Game.SQUERE){
+	if(Game.delta === Game.SQUARE){
 		Game.delta = 0;
 		window.cancelAnimationFrame(raf);
 	}
