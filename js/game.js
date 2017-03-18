@@ -81,6 +81,11 @@ Game.directionType = {
 	WEST: 3
 };
 
+/**
+ * Moving distance.
+ */
+Game.delta = 0;
+
 ///**
 // * JS interpreter.
 // */
@@ -200,13 +205,15 @@ Game.moveforward = function() {
 		default: 
 			console.error('direction is wrong.');
 	}
+	
+	Game.delta ++;
 
 	Game.drawPath();
 	Game.drawRole(Game.role.position.x, Game.role.position.y);
-
+	
 	var raf = window.requestAnimationFrame(Game.moveforward);
-
-	if(Game.role.position.x >= Game.role.lastPosition.x + Game.SQUERE) {
+	if(Game.delta === Game.SQUERE){
+		Game.delta = 0;
 		window.cancelAnimationFrame(raf);
 	}
 };
@@ -245,7 +252,7 @@ Game.excute = function(interpreter) {
 		};
 		window.setTimeout(function() {
 			Game.excute(interpreter);
-		}, 50);
+		}, 250);
 	}
 };
 
