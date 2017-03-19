@@ -12,4 +12,6 @@
 Blockly.Msg.ACTION_MOVE_FORWARD = 'move forward.';
 Blockly.Msg.ACTION_MOVE_FORWARD_TOOLTIP = 'Make a step forward.';
 Blockly.Msg.ACTION_TURN_RIGHT = 'turn right';
-Blockly.Msg.ACTION_TURN_RIGHT_TOOLTIP = 'Turn right.'
+Blockly.Msg.ACTION_TURN_RIGHT_TOOLTIP = 'Turn right.';
+Blockly.Msg.ACTION_TURN_LEFT = 'turn left';
+Blockly.Msg.ACTION_TURN_LEFT_TOOLTIP = 'Turn left.';

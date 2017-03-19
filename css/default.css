@@ -25,6 +25,10 @@ body{
 	top: 9px;
 }
 
+#resetBtn{
+	visibility: hidden;
+}
+
 .workplace{
 	position: relative;
 	width: 100%;

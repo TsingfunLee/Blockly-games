@@ -32,8 +32,8 @@ Game.path = [
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 2, 1, 3, 0, 0, 0],
+	[0, 0, 0, 0, 3, 0, 0, 0],
+	[0, 0, 2, 1, 1, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
@@ -154,9 +154,6 @@ Game.onresize = function() {
 
 };
 
-/**
- * @param {Number} direction. Game.directionType.
- */
 Game.moveforward = function() {
 	switch(Game.DIRECTION){
 		case Game.directionType.NORTH:
@@ -188,11 +185,29 @@ Game.moveforward = function() {
 };
 
 Game.turnright = function() {
-
+	Game.drawPath();
+	Game.context.save();
+	Game.context.rotate(Math.PI / 2);	
+	Game.context.translate(Game.role.position.y - Game.role.position.x, -(Game.role.position.y + Game.role.position.x));
+	Game.drawRole(Game.role.position.x, Game.role.position.y - Game.SQUARE);
+	Game.context.restore();
+	
+	// Set current direction.
+	// direction 0 ~ 3.
+	Game.DIRECTION = (Game.DIRECTION + 1) % 4;
 };
 
 Game.turnleft = function() {
-
+	Game.drawPath();
+	Game.context.save();
+	Game.context.rotate(-Math.PI / 2);	
+	Game.context.translate(- (Game.role.position.y + Game.role.position.x), Game.role.position.x - Game.role.position.y);
+	Game.drawRole(Game.role.position.x - Game.SQUARE, Game.role.position.y);
+	Game.context.restore();
+	
+	// Set current direction.
+	// direction 0 ~ 3.
+	Game.DIRECTION = (Game.DIRECTION - 1) % 4;
 };
 
 /**
@@ -206,6 +221,16 @@ Game.initApi = function(interpreter, scope) {
 		return interpreter.createPrimitive(Game.moveforward());
 	};
 	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));
+	
+	wrapper = function() {
+		return interpreter.createPrimitive(Game.turnleft());
+	};
+	interpreter.setProperty(scope, 'turnleft', interpreter.createNativeFunction(wrapper));
+	
+	wrapper = function() {
+		return interpreter.createPrimitive(Game.turnright());
+	};
+	interpreter.setProperty(scope, 'turnright', interpreter.createNativeFunction(wrapper));
 };
 
 /**
@@ -243,6 +268,8 @@ Game.reset = function() {
 	// Clear canvas.
 	Game.canvas.width = Game.canvas.width;
 	Game.initPath().then(Game.initRole);
+	
+	Game.DIRECTION = Game.directionType.EAST;
 	
 	document.getElementById('playBtn').style.visibility = 'visible';
 	document.getElementById('resetBtn').style.visibility = 'hidden';

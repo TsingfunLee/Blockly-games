@@ -10,8 +10,12 @@ goog.require('Blockly.JavaScript');
 
 Blockly.JavaScript['action_forward'] = function(block) {
 	return 'moveforward();' + '\n';
-}
+};
 
 Blockly.JavaScript['action_turnright'] = function(block) {
 	return 'turnright();' + '\n';
-}
+};
+
+Blockly.JavaScript['action_turnleft'] = function(block) {
+	return 'turnleft();' + '\n';
+};
