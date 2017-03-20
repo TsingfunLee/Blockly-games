@@ -2,9 +2,8 @@
 
 goog.provide('App');
 
-/**
- * The namespace of the application.
- */
+//goog.require('App.util');
+
 var App = {};
 
 /**
@@ -15,7 +14,19 @@ App.LANGUAGE_NAME = {
 	'en': 'English'
 };
 
+
+
+/**
+ * List of tab names.
+ * @private
+ */
+App.TABS_ = ['javascript', 'python', 'dart', 'php', 'lua'];
+
+App.selected = 'javascript';
+
 App.workspace = null;
+
+App.MAX_LEVEL = 5;
 
 /**
  * Extracts a parameter from the URL.
@@ -30,6 +41,20 @@ App.getStringParamFromUrl = function(name, defaultValue) {
 };
 
 /**
+ * Extracts a numeric parameter from the URL.
+ * If the parameter is absent or less than min_value, min_value is
+ * returned.  If it is greater than max_value, max_value is returned.
+ * @param {string} name The name of the parameter.
+ * @param {number} minValue The minimum legal value.
+ * @param {number} maxValue The maximum legal value.
+ * @return {number} A number in the range [min_value, max_value].
+ */
+App.getNumberParamFromUrl = function(name, minValue, maxValue) {
+    var val = Number(App.getStringParamFromUrl(name, 'NaN'));
+    return isNaN(val) ? minValue : App.util.clamp(minValue, val, maxValue);
+};
+
+/**
  * Get the language of this user from the URL.
  * @return {string} User's language.
  */
@@ -41,6 +66,25 @@ App.getLang = function() {
 	}
 	return lang;
 };
+
+/**
+ * Get the level of this game from the URL.
+ * @return {Number} Game's level.
+ */
+App.getLevel = function() {
+	var level = App.getNumberParamFromUrl('level', 1, App.MAX_LEVEL);
+	return level;
+};
+
+/**
+ * Current language.
+ */
+App.LANG = App.getLang();
+
+/**
+ * Current game level.
+ */
+App.LEVEL = App.getLevel();
 
 /**
  * Load blocks saved on App Engine Storage or in session/local storage.
@@ -118,19 +162,6 @@ App.bindClick = function(el, func) {
 };
 
 /**
- * Current language.
- */
-App.LANG = App.getLang();
-
-/**
- * List of tab names.
- * @private
- */
-App.TABS_ = ['javascript', 'python', 'dart', 'php', 'lua'];
-
-App.selected = 'javascript';
-
-/**
  * Switch the visible pane when a tab is clicked.
  * @param {string} clickedName Name of tab clicked.
  */
@@ -175,31 +206,7 @@ App.renderContent = function() {
 			code = prettyPrintOne(code, 'py');
 			content.innerHTML = code;
 		}
-	} else if(content.id == 'content_php') {
-//		code = Blockly.PHP.workspaceToCode(App.workspace);
-//		content.textContent = code;
-//		if(typeof prettyPrintOne == 'function') {
-//			code = content.textContent;
-//			code = prettyPrintOne(code, 'php');
-//			content.innerHTML = code;
-//		}
-	} else if(content.id == 'content_dart') {
-//		code = Blockly.Dart.workspaceToCode(App.workspace);
-//		content.textContent = code;
-//		if(typeof prettyPrintOne == 'function') {
-//			code = content.textContent;
-//			code = prettyPrintOne(code, 'dart');
-//			content.innerHTML = code;
-//		}
-	} else if(content.id == 'content_lua') {
-//		code = Blockly.Lua.workspaceToCode(App.workspace);
-//		content.textContent = code;
-//		if(typeof prettyPrintOne == 'function') {
-//			code = content.textContent;
-//			code = prettyPrintOne(code, 'lua');
-//			content.innerHTML = code;
-//		}
-	}
+	} 
 };
 
 /**
@@ -293,18 +300,18 @@ App.initLanguage = function() {
 	document.getElementById('resetBtn').textContent = MSG['reset'];
 };
 
-///**
-// * Discard all blocks from the workspace.
-// */
+/**
+* Discard all blocks from the workspace.
+*/
 //App.discard = function() {
-//var count = App.workspace.getAllBlocks().length;
-//if (count < 2 ||
-//    window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
-//  App.workspace.clear();
-//  if (window.location.hash) {
-//    window.location.hash = '';
-//  }
-//}
+//	var count = App.workspace.getAllBlocks().length;
+//	if (count < 2 ||
+//	      window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
+//	    App.workspace.clear();
+//	    if (window.location.hash) {
+//	      window.location.hash = '';
+//	    }
+//	}
 //};
 
 // Load the language strings.

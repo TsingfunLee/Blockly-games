@@ -28,6 +28,8 @@ Game.DESTINATIONARC = 'img/destination.jpg';
  * 1 --- path; 0 --- wall; 2 --- start; 3 --- finish.
  */
 Game.path = [
+	undefined,
+[
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
@@ -36,7 +38,17 @@ Game.path = [
 	[0, 0, 2, 1, 1, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
-];
+],
+[
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 3, 0, 0],
+	[0, 0, 0, 1, 1, 1, 0, 0],
+	[0, 0, 0, 1, 0, 0, 0, 0],
+	[0, 0, 0, 2, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0]
+]][App.LEVEL];
 
 /**
  * Path constants.
@@ -62,6 +74,7 @@ Game.directionType = {
  * Moving distance.
  */
 Game.delta = 0;
+
 
 Game.init = function() {
 	Game.canvas = document.getElementById('canvas');
@@ -154,6 +167,7 @@ Game.onresize = function() {
 
 };
 
+// core.
 Game.moveforward = function() {
 	switch(Game.DIRECTION){
 		case Game.directionType.NORTH:
@@ -273,6 +287,16 @@ Game.reset = function() {
 	
 	document.getElementById('playBtn').style.visibility = 'visible';
 	document.getElementById('resetBtn').style.visibility = 'hidden';
-}
+};
+
+Game.nextLevel = function() {
+    if (App.LEVEL < App.MAX_LEVEL) {
+        window.location = window.location.protocol + '//' + 
+        window.location.host + window.location.pathname +
+        '?lang=' + App.LANG + '&level=' + (App.LEVEL + 1);
+    } else {
+    	console.log('Last level!!!!')
+    }
+};
 
 window.addEventListener('load', Game.init, false);
