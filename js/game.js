@@ -71,10 +71,29 @@ Game.directionType = {
 };
 
 /**
+ * Results constants.
+ */
+Game.resultType = {
+	UNSET: 0,
+	FAILURE: 1,
+	SUCCESS: 2,
+	CRASH: 3
+}
+
+Game.results = Game.resultType.UNSET;
+
+/**
  * Moving distance.
  */
 Game.delta = 0;
 
+Game.setDirection = function() {
+	if(App.LEVEL === 1){
+		Game.DIRECTION = Game.directionType.EAST;
+	}else if(App.LEVEL === 2){
+		Game.DIRECTION = Game.directionType.NORTH;
+	}
+};
 
 Game.init = function() {
 	Game.canvas = document.getElementById('canvas');
@@ -84,7 +103,7 @@ Game.init = function() {
 	Game.canvas.width = Game.WIDTH;
 	Game.canvas.height = Game.HEIGHT;
 	
-	Game.DIRECTION = Game.directionType.EAST;
+	Game.setDirection();
 	
 	// Set start point and finish point.
 	for (var i = 0, j = 0; i < Game.ROWS; ++i) {
@@ -169,6 +188,10 @@ Game.onresize = function() {
 
 // core.
 Game.moveforward = function() {
+	if(!Game.checkWall(Game.role.position.x, Game.role.position.y)) {
+		return;	
+	}
+	
 	switch(Game.DIRECTION){
 		case Game.directionType.NORTH:
 			Game.role.position.y --;
@@ -187,7 +210,7 @@ Game.moveforward = function() {
 	}
 	
 	Game.delta ++;
-
+	
 	Game.drawPath();
 	Game.drawRole(Game.role.position.x, Game.role.position.y);
 	
@@ -222,6 +245,38 @@ Game.turnleft = function() {
 	// Set current direction.
 	// direction 0 ~ 3.
 	Game.DIRECTION = (Game.DIRECTION - 1) % 4;
+};
+
+/**
+ * @param {Number} x. X coodinates of role.
+ * @param {Number} y. Y coodinates of role.
+ */
+Game.checkWall = function(x, y) {
+	var i = parseInt(y / Game.SQUARE);
+	var j = parseInt(x / Game.SQUARE);
+	if(Game.path[i][j] === Game.pathType.WALL) {
+		console.log('Can\'t walking!!!!');
+		Game.result = Game.resultType.CRASH;
+		return false;
+	}else {
+		return true;
+	}
+};
+
+/**
+ * @param {Number} x. X coodinates of role.
+ * @param {Number} y. Y coodinates of role.
+ */
+Game.checkResult = function(x, y) {
+	var i = parseInt(y / Game.SQUARE);
+	var j = parseInt(x / Game.SQUARE);
+	if(Game.path[i][j] === Game.pathType.FINISH) {
+		console.log('Can\'t walking!!!!');
+		
+		return false;
+	}else {
+		return true;
+	}
 };
 
 /**
@@ -261,6 +316,9 @@ Game.excute = function(interpreter) {
 		window.setTimeout(function() {
 			Game.excute(interpreter);
 		}, 250);
+	}else{
+		// Check result.
+		Game.checkResult(Game.role.position.x, Game.role.position.y);
 	}
 };
 
