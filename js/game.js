@@ -22,7 +22,8 @@ Game.SQUARE = Game.WIDTH / Game.COLS;
  */
 Game.ROLESRC = 'img/role.jpg';
 Game.EARTHSRC = 'img/earth.jpg';
-Game.DESTINATIONARC = 'img/destination.jpg';
+Game.DESTINATIONSRC = 'img/destination.jpg';
+Game.COLLECTIONSRC = 'img/star.jpg';
 
 /**
  * 1 --- path; 0 --- wall; 2 --- start; 3 --- finish.
@@ -34,16 +35,26 @@ Game.path = [
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 3, 0, 0, 0],
-	[0, 0, 2, 1, 1, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 2, 1, 3, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ],
 [
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 3, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 1, 1, 1, 0, 0],
+	[0, 0, 0, 1, 0, 1, 0, 0],
+	[0, 0, 0, 2, 0, 3, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0]
+],
+[
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 1, 1, 4, 0, 0],
 	[0, 0, 0, 1, 0, 0, 0, 0],
 	[0, 0, 0, 2, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
@@ -57,7 +68,8 @@ Game.pathType = {
 	WALL: 0,
 	PATH: 1,
 	START: 2,
-	FINISH: 3
+	FINISH: 3,
+	PICK: 4
 };
 
 /**
@@ -159,11 +171,19 @@ Game.drawRole = function(x, y) {
 Game.initPath = function() {
 	Game.earth = new Image();
 	Game.destination = new Image();
+	Game.collection = new Image();
 	Game.earth.src = Game.EARTHSRC;
-	Game.destination.src = Game.DESTINATIONARC;
+	Game.destination.src = Game.DESTINATIONSRC;
+	Game.collection.src = Game.COLLECTIONSRC;
 	Game.earth.onload = function() {
 		Game.drawPath();
-	};	
+	};
+	Game.destination.onload = function() {
+		Game.drawDestination();
+	};
+	Game.collection.onload = function() {
+		Game.drawCollection();
+	};
 
 	return new Promise((resolve, reject) => {
 		resolve();
@@ -174,14 +194,33 @@ Game.drawPath = function() {
 	var i, j;
 	for(i = 0; i < Game.ROWS; ++i) {
 		for(j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] === Game.pathType.PATH || Game.path[i][j] === Game.pathType.START) {
+			if(Game.path[i][j] != Game.pathType.WALL){
 				Game.context.drawImage(Game.earth, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
-			} else if(Game.path[i][j] === Game.pathType.FINISH) {
-				// draw destination image.					
-				Game.context.drawImage(Game.destination, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
+			}			
+		}
+	}
+};
+
+Game.drawCollection = function() {
+	var i, j;
+	for (i = 0; i < Game.ROWS; ++i) {
+		for (j = 0; j < Game.COLS; ++j) {
+			if(Game.path[i][j] === Game.pathType.PICK){
+				Game.context.drawImage(Game.collection, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}
 		}
 	}
+};
+
+Game.drawDestination = function() {
+	var i, j;
+	for (i = 0; i < Game.ROWS; ++i) {
+		for (j = 0; j < Game.COLS; ++j) {
+			if(Game.path[i][j] === Game.pathType.FINISH){
+				Game.context.drawImage(Game.destination, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
+			}
+		}
+	}	
 };
 
 Game.initToolbox = function() {
@@ -189,11 +228,14 @@ Game.initToolbox = function() {
 	var block = document.createElement('block');
 	block.setAttribute('type', 'action_forward');
 	toolbox.appendChild(block);
-	if(App.LEVEL === 2) {
+	if(App.LEVEL === 2 || App.LEVEL === 3) {
+		block = document.createElement('block');
 		block.setAttribute('type', 'action_turnright');
 		toolbox.appendChild(block);
 	}else if(App.LEVEL === 3) {
-		
+		block = document.createElement('block');
+		block.setAttribute('type', 'action_collect');
+		toolbox.appendChild(block);
 	}
 	
 	var toolboxText = toolbox.outerHTML;

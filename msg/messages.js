@@ -15,3 +15,5 @@ Blockly.Msg.ACTION_TURN_RIGHT = 'turn right';
 Blockly.Msg.ACTION_TURN_RIGHT_TOOLTIP = 'Turn right.';
 Blockly.Msg.ACTION_TURN_LEFT = 'turn left';
 Blockly.Msg.ACTION_TURN_LEFT_TOOLTIP = 'Turn left.';
+Blockly.Msg.ACTION_COLLECT = 'pick up';
+Blockly.Msg.ACTION_COLLECT_TOOLTIP = 'Pick up 待定.';

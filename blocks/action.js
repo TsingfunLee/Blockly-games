@@ -52,4 +52,20 @@ Blockly.Blocks['action_turnleft'] = {
 			"tooltip": Blockly.Msg.ACTION_TURN_LEFT_TOOLTIP
 		});
 	}
+};
+
+Blockly.Blocks['action_collect'] = {
+	/**
+	 * Block for collecting stuff.
+	 * @this Blockly.Block
+	 */
+	init: function() {
+		this.jsonInit({
+			"message0": Blockly.Msg.ACTION_COLLECT,
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": 160,
+			"tooltip": Blockly.Msg.ACTION_COLLECT_TOOLTIP
+		});
+	}
 }
