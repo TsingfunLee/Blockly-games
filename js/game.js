@@ -80,7 +80,7 @@ Game.resultType = {
 	CRASH: 3
 }
 
-Game.results = Game.resultType.UNSET;
+Game.result = Game.resultType.UNSET;
 
 /**
  * Moving distance.
@@ -187,11 +187,7 @@ Game.onresize = function() {
 };
 
 // core.
-Game.moveforward = function() {
-	if(!Game.checkWall(Game.role.position.x, Game.role.position.y)) {
-		return;	
-	}
-	
+Game.moveforward = function() {	
 	switch(Game.DIRECTION){
 		case Game.directionType.NORTH:
 			Game.role.position.y --;
@@ -207,6 +203,10 @@ Game.moveforward = function() {
 			break;
 		default: 
 			console.error('direction is wrong.');
+	}
+	
+	if(!Game.checkWall(Game.role.position.x, Game.role.position.y)) {
+		return;	
 	}
 	
 	Game.delta ++;
@@ -252,8 +252,8 @@ Game.turnleft = function() {
  * @param {Number} y. Y coodinates of role.
  */
 Game.checkWall = function(x, y) {
-	var i = parseInt(y / Game.SQUARE);
-	var j = parseInt(x / Game.SQUARE);
+	var i = Math.ceil(y / Game.SQUARE);
+	var j = Math.ceil(x / Game.SQUARE);
 	if(Game.path[i][j] === Game.pathType.WALL) {
 		console.log('Can\'t walking!!!!');
 		Game.result = Game.resultType.CRASH;
@@ -271,11 +271,11 @@ Game.checkResult = function(x, y) {
 	var i = parseInt(y / Game.SQUARE);
 	var j = parseInt(x / Game.SQUARE);
 	if(Game.path[i][j] === Game.pathType.FINISH) {
-		console.log('Can\'t walking!!!!');
-		
-		return false;
+		console.log('Finish!!!!!');
+		Game.result = Game.resultType.SUCCESS;
 	}else {
-		return true;
+		console.log('Failure!!!');
+		Game.result = Game.resultType.FAILURE;
 	}
 };
 
@@ -307,7 +307,7 @@ Game.initApi = function(interpreter, scope) {
  * @param {Interpreter} JS interpreter.
  */
 Game.excute = function(interpreter) {
-	if(interpreter.step()) {
+	if(interpreter.step() && Game.result === Game.resultType.UNSET) {
 		// Remenber last postion so that judge if the moving length is equal to side length of a square.
 		Game.role.lastPosition = {
 			x: Game.role.position.x,
@@ -341,7 +341,9 @@ Game.reset = function() {
 	Game.canvas.width = Game.canvas.width;
 	Game.initPath().then(Game.initRole);
 	
-	Game.DIRECTION = Game.directionType.EAST;
+	Game.setDirection();
+	
+	Game.result = Game.resultType.UNSET;
 	
 	document.getElementById('playBtn').style.visibility = 'visible';
 	document.getElementById('resetBtn').style.visibility = 'hidden';
