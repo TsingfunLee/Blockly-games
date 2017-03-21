@@ -103,6 +103,8 @@ Game.init = function() {
 	Game.canvas.width = Game.WIDTH;
 	Game.canvas.height = Game.HEIGHT;
 	
+	Game.initToolbox();
+	
 	Game.setDirection();
 	
 	// Set start point and finish point.
@@ -182,8 +184,42 @@ Game.drawPath = function() {
 	}
 };
 
-Game.onresize = function() {
+Game.initToolbox = function() {
+	var toolbox = document.getElementById('toolbox');
+	var block = document.createElement('block');
+	block.setAttribute('type', 'action_forward');
+	toolbox.appendChild(block);
+	if(App.LEVEL === 2) {
+		block.setAttribute('type', 'action_turnright');
+		toolbox.appendChild(block);
+	}else if(App.LEVEL === 3) {
+		
+	}
+	
+	var toolboxText = toolbox.outerHTML;
+	toolboxText = toolboxText.replace(/{(\w+)}/g,
+		function(m, p1) { return MSG[p1]; });
+	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
 
+	App.workspace = Blockly.inject('blocklyDiv', {
+		grid: {
+			spacing: 25,
+			length: 3,
+			colour: '#ccc',
+			snap: true
+		},
+		media: 'media/',
+		toolbox: toolboxXml,
+		trashcan: true,
+		zoom: {
+			controls: true,
+			wheel: false
+		}
+	});
+};
+
+Game.onresize = function() {
+	Blockly.svgResize(App.workspace);
 };
 
 // core.
@@ -202,6 +238,7 @@ Game.moveforward = function() {
 			Game.role.position.x --;
 			break;
 		default: 
+			console.log(Game.DIRECTION);
 			console.error('direction is wrong.');
 	}
 	
@@ -244,7 +281,7 @@ Game.turnleft = function() {
 	
 	// Set current direction.
 	// direction 0 ~ 3.
-	Game.DIRECTION = (Game.DIRECTION - 1) % 4;
+	Game.DIRECTION = (Game.DIRECTION + 3) % 4;
 };
 
 /**
@@ -252,8 +289,23 @@ Game.turnleft = function() {
  * @param {Number} y. Y coodinates of role.
  */
 Game.checkWall = function(x, y) {
-	var i = Math.ceil(y / Game.SQUARE);
-	var j = Math.ceil(x / Game.SQUARE);
+	var i, j;
+	if(y < Game.role.lastPosition.y) {
+		i = Math.floor(y / Game.SQUARE);
+	}else if(y > Game.role.lastPosition.y) {
+		i = Math.ceil(y / Game.SQUARE);
+	}else {
+		i = y / Game.SQUARE;
+	}
+	
+	if(x < Game.role.lastPosition.x) {
+		j = Math.floor(x / Game.SQUARE);
+	}else if(x > Game.role.lastPosition.x) {
+		j = Math.ceil(x / Game.SQUARE);
+	}else {
+		j = x / Game.SQUARE;
+	}
+	
 	if(Game.path[i][j] === Game.pathType.WALL) {
 		console.log('Can\'t walking!!!!');
 		Game.result = Game.resultType.CRASH;

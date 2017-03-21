@@ -246,25 +246,25 @@ App.init = function() {
 	App.initLanguage();
 
 	// Interpolate translated messages into toolbox.
-	var toolboxText = document.getElementById('toolbox').outerHTML;
-	toolboxText = toolboxText.replace(/{(\w+)}/g,
-		function(m, p1) { return MSG[p1]; });
-	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
-
-	App.workspace = Blockly.inject('blocklyDiv', {
-		grid: {
-			spacing: 25,
-			length: 3,
-			colour: '#ccc',
-			snap: true
-		},
-		media: 'media/',
-		toolbox: toolboxXml,
-		zoom: {
-			controls: true,
-			wheel: true
-		}
-	});
+//	var toolboxText = document.getElementById('toolbox').outerHTML;
+//	toolboxText = toolboxText.replace(/{(\w+)}/g,
+//		function(m, p1) { return MSG[p1]; });
+//	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
+//
+//	App.workspace = Blockly.inject('blocklyDiv', {
+//		grid: {
+//			spacing: 25,
+//			length: 3,
+//			colour: '#ccc',
+//			snap: true
+//		},
+//		media: 'media/',
+//		toolbox: toolboxXml,
+//		zoom: {
+//			controls: true,
+//			wheel: false
+//		}
+//	});
 
 	// Add to reserved word list: Local variables in execution environment (runJS)
 	// and the infinite loop detection function.
@@ -277,20 +277,17 @@ App.init = function() {
 		BlocklyStorage.backupOnUnload(App.workspace);
 	}
 
-	App.tabClick(App.selected);
-	for(var i = 0; i < App.TABS_.length; i++) {
-		var name = App.TABS_[i];
-		App.bindClick('tab_' + name,
-			function(name_) { return function() { App.tabClick(name_); }; }(name));
-	}
+//	App.tabClick(App.selected);
+//	for(var i = 0; i < App.TABS_.length; i++) {
+//		var name = App.TABS_[i];
+//		App.bindClick('tab_' + name,
+//			function(name_) { return function() { App.tabClick(name_); }; }(name));
+//	}
 	
 	App.displayLevelLink();
 	
 	// Render code while programming blockly.So when workspace changed, render content again.
-	App.workspace.addChangeListener(App.renderContent);
-	
-	// onresize();
-	Blockly.svgResize(App.workspace);
+	//App.workspace.addChangeListener(App.renderContent);
 	
 	// Switch to zero-based indexing so that later JS levels match the blocks.
     Blockly.Blocks && (Blockly.Blocks.ONE_BASED_INDEXING = false);
