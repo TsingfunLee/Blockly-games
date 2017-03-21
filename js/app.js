@@ -28,6 +28,18 @@ App.workspace = null;
 
 App.MAX_LEVEL = 5;
 
+App.util = {};
+
+App.util.clamp = function(min, val, max) {
+	if(val < min){
+		val = min;
+	}else if(val > max){
+		val = max;
+	}
+	
+	return val;
+};
+
 /**
  * Extracts a parameter from the URL.
  * If the parameter is absent default_value is returned.
@@ -210,6 +222,24 @@ App.renderContent = function() {
 };
 
 /**
+ * 
+ */
+App.displayLevelLink = function() {
+	var levelLink = document.getElementById('levelLink');
+	var a = null;
+	for(var i = 1; i <= App.MAX_LEVEL; ++i){
+		a = document.createElement('a');
+		a.innerHTML = i;
+		a.href = '?lang=' + App.LANG + '&level=' + i;
+		a.classList.add('circle');
+		if( i === App.LEVEL){
+			a.classList.add('selected');
+		}
+		levelLink.appendChild(a);
+	}
+};
+
+/**
  * Initialize Blockly.
  */
 App.init = function() {
@@ -253,6 +283,8 @@ App.init = function() {
 		App.bindClick('tab_' + name,
 			function(name_) { return function() { App.tabClick(name_); }; }(name));
 	}
+	
+	App.displayLevelLink();
 	
 	// Render code while programming blockly.So when workspace changed, render content again.
 	App.workspace.addChangeListener(App.renderContent);
