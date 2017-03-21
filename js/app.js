@@ -2,8 +2,6 @@
 
 goog.provide('App');
 
-//goog.require('App.util');
-
 var App = {};
 
 /**
@@ -13,8 +11,6 @@ App.LANGUAGE_NAME = {
 	'zh': '中文',
 	'en': 'English'
 };
-
-
 
 /**
  * List of tab names.
@@ -28,9 +24,13 @@ App.workspace = null;
 
 App.MAX_LEVEL = 5;
 
-App.util = {};
-
-App.util.clamp = function(min, val, max) {
+/**
+ * Return a value that between min and max.
+ * @param {Number} min
+ * @param {Number} val
+ * @param {Number} max
+ */
+App.clamp = function(min, val, max) {
 	if(val < min){
 		val = min;
 	}else if(val > max){
@@ -63,7 +63,7 @@ App.getStringParamFromUrl = function(name, defaultValue) {
  */
 App.getNumberParamFromUrl = function(name, minValue, maxValue) {
     var val = Number(App.getStringParamFromUrl(name, 'NaN'));
-    return isNaN(val) ? minValue : App.util.clamp(minValue, val, maxValue);
+    return isNaN(val) ? minValue : App.clamp(minValue, val, maxValue);
 };
 
 /**
