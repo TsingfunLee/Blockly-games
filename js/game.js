@@ -20,7 +20,7 @@ Game.SQUARE = Game.WIDTH / Game.COLS;
 /**
  * Pictures source.
  */
-Game.ROLESRC = 'img/role.jpg';
+Game.ROLESRC = 'img/role.png';
 Game.EARTHSRC = 'img/earth.jpg';
 Game.DESTINATIONSRC = 'img/destination.jpg';
 Game.COLLECTIONSRC = 'img/star.jpg';
@@ -120,9 +120,19 @@ Game.result = Game.resultType.UNSET;
 Game.delta = 0;
 
 /**
- * The number of pickup-stuff.
+ * The number of pickup site.
  */
 Game.num = 0;
+
+/**
+ * The number of pickup site's stuff respectivily.
+ */
+Game.number = [undefined];
+
+/**
+ * The number of stuff that have collected.
+ */
+Game.count = 0;
 
 Game.setDirection = function() {
 	switch(App.LEVEL) {
@@ -150,19 +160,21 @@ Game.setDirection = function() {
 Game.setNum = function() {
 	switch(App.LEVEL) {
 		case 1:
-			Game.num = 0;
+			//Game.num = 0;
 			break;
 		case 2:
-			Game.num = 0;
+			//Game.num = 0;
 			break;
 		case 3:
-			Game.num = 1;
+			//Game.num = 1;
+			Game.number = [undefined, 1]
 			break;
 		case 4:
-			Game.num = 0;
+			//Game.num = 0;
 			break;
 		case 5:
-			Game.num = 4;
+			//Game.num = 4;
+			Game.number = [undefined, 1, 1, 1, 1];
 			break;
 		default:
 			console.log('Level is undefined.');			
@@ -172,10 +184,14 @@ Game.setNum = function() {
 Game.init = function() {
 	Game.canvas = document.getElementById('canvas');
 	Game.context = Game.canvas.getContext('2d');
+	Game.canvas2 = document.getElementById('canvas-bg');
+	Game.context2 = Game.canvas2.getContext('2d');
 
 	// Set width and height of canvas.
 	Game.canvas.width = Game.WIDTH;
 	Game.canvas.height = Game.HEIGHT;
+	Game.canvas2.width = Game.WIDTH;
+	Game.canvas2.height = Game.HEIGHT;
 	
 	Game.initToolbox();
 	
@@ -258,7 +274,7 @@ Game.drawPath = function() {
 	for(i = 0; i < Game.ROWS; ++i) {
 		for(j = 0; j < Game.COLS; ++j) {
 			if(Game.path[i][j] != Game.pathType.WALL) {
-				Game.context.drawImage(Game.earth, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
+				Game.context2.drawImage(Game.earth, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}			
 		}
 	}
@@ -269,8 +285,10 @@ Game.drawCollection = function() {
 	for (i = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
 			if(Game.path[i][j] === Game.pathType.PICK) {
-				Game.context.drawImage(Game.collection, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
-				Game.context.fillText(Game.num.toString(), j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);
+				Game.num ++;
+				Game.context2.drawImage(Game.collection, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
+				Game.context2.fillText(Game.number[Game.num].toString(), 
+				j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);				
 			}
 		}
 	}
@@ -281,7 +299,7 @@ Game.drawDestination = function() {
 	for (i = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
 			if(Game.path[i][j] === Game.pathType.FINISH) {
-				Game.context.drawImage(Game.destination, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
+				Game.context2.drawImage(Game.destination, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}
 		}
 	}	
@@ -291,23 +309,7 @@ Game.initToolbox = function() {
 	var toolbox = document.getElementById('toolbox');
 	var block = null;
 	var blocks = [];
-//	block.setAttribute('type', 'action_forward');
-//	toolbox.appendChild(block);
-//	if(App.LEVEL === 2) {
-//		block = document.createElement('block');
-//		block.setAttribute('type', 'action_turnright');
-//		toolbox.appendChild(block);
-//	}else if(App.LEVEL === 3) {
-//		block = document.createElement('block');
-//		block.setAttribute('type', 'action_turnright');
-//		toolbox.appendChild(block);
-//		
-//		block = document.createElement('block');
-//		block.setAttribute('type', 'action_collect');
-//		toolbox.appendChild(block);
-//	}else if(App.LEVEL === 4) {
-//		
-//	}
+
 	// Block type needed.
 	switch(App.LEVEL) {
 		case 1:
@@ -363,7 +365,7 @@ Game.onresize = function() {
 };
 
 // core.
-Game.moveforward = function() {	
+Game.moveforward = function() {		
 	switch(Game.DIRECTION){
 		case Game.directionType.NORTH:
 			Game.role.position.y --;
@@ -388,10 +390,10 @@ Game.moveforward = function() {
 	
 	Game.delta ++;
 	
-	Game.drawPath();
-	Game.drawCollection();
-	Game.drawDestination();
+	Game.context.save();
+	Game.context.clearRect(Game.role.lastPosition.x, Game.role.lastPosition.y, Game.SQUARE, Game.SQUARE)
 	Game.drawRole(Game.role.position.x, Game.role.position.y);
+	Game.context.restore();
 	
 	var raf = window.requestAnimationFrame(Game.moveforward);
 	if(Game.delta === Game.SQUARE){
@@ -404,6 +406,7 @@ Game.turnright = function() {
 	Game.context.save();
 	Game.context.rotate(Math.PI / 2);	
 	Game.context.translate(Game.role.position.y - Game.role.position.x, - (Game.role.position.y + Game.role.position.x));
+	Game.context.clearRect(Game.role.position.x, Game.role.position.y - Game.SQUARE, Game.SQUARE, Game.SQUARE);
 	Game.drawRole(Game.role.position.x, Game.role.position.y - Game.SQUARE);
 	Game.context.restore();
 	
@@ -428,11 +431,11 @@ Game.collect = function() {
 	var j = Game.role.position.x / Game.SQUARE,
 		i = Game.role.position.y / Game.SQUARE;
 	if(Game.path[i][j] === Game.pathType.PICK) {
-		Game.num --;
-		Game.context.save();
-		Game.drawCollection();
-		Game.drawRole();
-		Game.context.restore();
+		Game.count ++;
+		Game.context2.save();
+		Game.context2.fillText(--Game.number[Game.count], 
+		j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);
+		Game.context2.restore();
 	}	
 };
 
@@ -558,6 +561,8 @@ Game.reset = function() {
 	
 	Game.setDirection();
 	Game.setNum();
+	Game.num = 0;
+	Game.count = 0;
 	
 	Game.result = Game.resultType.UNSET;
 	
