@@ -59,6 +59,26 @@ Game.path = [
 	[0, 0, 0, 2, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
+],
+[
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 1, 1, 1, 1, 1, 0, 0],
+	[0, 1, 0, 0, 0, 1, 0, 0],
+	[0, 2, 0, 3, 1, 1, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0]
+],
+[
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 2, 0, 0, 0, 0, 3, 0],
+	[0, 4, 1, 0, 0, 0, 1, 0],
+	[0, 0, 4, 1, 0, 0, 1, 0],
+	[0, 0, 0, 4, 1, 0, 1, 0],
+	[0, 0, 0, 0, 4, 1, 1, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0]	
 ]][App.LEVEL];
 
 /**
@@ -99,11 +119,53 @@ Game.result = Game.resultType.UNSET;
  */
 Game.delta = 0;
 
+/**
+ * The number of pickup-stuff.
+ */
+Game.num = 0;
+
 Game.setDirection = function() {
-	if(App.LEVEL === 1){
-		Game.DIRECTION = Game.directionType.EAST;
-	}else if(App.LEVEL === 2){
-		Game.DIRECTION = Game.directionType.NORTH;
+	switch(App.LEVEL) {
+		case 1:
+			Game.DIRECTION = Game.directionType.EAST;
+			break;
+		case 2:
+//			Game.DIRECTION = Game.directionType.NORTH;
+//			break;
+		case 3:
+//			Game.DIRECTION = Game.directionType.NORTH;
+//			break;
+		case 4:
+			Game.DIRECTION = Game.directionType.NORTH;
+			break;
+		case 5:
+			Game.DIRECTION = Game.directionType.SOUTH;
+			break;
+		default:
+			Game.DIRECTION = Game.directionType.EAST;
+			console.log('Level is undefined.');
+	}
+};
+
+Game.setNum = function() {
+	switch(App.LEVEL) {
+		case 1:
+			Game.num = 0;
+			break;
+		case 2:
+			Game.num = 0;
+			break;
+		case 3:
+			Game.num = 1;
+			break;
+		case 4:
+			Game.num = 0;
+			break;
+		case 5:
+			Game.num = 4;
+			break;
+		default:
+			console.log('Level is undefined.');			
 	}
 };
 
@@ -118,6 +180,7 @@ Game.init = function() {
 	Game.initToolbox();
 	
 	Game.setDirection();
+	Game.setNum();
 	
 	// Set start point and finish point.
 	for (var i = 0, j = 0; i < Game.ROWS; ++i) {
@@ -194,7 +257,7 @@ Game.drawPath = function() {
 	var i, j;
 	for(i = 0; i < Game.ROWS; ++i) {
 		for(j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] != Game.pathType.WALL){
+			if(Game.path[i][j] != Game.pathType.WALL) {
 				Game.context.drawImage(Game.earth, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}			
 		}
@@ -205,8 +268,9 @@ Game.drawCollection = function() {
 	var i, j;
 	for (i = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] === Game.pathType.PICK){
+			if(Game.path[i][j] === Game.pathType.PICK) {
 				Game.context.drawImage(Game.collection, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
+				Game.context.fillText(Game.num.toString(), j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);
 			}
 		}
 	}
@@ -216,7 +280,7 @@ Game.drawDestination = function() {
 	var i, j;
 	for (i = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] === Game.pathType.FINISH){
+			if(Game.path[i][j] === Game.pathType.FINISH) {
 				Game.context.drawImage(Game.destination, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}
 		}
@@ -225,16 +289,50 @@ Game.drawDestination = function() {
 
 Game.initToolbox = function() {
 	var toolbox = document.getElementById('toolbox');
-	var block = document.createElement('block');
-	block.setAttribute('type', 'action_forward');
-	toolbox.appendChild(block);
-	if(App.LEVEL === 2 || App.LEVEL === 3) {
+	var block = null;
+	var blocks = [];
+//	block.setAttribute('type', 'action_forward');
+//	toolbox.appendChild(block);
+//	if(App.LEVEL === 2) {
+//		block = document.createElement('block');
+//		block.setAttribute('type', 'action_turnright');
+//		toolbox.appendChild(block);
+//	}else if(App.LEVEL === 3) {
+//		block = document.createElement('block');
+//		block.setAttribute('type', 'action_turnright');
+//		toolbox.appendChild(block);
+//		
+//		block = document.createElement('block');
+//		block.setAttribute('type', 'action_collect');
+//		toolbox.appendChild(block);
+//	}else if(App.LEVEL === 4) {
+//		
+//	}
+	// Block type needed.
+	switch(App.LEVEL) {
+		case 1:
+			blocks = ['action_forward'];
+			break;
+		case 2:
+			blocks = ['action_forward', 'action_turnright'];
+			break;
+		case 3:
+			blocks = ['action_forward', 'action_turnright', 'action_collect'];
+			break;
+		case 4:
+			blocks = ['action_forward', 'action_turnright', 'action_collect', 'controls_repeat'];
+			break;
+		case 5:
+			blocks = ['action_forward', 'action_turnright', 'action_turnleft', 'action_collect', 'controls_repeat'];
+			break;
+		default:
+			console.log('Level is undefined.');
+	}
+
+	// Create toolbox xml.
+	for(var index in blocks) {
 		block = document.createElement('block');
-		block.setAttribute('type', 'action_turnright');
-		toolbox.appendChild(block);
-	}else if(App.LEVEL === 3) {
-		block = document.createElement('block');
-		block.setAttribute('type', 'action_collect');
+		block.setAttribute('type', blocks[index]);
 		toolbox.appendChild(block);
 	}
 	
@@ -291,6 +389,8 @@ Game.moveforward = function() {
 	Game.delta ++;
 	
 	Game.drawPath();
+	Game.drawCollection();
+	Game.drawDestination();
 	Game.drawRole(Game.role.position.x, Game.role.position.y);
 	
 	var raf = window.requestAnimationFrame(Game.moveforward);
@@ -301,10 +401,9 @@ Game.moveforward = function() {
 };
 
 Game.turnright = function() {
-	Game.drawPath();
 	Game.context.save();
 	Game.context.rotate(Math.PI / 2);	
-	Game.context.translate(Game.role.position.y - Game.role.position.x, -(Game.role.position.y + Game.role.position.x));
+	Game.context.translate(Game.role.position.y - Game.role.position.x, - (Game.role.position.y + Game.role.position.x));
 	Game.drawRole(Game.role.position.x, Game.role.position.y - Game.SQUARE);
 	Game.context.restore();
 	
@@ -314,7 +413,6 @@ Game.turnright = function() {
 };
 
 Game.turnleft = function() {
-	Game.drawPath();
 	Game.context.save();
 	Game.context.rotate(-Math.PI / 2);	
 	Game.context.translate(- (Game.role.position.y + Game.role.position.x), Game.role.position.x - Game.role.position.y);
@@ -324,6 +422,18 @@ Game.turnleft = function() {
 	// Set current direction.
 	// direction 0 ~ 3.
 	Game.DIRECTION = (Game.DIRECTION + 3) % 4;
+};
+
+Game.collect = function() {
+	var j = Game.role.position.x / Game.SQUARE,
+		i = Game.role.position.y / Game.SQUARE;
+	if(Game.path[i][j] === Game.pathType.PICK) {
+		Game.num --;
+		Game.context.save();
+		Game.drawCollection();
+		Game.drawRole();
+		Game.context.restore();
+	}	
 };
 
 /**
@@ -365,11 +475,17 @@ Game.checkResult = function(x, y) {
 	var i = parseInt(y / Game.SQUARE);
 	var j = parseInt(x / Game.SQUARE);
 	if(Game.path[i][j] === Game.pathType.FINISH) {
-		console.log('Finish!!!!!');
+		console.log('Success!!!!');
 		Game.result = Game.resultType.SUCCESS;
 	}else {
-		console.log('Failure!!!');
-		Game.result = Game.resultType.FAILURE;
+		// Just picking up stuff, level 3 is success.
+		if(App.LEVEL === 3 && Game.path[i][j] === Game.pathType.PICK) {
+			console.log('Success!!!!');
+			Game.result = Game.resultType.SUCCESS
+		}else {
+			console.log('Failure!!!!');
+			Game.result = Game.resultType.FAILURE;
+		}		
 	}
 };
 
@@ -394,6 +510,11 @@ Game.initApi = function(interpreter, scope) {
 		return interpreter.createPrimitive(Game.turnright());
 	};
 	interpreter.setProperty(scope, 'turnright', interpreter.createNativeFunction(wrapper));
+	
+	wrapper = function() {
+		return interpreter.createPrimitive(Game.collect());
+	};
+	interpreter.setProperty(scope, 'collect', interpreter.createNativeFunction(wrapper));
 };
 
 /**
@@ -436,6 +557,7 @@ Game.reset = function() {
 	Game.initPath().then(Game.initRole);
 	
 	Game.setDirection();
+	Game.setNum();
 	
 	Game.result = Game.resultType.UNSET;
 	

@@ -37,17 +37,17 @@ goog.require('Blockly.BlockSvg');
  */
 Blockly.BlockSvg.SEP_SPACE_X = 10;//空白处宽度
 /**
- * Vertical space between elements.元素之间的垂直空间。
+ * Vertical space between elements.
  * @const
  */
 Blockly.BlockSvg.SEP_SPACE_Y = 16;//空白处长度
 /**
- * Vertical padding around inline elements.在内联元素周围的padding垂直填充。
+ * Vertical padding around inline elements.
  * @const
  */
 Blockly.BlockSvg.INLINE_PADDING_Y = 6;
 /**
- * Minimum height of a block.块的最小高度。
+ * Minimum height of a block.
  * @const
  */
 Blockly.BlockSvg.MIN_BLOCK_Y =25;
@@ -62,7 +62,7 @@ Blockly.BlockSvg.TAB_HEIGHT = 20;
  */
 Blockly.BlockSvg.TAB_WIDTH = 8;
 /**
- * Width of vertical tab (inc left margin). 垂直标签的宽度（包括左边距）。
+ * Width of vertical tab (inc left margin). 
  * @const
  */
 Blockly.BlockSvg.NOTCH_WIDTH = 30;//未出现明显效果
@@ -74,15 +74,15 @@ Blockly.BlockSvg.CORNER_RADIUS = 4;//圆角半径
 
 
 /**高亮
- * Distance from shape edge to intersect with a curved corner at 45 degrees.与形状边缘的距离与以45度弯曲的角相交。
- * Applies to highlighting on around the inside of a curve.适用于在曲线内部的突出显示。
+ * Distance from shape edge to intersect with a curved corner at 45 degrees.
+ * Applies to highlighting on around the inside of a curve.
  * @const
  */
 Blockly.BlockSvg.DISTANCE_45_INSIDE = (1 - Math.SQRT1_2) *
     (Blockly.BlockSvg.CORNER_RADIUS - 0.5) + 0.5;
 /**高亮
- * Distance from shape edge to intersect with a curved corner at 45 degrees.  与形状边缘的距离与以45度弯曲的角相交。
- * Applies to highlighting on around the outside of a curve.     适用于在曲线外侧突出显示。
+ * Distance from shape edge to intersect with a curved corner at 45 degrees. 
+ * Applies to highlighting on around the outside of a curve
  * @const
  */
 Blockly.BlockSvg.DISTANCE_45_OUTSIDE = (1 - Math.SQRT1_2) *
@@ -127,7 +127,6 @@ Blockly.BlockSvg.JAGGED_TEETH_WIDTH = 15;
 
 /**
  * SVG path for drawing a horizontal puzzle tab from top to bottom.
- * 用于从顶部到底部绘制水平拼图选项卡的SVG路径。
  * @const
  */
 
@@ -138,7 +137,6 @@ Blockly.BlockSvg.TAB_WIDTH + ',-2.5 ' + Blockly.BlockSvg.TAB_WIDTH + ',7.5';
 
 /**
  * SVG path for drawing a horizontal puzzle tab from top to bottom with highlighting from the upper-right.
- * SVG路径，用于从顶部到底部绘制水平拼图选项卡，并从右上方突出显示。
  * @const
  */
 Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL = 'v 6.5 m -' +
@@ -212,14 +210,10 @@ Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER =
     'a ' + Blockly.BlockSvg.CORNER_RADIUS + ',' +
     Blockly.BlockSvg.CORNER_RADIUS + ' 0 0,0 ' +
     Blockly.BlockSvg.CORNER_RADIUS + ',' +
-    Blockly.BlockSvg.CORNER_RADIUS + ' h ' +
-    (Blockly.BlockSvg.NOTCH_WIDTH - 15 - Blockly.BlockSvg.CORNER_RADIUS) +
-    ' a '+(Blockly.BlockSvg.CORNER_RADIUS*2) + ',' +
-   (Blockly.BlockSvg.CORNER_RADIUS*2) + ' 180 0,0 ' +
-    (Blockly.BlockSvg.CORNER_RADIUS*4) + ',0';
+    Blockly.BlockSvg.CORNER_RADIUS;
 /**
- * SVG path for drawing highlight on the top-left corner of a statement SVG路径，用于在语句的左上角绘制突出显示
- * input in RTL.从右到左输入
+ * SVG path for drawing highlight on the top-left corner of a statement
+ * input in RTL.
  * @const
  */
 Blockly.BlockSvg.INNER_TOP_LEFT_CORNER_HIGHLIGHT_RTL =
@@ -231,8 +225,8 @@ Blockly.BlockSvg.INNER_TOP_LEFT_CORNER_HIGHLIGHT_RTL =
     
     
 /**
- * SVG path for drawing highlight on the bottom-left corner of a statement  SVG路径，用于在语句的左下角绘制突出显示
- * input in RTL.从右到左输入
+ * SVG path for drawing highlight on the bottom-left corner of a statement 
+ * input in RTL
  * @const
  */
 Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_RTL =
@@ -241,8 +235,8 @@ Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_RTL =
     (Blockly.BlockSvg.CORNER_RADIUS + 0.5) + ',' +
     (Blockly.BlockSvg.CORNER_RADIUS + 0.5);
 /**
- * SVG path for drawing highlight on the bottom-left corner of a statement   SVG路径，用于在语句的左下角绘制突出显示
- * input in LTR.输入从左到右
+ * SVG path for drawing highlight on the bottom-left corner of a statement   
+ * input in LTR.
  * @const
  */
 Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR =
@@ -250,12 +244,7 @@ Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR =
     (Blockly.BlockSvg.CORNER_RADIUS + 0.5) + ' 0 0,0 ' +
     (Blockly.BlockSvg.CORNER_RADIUS -
     Blockly.BlockSvg.DISTANCE_45_OUTSIDE) + ',' +
-    (Blockly.BlockSvg.DISTANCE_45_OUTSIDE + 0.5)+ ' h ' +
-    (Blockly.BlockSvg.NOTCH_WIDTH - 16 - Blockly.BlockSvg.CORNER_RADIUS) +
-    ' a '+(Blockly.BlockSvg.CORNER_RADIUS*2) + ',' +
-   (Blockly.BlockSvg.CORNER_RADIUS*2) + ' 180 0,0 ' +
-    (Blockly.BlockSvg.CORNER_RADIUS*4+0.5) + ',0';
-
+    (Blockly.BlockSvg.DISTANCE_45_OUTSIDE + 0.5);
 /**
  * Render the block. 渲染块。
  * Lays out and reflows a block based on its contents and settings. 根据其内容和设置退出并返回块。
@@ -619,7 +608,7 @@ Blockly.BlockSvg.prototype.renderDrawTop_ =
     //highlightSteps.push('m 0.5,0.5');
 
   } else {
-    steps.push(Blockly.BlockSvg.TOP_LEFT_CORNER_START);
+    steps.push(Blockly.BlockSvg.TOP_LEFT_CORNER_START);//起点
 //  highlightSteps.push(this.RTL ?
 //      Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_RTL :
 //      Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_LTR);
@@ -630,7 +619,7 @@ Blockly.BlockSvg.prototype.renderDrawTop_ =
 
   // Top edge. 顶边
   if (this.previousConnection) {
-    steps.push('H', Blockly.BlockSvg.NOTCH_WIDTH - 15);
+    steps.push('H', Blockly.BlockSvg.NOTCH_WIDTH - 16.5);
 //  highlightSteps.push('H', Blockly.BlockSvg.NOTCH_WIDTH - 15);
     steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
 //  highlightSteps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT);
@@ -724,10 +713,11 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
       cursorX = Math.max(cursorX, inputRows.rightEdge);
       this.width = Math.max(this.width, cursorX);
       steps.push('H', cursorX);
+      steps.push('a 20 20 90 0 1 0 40');
       //highlightSteps.push('H', cursorX - 0.5);
-      steps.push('v', row.height);
+     // steps.push('v', row.height);
       
-    } else if (row.type == Blockly.INPUT_VALUE) {
+  } else if (row.type == Blockly.INPUT_VALUE) {
       // External input.  外部输入。
       var input = row[0];
       var fieldX = cursorX;
@@ -742,6 +732,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
         }
       }
       this.renderFields_(input.fieldRow, fieldX, fieldY);
+      //有右接情况时的图形路径
       steps.push(Blockly.BlockSvg.TAB_PATH_DOWN);
       var v = row.height - Blockly.BlockSvg.TAB_HEIGHT;
       steps.push('v', v);
@@ -754,11 +745,12 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
             input.connection.targetBlock().getHeightWidth().width -
             Blockly.BlockSvg.TAB_WIDTH + 1);
       }
-    } else if (row.type == Blockly.DUMMY_INPUT) {
+  } else if (row.type == Blockly.DUMMY_INPUT) {
       // External naked field.  外部
       var input = row[0];
       var fieldX = cursorX;
       var fieldY = cursorY;
+      
       if (input.align != Blockly.ALIGN_LEFT) {
         var fieldRightX = inputRows.rightEdge - input.fieldWidth -
             2 * Blockly.BlockSvg.SEP_SPACE_X;
@@ -772,8 +764,11 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
         }
       }
       this.renderFields_(input.fieldRow, fieldX, fieldY);
-      steps.push('v', row.height);
-    } else if (row.type == Blockly.NEXT_STATEMENT) {
+      
+      //steps.push('v', row.height);
+      steps.push('a 15 15 90 0 1 0 30')
+      
+  } else if (row.type == Blockly.NEXT_STATEMENT) {
       // Nested statement.  嵌套语句。
       var input = row[0];
       if (y == 0) {
@@ -801,6 +796,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
       steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS);
       steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
       steps.push('H', inputRows.rightEdge);
+	  
 
       // Create statement connection.  创建语句连接。
       connectionX = this.RTL ? -cursorX : cursorX + 1;
@@ -817,7 +813,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
         // Consecutive statement stacks are also separated by a small divider.
         //连续的语句堆栈也由一个小分隔符分隔。
         steps.push('a', '8 8 90 0 1 0 16');
- 
+   
         cursorY += Blockly.BlockSvg.SEP_SPACE_Y;
       }
     }
@@ -838,8 +834,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
  * @param {number} cursorY Height of block. 块的高度
  * @private
  */
-Blockly.BlockSvg.prototype.renderDrawBottom_ =
-    function(steps, highlightSteps, cursorY) {
+Blockly.BlockSvg.prototype.renderDrawBottom_ =  function(steps, highlightSteps, cursorY) {
   /* eslint-disable indent eslint禁用缩进*/
   this.height += cursorY + 1;  // Add one for the shadow.
   if (this.nextConnection) {
@@ -859,22 +854,13 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ =
   // Should the bottom-left corner be rounded or square? 左下角应该是圆形还是正方形？
   if (this.squareBottomLeftCorner_) {
     steps.push('H 0');
-//  if (!this.RTL) {
-//    highlightSteps.push('M', '0.5,' + (cursorY - 0.5));
-//  }
   } else {
     steps.push('H', Blockly.BlockSvg.CORNER_RADIUS);
+    //最外路径左下角倒角
     steps.push('a', Blockly.BlockSvg.CORNER_RADIUS + ',' +
                Blockly.BlockSvg.CORNER_RADIUS + ' 0 0,1 -' +
                Blockly.BlockSvg.CORNER_RADIUS + ',-' +
                Blockly.BlockSvg.CORNER_RADIUS);
-//  if (!this.RTL) {
-//    highlightSteps.push('M', Blockly.BlockSvg.DISTANCE_45_INSIDE + ',' +
-//        (cursorY - Blockly.BlockSvg.DISTANCE_45_INSIDE));
-//    highlightSteps.push('A', (Blockly.BlockSvg.CORNER_RADIUS - 0.5) + ',' +
-//        (Blockly.BlockSvg.CORNER_RADIUS - 0.5) + ' 0 0,1 ' +
-//        '0.5,' + (cursorY - Blockly.BlockSvg.CORNER_RADIUS));
-//  }
   }
 };  /* eslint-enable indent  eslint禁用缩进*/
 

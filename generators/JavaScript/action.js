@@ -19,3 +19,7 @@ Blockly.JavaScript['action_turnright'] = function(block) {
 Blockly.JavaScript['action_turnleft'] = function(block) {
 	return 'turnleft();' + '\n';
 };
+
+Blockly.JavaScript['action_collect'] = function(block) {
+	return 'collect();' + '\n';
+};
