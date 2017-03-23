@@ -28,7 +28,7 @@ Game.COLLECTIONSRC = 'img/star.png';
 /**
  * 1 --- path; 0 --- wall; 2 --- start; 3 --- finish.
  */
-Game.path = [
+Game.map = [
 	undefined,
 [
 	[0, 0, 0, 0, 0, 0, 0, 0],
@@ -127,7 +127,7 @@ Game.num = 0;
 /**
  * The number of pickup site's stuff respectivily.
  */
-Game.number = [undefined];
+Game.number = [];
 
 /**
  * The number of stuff that have collected.
@@ -161,20 +161,23 @@ Game.setNum = function() {
 	switch(App.LEVEL) {
 		case 1:
 			//Game.num = 0;
-			break;
+			//Game.number = [0];
+			//break;
 		case 2:
 			//Game.num = 0;
+			Game.number = [0];
 			break;
 		case 3:
 			//Game.num = 1;
-			Game.number = [undefined, 1]
+			Game.number = [1]
 			break;
 		case 4:
 			//Game.num = 0;
+			Game.number = [0];
 			break;
 		case 5:
 			//Game.num = 4;
-			Game.number = [undefined, 1, 1, 1, 1];
+			Game.number = [1, 1, 1, 1];
 			break;
 		default:
 			console.log('Level is undefined.');			
@@ -201,12 +204,12 @@ Game.init = function() {
 	// Set start point and finish point.
 	for (var i = 0, j = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] == Game.pathType.START){
+			if(Game.map[i][j] == Game.pathType.START){
 				Game.start = {
 					x: j * Game.SQUARE,
 					y: i * Game.SQUARE
 				};
-			}else if(Game.path[i][j] == Game.pathType.FINISH){
+			}else if(Game.map[i][j] == Game.pathType.FINISH){
 				Game.finish = {
 					x: j * Game.SQUARE,
 					y: i * Game.SQUARE
@@ -273,7 +276,7 @@ Game.drawPath = function() {
 	var i, j;
 	for(i = 0; i < Game.ROWS; ++i) {
 		for(j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] != Game.pathType.WALL) {
+			if(Game.map[i][j] != Game.pathType.WALL) {
 				Game.context2.drawImage(Game.earth, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}			
 		}
@@ -281,14 +284,13 @@ Game.drawPath = function() {
 };
 
 Game.drawCollection = function() {
-	var i, j;
+	var i, j, k = 0;
 	for (i = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] === Game.pathType.PICK) {
-				Game.num ++;
+			if(Game.map[i][j] === Game.pathType.PICK) {
 				Game.context2.drawImage(Game.collection, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
-				Game.context2.fillText(Game.number[Game.num].toString(), 
-				j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);				
+				Game.context2.fillText(Game.number[k++], 
+				j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);	
 			}
 		}
 	}
@@ -298,7 +300,7 @@ Game.drawDestination = function() {
 	var i, j;
 	for (i = 0; i < Game.ROWS; ++i) {
 		for (j = 0; j < Game.COLS; ++j) {
-			if(Game.path[i][j] === Game.pathType.FINISH) {
+			if(Game.map[i][j] === Game.pathType.FINISH) {
 				Game.context2.drawImage(Game.destination, j * Game.SQUARE, i * Game.SQUARE, Game.SQUARE, Game.SQUARE);
 			}
 		}
@@ -430,11 +432,17 @@ Game.turnleft = function() {
 Game.collect = function() {
 	var j = Game.role.position.x / Game.SQUARE,
 		i = Game.role.position.y / Game.SQUARE;
-	if(Game.path[i][j] === Game.pathType.PICK) {
-		Game.count ++;
+	if(Game.map[i][j] === Game.pathType.PICK) {
+		Game.count ++;	
+		if(Game.number[Game.num] == 0) {
+			Game.num ++;
+		}
 		Game.context2.save();
-		Game.context2.fillText(--Game.number[Game.count], 
-		j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);
+		Game.context2.clearRect(Game.role.position.x, Game.role.position.y, Game.SQUARE, Game.SQUARE);
+		Game.context2.drawImage(Game.earth, Game.role.position.x, Game.role.position.y, Game.SQUARE, Game.SQUARE);
+		Game.context2.drawImage(Game.collection, Game.role.position.x, Game.role.position.y, Game.SQUARE, Game.SQUARE);
+		Game.context2.fillText(--Game.number[Game.num], 
+		j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);	
 		Game.context2.restore();
 	}	
 };
@@ -461,7 +469,7 @@ Game.checkWall = function(x, y) {
 		j = x / Game.SQUARE;
 	}
 	
-	if(Game.path[i][j] === Game.pathType.WALL) {
+	if(Game.map[i][j] === Game.pathType.WALL) {
 		console.log('Can\'t walking!!!!');
 		Game.result = Game.resultType.CRASH;
 		return false;
@@ -477,17 +485,25 @@ Game.checkWall = function(x, y) {
 Game.checkResult = function(x, y) {
 	var i = parseInt(y / Game.SQUARE);
 	var j = parseInt(x / Game.SQUARE);
-	if(Game.path[i][j] === Game.pathType.FINISH) {
+	// The number of all pick-up stuff.
+	var total = Game.number.reduce(function(acc, val) {
+		return acc + val;
+	});
+	
+	if(Game.map[i][j] === Game.pathType.FINISH && Game.count === total) {
 		console.log('Success!!!!');
 		Game.result = Game.resultType.SUCCESS;
 	}else {
 		// Just picking up stuff, level 3 is success.
-		if(App.LEVEL === 3 && Game.path[i][j] === Game.pathType.PICK) {
+		if(App.LEVEL === 3 && Game.map[i][j] === Game.pathType.PICK && Game.count === total) {
 			console.log('Success!!!!');
-			Game.result = Game.resultType.SUCCESS
+			Game.result = Game.resultType.SUCCESS;
 		}else {
 			console.log('Failure!!!!');
 			Game.result = Game.resultType.FAILURE;
+			if(Game.count != total) {
+				console.log('Pick up all collection!')
+			}
 		}		
 	}
 };
