@@ -72,8 +72,8 @@ body{
 
 #visilazation{
 	position: absolute;
-	width: auto;
-	height: auto;
+	width: 400px;
+	height: 400px;
 	top: 0;
 	border: solid #BFCBDF 1px;
 	margin-left: 15px;

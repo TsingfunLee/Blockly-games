@@ -22,8 +22,8 @@ Game.SQUARE = Game.WIDTH / Game.COLS;
  */
 Game.ROLESRC = 'img/role.png';
 Game.EARTHSRC = 'img/earth.jpg';
-Game.DESTINATIONSRC = 'img/destination.jpg';
-Game.COLLECTIONSRC = 'img/star.jpg';
+Game.DESTINATIONSRC = 'img/destination.png';
+Game.COLLECTIONSRC = 'img/star.png';
 
 /**
  * 1 --- path; 0 --- wall; 2 --- start; 3 --- finish.
