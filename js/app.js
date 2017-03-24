@@ -1,7 +1,5 @@
 'use strict';
 
-goog.provide('App');
-
 var App = {};
 
 /**
@@ -327,6 +325,70 @@ App.initLanguage = function() {
 	// Inject language strings.
 	document.getElementById('playBtn').textContent = MSG['play'];
 	document.getElementById('resetBtn').textContent = MSG['reset'];
+};
+
+/**
+ * Initialize workspace.
+ */
+App.initWorkspace = function() {
+	var toolboxText = document.getElementById('toolbox').outerHTML;
+	toolboxText = toolboxText.replace(/{(\w+)}/g,
+		function(m, p1) { return MSG[p1]; });
+	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
+
+	App.workspace = Blockly.inject('blocklyDiv', {
+		grid: {
+			spacing: 25,
+			length: 3,
+			colour: '#ccc',
+			snap: true
+		},
+		media: 'media/',
+		toolbox: toolboxXml,
+		trashcan: true,
+		zoom: {
+			controls: true,
+			wheel: false
+		}
+	});
+};
+
+/**
+ * Initialize toolbox.
+ * @param {Object} game. Current game type.
+ */
+App.initToolbox = function(game) {
+	var toolbox = document.getElementById('toolbox');
+	var block = null;
+	var blocks = [];
+
+	// Block type needed.
+	switch(App.LEVEL) {
+		case 1:
+			blocks = game.blocks[0];
+			break;
+		case 2:
+			blocks = game.blocks[1];
+			break;
+		case 3:
+			blocks = game.blocks[2];
+			break;
+		case 4:
+			blocks = game.blocks[3];
+			break;
+		case 5:
+			blocks = game.blocks[4];
+			break;
+		default:
+			console.log('Level is undefined.');
+	}
+
+	// Create toolbox xml.
+	for(var index in blocks) {
+		block = document.createElement('block');
+		block.setAttribute('type', blocks[index]);
+		toolbox.appendChild(block);
+	}
 };
 
 /**
