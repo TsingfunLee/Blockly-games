@@ -20,6 +20,7 @@
 		
 		<!-- Custom blocks -->
 		<script type="text/javascript" src="blocks/action.js"></script>
+		<script type="text/javascript" src="blocks/brush.js"></script>
 		<!-- End difine blocks -->
 		
 		<!-- Begin generating code from blocks -->
@@ -34,6 +35,7 @@
 		<script type="text/javascript" src="blockly/generators/javascript/variables.js"></script>
 		<!-- Custom JavaScript generators -->
 		<script type="text/javascript" src="generators/JavaScript/action.js"></script>
+		<script type="text/javascript" src="generators/JavaScript/brush.js"></script>
 		
 		<script type="text/javascript" src="blockly/generators/python.js"></script>
 		<script type="text/javascript" src="blockly/generators/python/colour.js"></script>
@@ -112,8 +114,6 @@
 			<div class="left">
 				<!-- Animation area that shows result from blocks -->
 				<div id="visilazation">
-					<canvas id="canvas"></canvas>
-					<canvas id="canvas-bg"></canvas>
 				</div>
 				
 				<!-- Area that shows code -->
@@ -140,7 +140,7 @@
 		</div>
 		<!-- End main area -->
 
-		<xml id="toolbox" style="display: none">
+		<xml id="toolbox">
 			<!--<block type="action_forward"></block>
 			<block type="action_turnright"></block>
 			<block type="action_turnleft"></block>-->

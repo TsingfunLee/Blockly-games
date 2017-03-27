@@ -154,3 +154,7 @@ body{
 #blocklyDiv .blocklyToolboxDiv{
 	width: 130px;
 }
+
+#toolbox{
+	display: none;
+}

@@ -189,9 +189,14 @@ Maze.setNum = function() {
 };
 
 Maze.init = function() {
-	Maze.canvas = document.getElementById('canvas');
+	var visilization = document.getElementById('visilazation');
+	Maze.canvas = document.createElement('canvas');
+	Maze.canvas.id = 'canvas';
+	visilization.appendChild(Maze.canvas);
 	Maze.context = Maze.canvas.getContext('2d');
-	Maze.canvas2 = document.getElementById('canvas-bg');
+	Maze.canvas2 = document.createElement('canvas');
+	Maze.canvas2.id = 'canvas-bg';
+	visilization.appendChild(Maze.canvas2);
 	Maze.context2 = Maze.canvas2.getContext('2d');
 
 	// Set width and height of canvas.
@@ -200,7 +205,7 @@ Maze.init = function() {
 	Maze.canvas2.width = Maze.WIDTH;
 	Maze.canvas2.height = Maze.HEIGHT;
 	
-	App.initToolbox();
+	App.initToolbox(Maze);
 	App.initWorkspace();
 	
 	Maze.setDirection();

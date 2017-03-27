@@ -4,7 +4,7 @@
  * @fileoverview Generating JavaScript for brush blocks.
  */
 
-goog.provide('Blockly.JavaScript.action');
+goog.provide('Blockly.JavaScript.brush');
 
 goog.require('Blockly.JavaScript');
 
