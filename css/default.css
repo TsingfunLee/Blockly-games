@@ -80,17 +80,25 @@ body{
 	margin-right: 15px;
 }
 
-#canvas{
+.canvas{
 	position: absolute;
 	left: 0;
 	top: 0;
-	z-index: 1;
+}
+
+#canvas{
+	z-index: 2;
 }
 
 #canvas-bg{
-	position: absolute;
-	left: 0;
-	top: 0;
+	z-index: 0;
+}
+
+#canvas-answer{
+	z-index: 1;
+}
+
+#canvas-display{
 	z-index: 0;
 }
 

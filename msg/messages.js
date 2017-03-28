@@ -18,5 +18,13 @@ Blockly.Msg.ACTION_TURN_LEFT_TOOLTIP = 'Turn left.';
 Blockly.Msg.ACTION_COLLECT = 'pick up';
 Blockly.Msg.ACTION_COLLECT_TOOLTIP = 'Pick up 待定.';
 
+Blockly.Msg.BRUSH_MOVE_NORTH = '↑';
+Blockly.Msg.BRUSH_MOVE_NORTH_TOOLTIP = 'Take bar to move north';
+Blockly.Msg.BRUSH_MOVE_EAST = '→';
+Blockly.Msg.BRUSH_MOVE_EAST_TOOLTIP = 'Take bar to move east';
+Blockly.Msg.BRUSH_MOVE_SOUTH = '↓';
+Blockly.Msg.BRUSH_MOVE_SOUTH_TOOLTIP = 'Take bar to move south';
+Blockly.Msg.BRUSH_MOVE_WEST = '←';
+Blockly.Msg.BRUSH_MOVE_WEST_TOOLTIP = 'Take bar to move west';
 Blockly.Msg.BRUSH_MOVE_FORWARD = 'move forward';
-Blockly.Msg.BRUSH_MOVE_FORWARD_TOOLTIP = 'Take brush to move forward.';
+Blockly.Msg.BRUSH_MOVE_FORWARD_TOOLTIP = 'Take bar to move forward.';

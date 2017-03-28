@@ -1,11 +1,11 @@
 'use strict';
 
-var App = {};
+var Game = {};
 
 /**
  * The supported languages.
  */
-App.LANGUAGE_NAME = {
+Game.LANGUAGE_NAME = {
 	'zh': '中文',
 	'en': 'English'
 };
@@ -14,13 +14,13 @@ App.LANGUAGE_NAME = {
  * List of tab names.
  * @private
  */
-App.TABS_ = ['javascript', 'python', 'dart', 'php', 'lua'];
+Game.TABS_ = ['javascript', 'python', 'dart', 'php', 'lua'];
 
-App.selected = 'javascript';
+Game.selected = 'javascript';
 
-App.workspace = null;
+Game.workspace = null;
 
-App.MAX_LEVEL = 5;
+Game.MAX_LEVEL = 5;
 
 /**
  * Return a value that between min and max.
@@ -28,7 +28,7 @@ App.MAX_LEVEL = 5;
  * @param {Number} val
  * @param {Number} max
  */
-App.clamp = function(min, val, max) {
+Game.clamp = function(min, val, max) {
 	if(val < min){
 		val = min;
 	}else if(val > max){
@@ -45,7 +45,7 @@ App.clamp = function(min, val, max) {
  * @param {string} defaultValue Value to return if paramater not found.
  * @return {string} The parameter value or the default value if not found.
  */
-App.getStringParamFromUrl = function(name, defaultValue) {
+Game.getStringParamFromUrl = function(name, defaultValue) {
 	var val = location.search.match(new RegExp('[?&]' + name + '=([^&]+)'));
 	return val ? decodeURIComponent(val[1].replace(/\+/g, '%20')) : defaultValue;
 };
@@ -59,18 +59,18 @@ App.getStringParamFromUrl = function(name, defaultValue) {
  * @param {number} maxValue The maximum legal value.
  * @return {number} A number in the range [min_value, max_value].
  */
-App.getNumberParamFromUrl = function(name, minValue, maxValue) {
-    var val = Number(App.getStringParamFromUrl(name, 'NaN'));
-    return isNaN(val) ? minValue : App.clamp(minValue, val, maxValue);
+Game.getNumberParamFromUrl = function(name, minValue, maxValue) {
+    var val = Number(Game.getStringParamFromUrl(name, 'NaN'));
+    return isNaN(val) ? minValue : Game.clamp(minValue, val, maxValue);
 };
 
 /**
  * Get the language of this user from the URL.
  * @return {string} User's language.
  */
-App.getLang = function() {
-	var lang = App.getStringParamFromUrl('lang', '');
-	if(App.LANGUAGE_NAME[lang] === undefined) {
+Game.getLang = function() {
+	var lang = Game.getStringParamFromUrl('lang', '');
+	if(Game.LANGUAGE_NAME[lang] === undefined) {
 		// Default to Chinese.
 		lang = 'zh';
 	}
@@ -81,26 +81,26 @@ App.getLang = function() {
  * Get the level of this game from the URL.
  * @return {Number} Game's level.
  */
-App.getLevel = function() {
-	var level = App.getNumberParamFromUrl('level', 1, App.MAX_LEVEL);
+Game.getLevel = function() {
+	var level = Game.getNumberParamFromUrl('level', 1, Game.MAX_LEVEL);
 	return level;
 };
 
 /**
  * Current language.
  */
-App.LANG = App.getLang();
+Game.LANG = Game.getLang();
 
 /**
  * Current game level.
  */
-App.LEVEL = App.getLevel();
+Game.LEVEL = Game.getLevel();
 
 /**
  * Load blocks saved on App Engine Storage or in session/local storage.
  * @param {string} defaultXml Text representation of default blocks.
  */
-App.loadBlocks = function(defaultXml) {
+Game.loadBlocks = function(defaultXml) {
 	try {
 		var loadOnce = window.sessionStorage.loadOnceBlocks;
 	} catch(e) {
@@ -115,11 +115,11 @@ App.loadBlocks = function(defaultXml) {
 		// Language switching stores the blocks during the reload.
 		delete window.sessionStorage.loadOnceBlocks;
 		var xml = Blockly.Xml.textToDom(loadOnce);
-		Blockly.Xml.domToWorkspace(xml, App.workspace);
+		Blockly.Xml.domToWorkspace(xml, Game.workspace);
 	} else if(defaultXml) {
 		// Load the editor with default starting blocks.
 		var xml = Blockly.Xml.textToDom(defaultXml);
-		Blockly.Xml.domToWorkspace(xml, App.workspace);
+		Blockly.Xml.domToWorkspace(xml, Game.workspace);
 	} else if('BlocklyStorage' in window) {
 		// Restore saved blocks in a separate thread so that subsequent
 		// initialization is not affected from a failed load.
@@ -130,13 +130,13 @@ App.loadBlocks = function(defaultXml) {
 /**
  * Save the blocks and reload with a different language.
  */
-App.changeLanguage = function() {
+Game.changeLanguage = function() {
 	// Store the blocks for the duration of the reload.
 	// This should be skipped for the index page, which has no blocks and does
 	// not load Blockly.
 	// MSIE 11 does not support sessionStorage on file:// URLs.
 	if(typeof Blockly != 'undefined' && window.sessionStorage) {
-		var xml = Blockly.Xml.workspaceToDom(App.workspace);
+		var xml = Blockly.Xml.workspaceToDom(Game.workspace);
 		var text = Blockly.Xml.domToText(xml);
 		window.sessionStorage.loadOnceBlocks = text;
 	}
@@ -163,7 +163,7 @@ App.changeLanguage = function() {
  * @param {!Element|string} el Button element or ID thereof.
  * @param {!Function} func Event handler to bind.
  */
-App.bindClick = function(el, func) {
+Game.bindClick = function(el, func) {
 	if(typeof el == 'string') {
 		el = document.getElementById(el);
 	}
@@ -175,33 +175,33 @@ App.bindClick = function(el, func) {
  * Switch the visible pane when a tab is clicked.
  * @param {string} clickedName Name of tab clicked.
  */
-App.tabClick = function(clickedName) {
+Game.tabClick = function(clickedName) {
 	// Deselect all tabs and hide all panes.
-	for(var i = 0; i < App.TABS_.length; i++) {
-		var name = App.TABS_[i];
+	for(var i = 0; i < Game.TABS_.length; i++) {
+		var name = Game.TABS_[i];
 		document.getElementById('tab_' + name).className = 'taboff';
 		document.getElementById('content_' + name).style.display = 'none';
 	}
 
 	// Select the active tab.
-	App.selected = clickedName;
+	Game.selected = clickedName;
 	document.getElementById('tab_' + clickedName).className = 'tabon';
 	// Show the selected pane.
 	document.getElementById('content_' + clickedName).style.display =
 		'block';
-	App.renderContent();
+	Game.renderContent();
 
-	Blockly.svgResize(App.workspace);
+	Blockly.svgResize(Game.workspace);
 };
 
 /**
  * Populate the currently selected pane with content generated from the blocks.
  */
-App.renderContent = function() {
-	var content = document.getElementById('content_' + App.selected);
+Game.renderContent = function() {
+	var content = document.getElementById('content_' + Game.selected);
 	// Initialize the pane.
 	if(content.id == 'content_javascript') {
-		var code = Blockly.JavaScript.workspaceToCode(App.workspace);
+		var code = Blockly.JavaScript.workspaceToCode(Game.workspace);
 		content.textContent = code;
 		if(typeof prettyPrintOne == 'function') {
 			code = content.textContent;
@@ -209,7 +209,7 @@ App.renderContent = function() {
 			content.innerHTML = code;
 		}
 	} else if(content.id == 'content_python') {
-		code = Blockly.Python.workspaceToCode(App.workspace);
+		code = Blockly.Python.workspaceToCode(Game.workspace);
 		content.textContent = code;
 		if(typeof prettyPrintOne == 'function') {
 			code = content.textContent;
@@ -222,15 +222,15 @@ App.renderContent = function() {
 /**
  * 
  */
-App.displayLevelLink = function() {
+Game.displayLevelLink = function() {
 	var levelLink = document.getElementById('levelLink');
 	var a = null;
-	for(var i = 1; i <= App.MAX_LEVEL; ++i){
+	for(var i = 1; i <= Game.MAX_LEVEL; ++i){
 		a = document.createElement('a');
 		a.innerHTML = i;
-		a.href = '?lang=' + App.LANG + '&level=' + i;
+		a.href = '?lang=' + Game.LANG + '&level=' + i;
 		a.classList.add('circle');
-		if( i === App.LEVEL){
+		if( i === Game.LEVEL){
 			a.classList.add('selected');
 		}
 		levelLink.appendChild(a);
@@ -240,72 +240,41 @@ App.displayLevelLink = function() {
 /**
  * Initialize Blockly.
  */
-App.init = function() {
-	App.initLanguage();
-
-	// Interpolate translated messages into toolbox.
-//	var toolboxText = document.getElementById('toolbox').outerHTML;
-//	toolboxText = toolboxText.replace(/{(\w+)}/g,
-//		function(m, p1) { return MSG[p1]; });
-//	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
-//
-//	App.workspace = Blockly.inject('blocklyDiv', {
-//		grid: {
-//			spacing: 25,
-//			length: 3,
-//			colour: '#ccc',
-//			snap: true
-//		},
-//		media: 'media/',
-//		toolbox: toolboxXml,
-//		zoom: {
-//			controls: true,
-//			wheel: false
-//		}
-//	});
+Game.init = function() {
+	Game.initLanguage();
 
 	// Add to reserved word list: Local variables in execution environment (runJS)
 	// and the infinite loop detection function.
 	Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
 
-	App.loadBlocks('');
+	Game.loadBlocks('');
 
 	if('BlocklyStorage' in window) {
 		// Hook a save function onto unload.
-		BlocklyStorage.backupOnUnload(App.workspace);
+		BlocklyStorage.backupOnUnload(Game.workspace);
 	}
-
-//	App.tabClick(App.selected);
-//	for(var i = 0; i < App.TABS_.length; i++) {
-//		var name = App.TABS_[i];
-//		App.bindClick('tab_' + name,
-//			function(name_) { return function() { App.tabClick(name_); }; }(name));
-//	}
 	
-	App.displayLevelLink();
-	
-	// Render code while programming blockly.So when workspace changed, render content again.
-	//App.workspace.addChangeListener(App.renderContent);
+	Game.displayLevelLink();
 	
 	// Switch to zero-based indexing so that later JS levels match the blocks.
     Blockly.Blocks && (Blockly.Blocks.ONE_BASED_INDEXING = false);
     Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
 
 	// Lazy-load the syntax-highlighting.
-	window.setTimeout(App.importPrettify, 1);
+	window.setTimeout(Game.importPrettify, 1);
 };
 
 /**
  * Initialize the page language.
  */
-App.initLanguage = function() {
+Game.initLanguage = function() {
 	// Set the HTML's language.
-	document.head.parentElement.setAttribute('lang', App.LANG);
+	document.head.parentElement.setAttribute('lang', Game.LANG);
 
 	// Sort languages alphabetically.
 	var languages = [];
-	for(var lang in App.LANGUAGE_NAME) {
-		languages.push([App.LANGUAGE_NAME[lang], lang]);
+	for(var lang in Game.LANGUAGE_NAME) {
+		languages.push([Game.LANGUAGE_NAME[lang], lang]);
 	}
 
 	// Populate the language selection menu.
@@ -315,12 +284,12 @@ App.initLanguage = function() {
 		var tuple = languages[i];
 		var lang = tuple[tuple.length - 1];
 		var option = new Option(tuple[0], lang);
-		if(lang == App.LANG) {
+		if(lang == Game.LANG) {
 			option.selected = true;
 		}
 		languageMenu.options.add(option);
 	}
-	languageMenu.addEventListener('change', App.changeLanguage, true);
+	languageMenu.addEventListener('change', Game.changeLanguage, true);
 
 	// Inject language strings.
 	document.getElementById('playBtn').textContent = MSG['play'];
@@ -330,13 +299,14 @@ App.initLanguage = function() {
 /**
  * Initialize workspace.
  */
-App.initWorkspace = function() {
+Game.initWorkspace = function() {
+	// Interpolate translated messages into toolbox.
 	var toolboxText = document.getElementById('toolbox').outerHTML;
 	toolboxText = toolboxText.replace(/{(\w+)}/g,
 		function(m, p1) { return MSG[p1]; });
 	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
 
-	App.workspace = Blockly.inject('blocklyDiv', {
+	Game.workspace = Blockly.inject('blocklyDiv', {
 		grid: {
 			spacing: 25,
 			length: 3,
@@ -357,13 +327,13 @@ App.initWorkspace = function() {
  * Initialize toolbox.
  * @param {Object} game. Current game type.
  */
-App.initToolbox = function(game) {
+Game.initToolbox = function(game) {
 	var toolbox = document.getElementById('toolbox');
 	var block = null;
 	var blocks = [];
 
 	// Block type needed.
-	switch(App.LEVEL) {
+	switch(Game.LEVEL) {
 		case 1:
 			blocks = game.blocks[0];
 			break;
@@ -406,8 +376,8 @@ App.initToolbox = function(game) {
 //};
 
 // Load the language strings.
-document.write('<script src="msg/' + App.LANG + '.js"></script>\n');
+document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
-document.write('<script src="blockly/msg/js/' + App.LANG + '.js"></script>\n');
+document.write('<script src="blockly/msg/js/' + Game.LANG + '.js"></script>\n');
 
-window.addEventListener('load', App.init);
+window.addEventListener('load', Game.init);

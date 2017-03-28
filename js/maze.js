@@ -83,7 +83,7 @@ Maze.map = [
 	[0, 0, 0, 0, 4, 1, 1, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]	
-]][App.LEVEL];
+]][Game.LEVEL];
 
 /**
  * Path constants.
@@ -126,12 +126,7 @@ Maze.delta = 0;
 /**
  * The number of pickup site.
  */
-Maze.num = 0;
-
-/**
- * The number of pickup site's stuff respectivily.
- */
-//Game.number = [];
+Maze.NUM = 0;
 
 /**
  * The number of stuff that have collected.
@@ -139,16 +134,14 @@ Maze.num = 0;
 Maze.count = 0;
 
 Maze.setDirection = function() {
-	switch(App.LEVEL) {
+	switch(Game.LEVEL) {
 		case 1:
 			Maze.DIRECTION = Maze.directionType.EAST;
 			break;
 		case 2:
-//			Game.DIRECTION = Game.directionType.NORTH;
-//			break;
+
 		case 3:
-//			Game.DIRECTION = Game.directionType.NORTH;
-//			break;
+
 		case 4:
 			Maze.DIRECTION = Maze.directionType.NORTH;
 			break;
@@ -162,26 +155,20 @@ Maze.setDirection = function() {
 };
 
 Maze.setNum = function() {
-	switch(App.LEVEL) {
+	switch(Game.LEVEL) {
 		case 1:
-			//Game.num = 0;
-			//Game.number = [0];
-			//break;
+
 		case 2:
-			//Maze.num = 0;
-			//Game.number = [0];
+
 			break;
 		case 3:
-			Maze.num = 1;
-			//Game.number = [1]
+			Maze.NUM = 1;
 			break;
 		case 4:
-			Maze.num = 0;
-			//Game.number = [0];
+			Maze.NUM = 0;
 			break;
 		case 5:
-			Maze.num = 4;
-			//Game.number = [1, 1, 1, 1];
+			Maze.NUM = 4;
 			break;
 		default:
 			console.log('Level is undefined.');			
@@ -190,23 +177,24 @@ Maze.setNum = function() {
 
 Maze.init = function() {
 	var visilization = document.getElementById('visilazation');
-	Maze.canvas = document.createElement('canvas');
-	Maze.canvas.id = 'canvas';
-	visilization.appendChild(Maze.canvas);
-	Maze.context = Maze.canvas.getContext('2d');
-	Maze.canvas2 = document.createElement('canvas');
-	Maze.canvas2.id = 'canvas-bg';
-	visilization.appendChild(Maze.canvas2);
-	Maze.context2 = Maze.canvas2.getContext('2d');
+	var canvas = document.createElement('canvas');
+	canvas.id = 'canvas';
+	visilization.appendChild(canvas);
+	Maze.context = canvas.getContext('2d');
+	
+	var canvasBg = document.createElement('canvas');
+	canvasBg.id = 'canvas-bg';
+	visilization.appendChild(canvasBg);
+	Maze.contextBg = canvasBg.getContext('2d');
 
 	// Set width and height of canvas.
-	Maze.canvas.width = Maze.WIDTH;
-	Maze.canvas.height = Maze.HEIGHT;
-	Maze.canvas2.width = Maze.WIDTH;
-	Maze.canvas2.height = Maze.HEIGHT;
+	canvas.width = Maze.WIDTH;
+	canvas.height = Maze.HEIGHT;
+	canvasBg.width = Maze.WIDTH;
+	canvasBg.height = Maze.HEIGHT;
 	
-	App.initToolbox(Maze);
-	App.initWorkspace();
+	Game.initToolbox(Maze);
+	Game.initWorkspace();
 	
 	Maze.setDirection();
 	Maze.setNum();
@@ -287,7 +275,7 @@ Maze.drawPath = function() {
 	for(i = 0; i < Maze.ROWS; ++i) {
 		for(j = 0; j < Maze.COLS; ++j) {
 			if(Maze.map[i][j] != Maze.pathType.WALL) {
-				Maze.context2.drawImage(Maze.earth, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
+				Maze.contextBg.drawImage(Maze.earth, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
 			}			
 		}
 	}
@@ -298,7 +286,7 @@ Maze.drawCollection = function() {
 	for (i = 0; i < Maze.ROWS; ++i) {
 		for (j = 0; j < Maze.COLS; ++j) {
 			if(Maze.map[i][j] === Maze.pathType.PICK) {
-				Maze.context2.drawImage(Maze.collection, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
+				Maze.contextBg.drawImage(Maze.collection, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
 				//Game.context2.fillText(Game.number[k++], 
 				//j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);	
 			}
@@ -311,7 +299,7 @@ Maze.drawDestination = function() {
 	for (i = 0; i < Maze.ROWS; ++i) {
 		for (j = 0; j < Maze.COLS; ++j) {
 			if(Maze.map[i][j] === Maze.pathType.FINISH) {
-				Maze.context2.drawImage(Maze.destination, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
+				Maze.contextBg.drawImage(Maze.destination, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
 			}
 		}
 	}	
@@ -320,7 +308,7 @@ Maze.drawDestination = function() {
 
 
 Maze.onresize = function() {
-	Blockly.svgResize(App.workspace);
+	Blockly.svgResize(Game.workspace);
 };
 
 // core.
@@ -394,13 +382,13 @@ Maze.collect = function() {
 //		if(Game.number[Game.num] == 0) {
 //			Game.num ++;
 //		}
-		Maze.context2.save();
-		Maze.context2.clearRect(Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
-		Maze.context2.drawImage(Maze.earth, Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
+		Maze.contextBg.save();
+		Maze.contextBg.clearRect(Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
+		Maze.contextBg.drawImage(Maze.earth, Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
 		//Game.context2.drawImage(Game.collection, Game.role.position.x, Game.role.position.y, Game.SQUARE, Game.SQUARE);
 		//Game.context2.fillText(--Game.number[Game.num], 
 		//j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);	
-		Maze.context2.restore();
+		Maze.contextBg.restore();
 	}else {
 		alert('There is none!!!!');
 	}
@@ -451,18 +439,18 @@ Maze.checkResult = function(x, y) {
 	console.log(i)
 	console.log(j)
 	console.log(Maze.map[i][j])
-	if(Maze.map[i][j] === Maze.pathType.FINISH && Maze.count === Maze.num) {
+	if(Maze.map[i][j] === Maze.pathType.FINISH && Maze.count === Maze.NUM) {
 		console.log('Success!!!!');
 		Maze.result = Maze.resultType.SUCCESS;
 	}else {
 		// Just picking up stuff, level 3 is success.
-		if(App.LEVEL === 3 && Maze.count === Maze.num) {
+		if(Game.LEVEL === 3 && Maze.count === Maze.NUM) {
 			console.log('Success!!!!');
 			Maze.result = Maze.resultType.SUCCESS;
 		}else {
 			console.log('Failure!!!!');
 			Maze.result = Maze.resultType.FAILURE;
-			if(Maze.count != Maze.num) {
+			if(Maze.count != Maze.NUM) {
 				console.log('Pick up all collection!')
 			}
 		}		
@@ -518,7 +506,7 @@ Maze.excute = function(interpreter) {
 };
 
 Maze.play = function() {
-	var code = Blockly.JavaScript.workspaceToCode(App.workspace);
+	var code = Blockly.JavaScript.workspaceToCode(Game.workspace);
 	Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
 	var interpreter = new Interpreter(code, Maze.initApi);
 	try {
@@ -548,10 +536,10 @@ Maze.reset = function() {
 };
 
 Maze.nextLevel = function() {
-    if (App.LEVEL < App.MAX_LEVEL) {
+    if (Game.LEVEL < Game.MAX_LEVEL) {
         window.location = window.location.protocol + '//' + 
         window.location.host + window.location.pathname +
-        '?lang=' + App.LANG + '&level=' + (App.LEVEL + 1);
+        '?lang=' + Game.LANG + '&level=' + (Game.LEVEL + 1);
     } else {
     	console.log('Last level!!!!')
     }
