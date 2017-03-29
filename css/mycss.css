@@ -98,14 +98,15 @@ img {
 	width:500px;
 	/*border:1px solid #000;*/
 	float: left;
-	z-index: -1;
+/*	z-index: -1;*/
+	position: relative;
 }
 /*积木块工作区*/
 .cont_inner_right{
 	height:600px;
 	width:700px;
 	float: right;
-	z-index: -1;
+/*	z-index: -1;*/
 }
 #workspce_block{
 	position: relative;
@@ -119,12 +120,7 @@ img {
 	height:500px;
 	width:500px;
 }
-.game_view canvas{
-	height:500px;
-	width:500px;
-	/*background-color: #0889C9;*/
-	z-index: -1;
-}
+
 .buttonbox{
 	height:100px;
 	width:500px;

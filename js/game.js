@@ -224,15 +224,31 @@ Game.renderContent = function() {
  */
 Game.displayLevelLink = function() {
 	var levelLink = document.getElementById('levelLink');
-	var a = null;
-	for(var i = 1; i <= Game.MAX_LEVEL; ++i){
+	var a = null,
+		button = null;
+
+	var wateraction = function() {
+		var cur = $(this);
+		var dest = cur.position().left;
+		var t = 0.4;
+		TweenMax.to($('.select'), t, { x: dest, ease: Back.easeOut });
+		$('.select').html(cur.html());
+	};
+
+	for(var i = 1; i <= Game.MAX_LEVEL; ++i) {
 		a = document.createElement('a');
 		a.innerHTML = i;
 		a.href = '?lang=' + Game.LANG + '&level=' + i;
+		a.addEventListener('mouseover', wateraction);
 		a.classList.add('levelbtn');
-//		if( i === Game.LEVEL){
-//			a.classList.add('levelactive');
-//		}
+		//button = document.createElement('button');
+		//button.type = 'button';
+		//button.classList.add('levelbtn');
+		//button.addEventListener('click', wateraction);
+		//button.appendChild(a);
+		//		if( i === Game.LEVEL){
+		//			a.classList.add('levelactive');
+		//		}
 		levelLink.appendChild(a);
 	}
 };
@@ -306,7 +322,7 @@ Game.initWorkspace = function() {
 		function(m, p1) { return MSG[p1]; });
 	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
 
-	Game.workspace = Blockly.inject('blocklyDiv', {
+	Game.workspace = Blockly.inject('workspce_block', {
 		grid: {
 			spacing: 25,
 			length: 3,

@@ -5,8 +5,8 @@ var Painting = {};
 /**
  * Width and height of canvas.
  */
-Painting.WIDTH = 400;
-Painting.HEIGHT = 400;
+Painting.WIDTH = 500;
+Painting.HEIGHT = 500;
 
 /**
  * Block type each level need.
@@ -65,7 +65,7 @@ Painting.init = function() {
 	var bgImg = new Image();
 	bgImg.src = 'img/bg.jpg';
 	bgImg.onload = function() {
-		Painting.ctxDisplay.drawImage(this, 0, 0);
+		Painting.ctxDisplay.drawImage(this, 0, 0, Painting.WIDTH, Painting.HEIGHT);
 	};	
 	
 	// Initialize pen width and pen color.
