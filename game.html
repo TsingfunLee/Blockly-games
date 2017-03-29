@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<title>积木块编程工具</title>
 		<link href="css/reset.css" rel="stylesheet" />
-		<link href="css/default.css" rel="stylesheet" />
+		<link href="css/mycss.css" rel="stylesheet" />
 		
 		<script type="text/javascript" src="blockly/blockly_uncompressed.js"></script>
 		<!-- Begin define blocks -->
@@ -57,6 +57,10 @@
 		<link rel="stylesheet" href="prettify/prettify.css" />
 		<script type="text/javascript" src="prettify/prettify.js"></script>
 		<!-- End syntax hightlight -->
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/TweenMax.min.js"></script>
+		<script src="js/wateraction.js"></script>
 
 		<!-- JS-Interpreter -->
 		<script type="text/javascript" src="js/lib/acorn_interpreter.js"></script>
@@ -65,86 +69,63 @@
 		<!--<script type="text/javascript" src="js/maze.js"></script>-->
 		<script type="text/javascript" src="js/painting.js"></script>
 		
-		<!-- Disable right-click menu -->
-		<script type="text/javascript">
-//			if(window.Event)
-//				document.captureEvents(Event.MOUSEUP);
-
-			function nocontextmenu() {
-				event.cancelBubble = true;
-				event.returnValue = false;
-
-				return false;
-			}
-
-			function norightclick(e) {
-				if(window.Event) {
-					if(e.which == 2 || e.which == 3)
-						return false;
-				} else if(event.button == 2 || event.button == 3) {
-					event.cancelBubble = true;
-					event.returnValue = false;
-					return false;
-				}
-
-			}
-
-			document.oncontextmenu = nocontextmenu;  // for IE5+
-			document.onmousedown = norightclick;     // for all others
-		</script>
 	</head>
 
 	<body>
-		<!-- Begin menu bar -->
-		<div class="bar">
-			<select id="languageMenu">
-				<option>中文</option>
-				<option>English</option>
-			</select>
-			
-			<button type="button" id="playBtn" class="bar-btn">Play</button>
-			<button type="button" id="resetBtn" class="bar-btn">Reset</button>
-			
-			<div id="levelLink"></div>
+		<div class="toolbar">
+			<div id="top_tool">
+				主页等按钮
+			</div>
+			<div class="styled-select">
+				<select id="languageMenu">
+					<option>中文</option>
+					<option>English</option>
+				</select>
+			</div>
 		</div>
-		<!-- End menu bar -->
-		
-		<!-- Begin main area -->
-		<div class="workplace">
-			<div class="left">
-				<!-- Animation area that shows result from blocks -->
-				<div id="visilazation">
-				</div>
-				
-				<!-- Area that shows code -->
-				<div id="codeDiv">
-					<div id="tabs">
-						<div id="tab_javascript">JavaScript</div>
-						<div id="tab_python">Python</div>
-						<div id="tab_dart">Dart</div>
-						<div id="tab_php">PHP</div>
-						<div id="tab_lua">Lua</div>
+		<section class="container">
+			<div class="cont_main">
+				<div class="cont_inner_top">
+					<div id="innertop_name">
+						<h3>GAME:NAME</h3></div>
+					<div class="dots" id="levelLink">
+						<div class="select">1</div>
 					</div>
-					<pre id="content_javascript"></pre>
-					<pre id="content_python"></pre>
-					<pre id="content_dart"></pre>
-					<pre id="content_php"></pre>
-					<pre id="content_lua"></pre>
+					<section class="showcodeBox">
+						<button type="button" class="showcode">显示代码</button>
+					</section>
 				</div>
-			</div>
+				<div class="cont_inner_left">
+					<div class="game_view" id="visilazation">
+						<canvas></canvas>
 
-			<!-- Blockly programming area -->
-			<div class="right">
-				<div id="blocklyDiv"></div>
-			</div>
-		</div>
-		<!-- End main area -->
+					</div>
+					<div class="buttonbox">
+						<button type="button" class="runbtn" id="playBtn">运行</button>
+						<button type="button" class="resetbtn" id="resetBtn">重置</button>
+					</div>
 
-		<xml id="toolbox">
-			<!--<block type="action_forward"></block>
-			<block type="action_turnright"></block>
-			<block type="action_turnleft"></block>-->
-		</xml>
+				</div>
+				<div class="cont_inner_right">
+					<div id="workspce_block" class="content_b"></div>
+				</div>
+
+			</div>
+			<xml id="toolbox" style="display: none"></xml>
+
+		</section>
+		<script src="js/btn.js" async="true"></script>
+		<script>
+			var menubar = document.getElementsByClassName('toolbar')[0];
+			window.addEventListener('mousewheel', function(event) {
+				if(event.deltaY > 0) {
+					menubar.classList.add('anim');
+				}
+				if(event.deltaY <= 0) {
+					menubar.classList.remove('anim');
+				}
+			})
+		</script>
 			
 	</body>
 

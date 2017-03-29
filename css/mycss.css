@@ -1,0 +1,309 @@
+/*重置默认样式*/
+body,ul,li,p,h1,h2,h3,h4,h5,h6,img,br,hr,table,tr,td,dl,dt,dd,form {
+	    margin: 0;
+	    padding: 0;
+	}
+body {
+	   font:normal 100%  "微软雅黑",arial,sans-serif;
+	  /* overflow: hidden;*/
+	   height:100%;
+	}
+.clear {
+	    clear: both;
+	}
+ul,li {
+	    list-style: none;
+	}
+img {
+	    border: none;
+	}
+	
+/*顶部工具栏*/
+.toolbar{
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	top:0;
+	background-color: #FFFFFF;
+	box-shadow: 0 2px 10px #0889c9;
+	transition: height 0.5s ease-in;/*高度变化过度,0.5秒变化逐渐变快*/
+}
+/*头部滚动高度动画效果*/
+.anim{
+	height: 50px;
+	transition: height 0.5s ease-in;/*高度变化过度,0.5秒变化逐渐变快*/
+}
+#top_tool{
+	/*border:1px solid #434343;*/
+	height:100%;
+	width:90%;
+	float:left;
+}
+/*选择框的范围要比外面包围的底部div范围广,才能确保默认的向下箭头消失,使用自己的向下箭头*/
+.styled-select #languageMenu {
+   background: transparent;
+   width: 110px;
+   font-size: 18px;
+   color:#3eddfd;
+   padding-left: 4px;
+   border: 1px solid #e1f3fd;
+   border-radius: 4px;
+   height: 30px;
+   -webkit-appearance: none; /*for chrome*/
+   outline: none;
+}
+
+.styled-select {
+   width: 90px;
+   border-radius: 4px;
+   height: 30px;
+   overflow: hidden;
+   background: url(../img/select.png) no-repeat right  #e1f3fd;
+   position: absolute;
+   top: 25%;
+   right: 2%;
+  
+}
+/*大容器*/
+.container{
+	width:100%;
+	height: 840px;
+	position: absolute;
+	top:60px;
+	background-image:url(../img/backgroundimg.jpg);
+	background-size: cover;
+	z-index: -10;/*让图片显示在底层*/
+	
+}
+
+.cont_main{
+	width: 1204px;
+	height:660px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 30px;
+	background-color: #fff;
+	box-shadow: 0px 4px 18px  #0493FF;
+	z-index: -8;
+}
+/*关卡选择工具栏*/
+.cont_inner_top{
+	height:60px;
+	width:100%;
+	z-index: -1;
+}
+/*游戏区域*/
+.cont_inner_left{
+	height:600px;
+	width:500px;
+	/*border:1px solid #000;*/
+	float: left;
+	z-index: -1;
+}
+/*积木块工作区*/
+.cont_inner_right{
+	height:600px;
+	width:700px;
+	float: right;
+	z-index: -1;
+}
+#workspce_block{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+#workspce_block .blocklyToolboxDiv{
+	width:300px;
+}
+.game_view{
+	height:500px;
+	width:500px;
+}
+.game_view canvas{
+	height:500px;
+	width:500px;
+	/*background-color: #0889C9;*/
+	z-index: -1;
+}
+.buttonbox{
+	height:100px;
+	width:500px;
+	background: url(../img/buttonbg.jpg);
+	bottom: 0;
+	z-index: -1;
+}
+.runbtn{
+	/*文字设置*/
+	color:#FFFFFF;
+	font-family: "微软雅黑";
+	font-size: 26px;
+	text-decoration: none;
+	text-align: center;
+	/*按钮样式*/
+	height: 45px;
+	width:95px;
+	border-radius: 22.5px;
+	padding: 0;
+	display: inline-block;
+    outline: none;
+    border:none;
+    cursor: pointer;
+	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
+    background: -moz-linear-gradient(top,  #0493ff,  #35dfff);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
+    /*位置设置*/
+    position:relative;
+    top:30%;
+    left:80%;
+    /*阴影设置*/
+   box-shadow: 1px 2px 10px  #0889C9;
+    z-index: 1;
+}
+.runbtn:hover,active{
+	box-shadow: none ;
+}
+.resetbtn{
+	/*文字设置*/
+	color:#FFFFFF;
+	font-family: "微软雅黑";
+	font-size: 26px;
+	text-decoration: none;
+	text-align: center;
+	/*按钮样式*/
+	height: 45px;
+	width:95px;
+	border-radius: 22.5px;
+	padding: 0;
+	display: inline-block;
+    outline: none;
+    border:none;
+    cursor: pointer;
+	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
+    background: -moz-linear-gradient(top,  #0493ff,  #35dfff);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
+    /*位置设置*/
+    position:relative;
+    top:30%;
+    left:60%;
+    /*阴影设置*/
+   box-shadow: 1px 2px 10px  #0889C9;
+    
+  z-index: 0;
+}
+.resetbtn:hover,active{
+	box-shadow: none;
+}
+.active {
+	visibility: visible;
+	/*box-shadow: none;*/
+}
+.hidden{
+	visibility: hidden;
+}
+
+/*主体的头部*/
+#innertop_name{
+	height:60px;
+	width:180px;
+	margin: 0;
+	color: #0493FF;
+	line-height: 60px;
+	text-align: center;
+	position: relative;
+	float: left;
+	top:0;
+}
+
+/*关卡按钮*/
+.dots{
+
+  /* -webkit-filter:blur(0.5px);*/
+   padding:0;
+   margin:0;
+   line-height: 60px;
+   position: relative;
+   float:left;
+   top:0;
+ }
+.levelbtn{
+	display:inline-block;
+    vertical-align:middle;
+	/*文字设置*/
+	color:#FFFFFF;
+	font-family: "微软雅黑";
+	font-size: 17px;
+	text-decoration: none;
+	text-align: center;
+	/*按钮样式*/
+	height: 30px;
+	width: 30px;
+	border-radius: 100%;
+	padding: 0;
+    outline: none;
+    border:none;
+    cursor: pointer;
+    background: #e1f3fd;
+    position:relative;
+    margin-left:20px;
+    z-index:2;
+ 
+}
+.levelactive{
+	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
+    background: -moz-linear-gradient(top,  #0493ff,  #35dfff);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
+}
+
+.select{
+   visibility: visible;
+   border-radius:100%;
+   width:40px;
+   height:40px;
+   /*background: -webkit-gradient(linear, left top, right bottom, from(#14b6ef), to(#38e8fb));
+   background: -moz-linear-gradient(top,  #14b6ef,  #38e8fb);
+   filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#14b6ef', endColorstr='#38e8fb');*/
+  background-color: #35dfff;
+   opacity:0.5;
+   border:none;
+   position:absolute;
+   z-index:3;
+   top:12px;
+   left:15px;
+   pointer-events:none;
+   color:#FFFFFF;
+   font-size: 17px;
+   font-family: "微软雅黑";
+}
+.showcodeBox{
+	float:right;
+	position: relative;
+	right:1.67%;
+	top:25%;
+}
+/*显示代码按钮*/
+.showcode{
+	/*文字设置*/
+	color:#FFFFFF;
+	font-family: "微软雅黑";
+	font-size: 18px;
+	text-decoration: none;
+	text-align: center;
+	/*按钮样式*/
+	height: 30px;
+	width:90px;
+	border-radius: 15px;
+	padding: 0;
+	display: inline-block;
+    outline: none;
+    border:none;
+    cursor: pointer;
+	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
+    background: -moz-linear-gradient(top,  #0493ff,  #35dfff);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
+
+    box-shadow: 1px 2px 10px  #0889C9;
+    z-index: 2;
+}
+.showcode:hover,active{
+	box-shadow: none;
+}

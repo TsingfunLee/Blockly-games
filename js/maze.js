@@ -179,11 +179,13 @@ Maze.init = function() {
 	var visilization = document.getElementById('visilazation');
 	var canvas = document.createElement('canvas');
 	canvas.id = 'canvas';
+	canvas.className = 'canvas';
 	visilization.appendChild(canvas);
 	Maze.context = canvas.getContext('2d');
 	
 	var canvasBg = document.createElement('canvas');
 	canvasBg.id = 'canvas-bg';
+	canvasBg.className = 'canvas';
 	visilization.appendChild(canvasBg);
 	Maze.contextBg = canvasBg.getContext('2d');
 
@@ -311,8 +313,12 @@ Maze.onresize = function() {
 	Blockly.svgResize(Game.workspace);
 };
 
+Maze.animate = function() {
+	
+};
+
 // core.
-Maze.moveforward = function() {		
+Maze.moveforward = function(id) {		
 	switch(Maze.DIRECTION){
 		case Maze.directionType.NORTH:
 			Maze.role.position.y -= 1;
@@ -338,7 +344,7 @@ Maze.moveforward = function() {
 	Maze.delta ++;
 	
 	Maze.context.save();
-	Maze.context.clearRect(Maze.role.lastPosition.x, Maze.role.lastPosition.y, Maze.SQUARE, Maze.SQUARE)
+	Maze.context.clearRect(Maze.role.lastPosition.x, Maze.role.lastPosition.y, Maze.SQUARE, Maze.SQUARE);
 	Maze.drawRole(Maze.role.position.x, Maze.role.position.y);
 	Maze.context.restore();
 	
@@ -349,7 +355,7 @@ Maze.moveforward = function() {
 	}
 };
 
-Maze.turnright = function() {
+Maze.turnright = function(id) {
 	Maze.context.save();
 	Maze.context.rotate(Math.PI / 2);	
 	Maze.context.translate(Maze.role.position.y - Maze.role.position.x, - (Maze.role.position.y + Maze.role.position.x));
@@ -362,7 +368,7 @@ Maze.turnright = function() {
 	Maze.DIRECTION = (Maze.DIRECTION + 1) % 4;
 };
 
-Maze.turnleft = function() {
+Maze.turnleft = function(id) {
 	Maze.context.save();
 	Maze.context.rotate(-Math.PI / 2);	
 	Maze.context.translate(- (Maze.role.position.y + Maze.role.position.x), Maze.role.position.x - Maze.role.position.y);
@@ -374,20 +380,14 @@ Maze.turnleft = function() {
 	Maze.DIRECTION = (Maze.DIRECTION + 3) % 4;
 };
 
-Maze.collect = function() {
+Maze.collect = function(id) {
 	var j = Maze.role.position.x / Maze.SQUARE,
 		i = Maze.role.position.y / Maze.SQUARE;
 	if(Maze.map[i][j] === Maze.pathType.PICK) {
 		Maze.count ++;	
-//		if(Game.number[Game.num] == 0) {
-//			Game.num ++;
-//		}
 		Maze.contextBg.save();
 		Maze.contextBg.clearRect(Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
-		Maze.contextBg.drawImage(Maze.earth, Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
-		//Game.context2.drawImage(Game.collection, Game.role.position.x, Game.role.position.y, Game.SQUARE, Game.SQUARE);
-		//Game.context2.fillText(--Game.number[Game.num], 
-		//j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);	
+		Maze.contextBg.drawImage(Maze.earth, Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);	
 		Maze.contextBg.restore();
 	}else {
 		alert('There is none!!!!');
@@ -432,10 +432,7 @@ Maze.checkWall = function(x, y) {
 Maze.checkResult = function(x, y) {
 	var i = Math.floor(y / Maze.SQUARE);
 	var j = Math.floor(x / Maze.SQUARE);
-	// The number of all pick-up stuff.
-//	var total = Game.number.reduce(function(acc, val) {
-//		return acc + val;
-//	});
+
 	console.log(i)
 	console.log(j)
 	console.log(Maze.map[i][j])
@@ -464,23 +461,27 @@ Maze.checkResult = function(x, y) {
  */
 Maze.initApi = function(interpreter, scope) {
 	// Add an API function for moveforward() block.
-	var wrapper = function() {
-		return interpreter.createPrimitive(Maze.moveforward());
+	var wrapper = function(id) {
+		id = id ? id.toString() : '';
+		return interpreter.createPrimitive(Maze.moveforward(id));
 	};
 	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));
 	
-	wrapper = function() {
-		return interpreter.createPrimitive(Maze.turnleft());
+	wrapper = function(id) {
+		id = id ? id.toString() : '';
+		return interpreter.createPrimitive(Maze.turnleft(id));
 	};
 	interpreter.setProperty(scope, 'turnleft', interpreter.createNativeFunction(wrapper));
 	
-	wrapper = function() {
-		return interpreter.createPrimitive(Maze.turnright());
+	wrapper = function(id) {
+		id = id ? id.toString() : '';
+		return interpreter.createPrimitive(Maze.turnright(id));
 	};
 	interpreter.setProperty(scope, 'turnright', interpreter.createNativeFunction(wrapper));
 	
-	wrapper = function() {
-		return interpreter.createPrimitive(Maze.collect());
+	wrapper = function(id) {
+		id = id ? id.toString() : '';
+		return interpreter.createPrimitive(Maze.collect(id));
 	};
 	interpreter.setProperty(scope, 'collect', interpreter.createNativeFunction(wrapper));
 };
@@ -491,7 +492,7 @@ Maze.initApi = function(interpreter, scope) {
  */
 Maze.excute = function(interpreter) {
 	if(interpreter.step() && Maze.result === Maze.resultType.UNSET) {
-		// Remenber last postion so that judge if the moving length is equal to side length of a square.
+		// Remenber last postion.
 		Maze.role.lastPosition = {
 			x: Maze.role.position.x,
 			y: Maze.role.position.y
@@ -521,12 +522,11 @@ Maze.play = function() {
 
 Maze.reset = function() {
 	// Clear canvas.
-	Maze.canvas.width = Maze.canvas.width;
+	Maze.context.clearRect(0, 0, Maze.WIDTH, Maze.HEIGHT);
 	Maze.initPath().then(Maze.initRole);
 	
 	Maze.setDirection();
 	Maze.setNum();
-//	Maze.num = 0;
 	Maze.count = 0;
 	
 	Maze.result = Maze.resultType.UNSET;

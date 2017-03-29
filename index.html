@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>My_Blockly-games</title>
+		<link href="css/reset.css" rel="stylesheet" type="text/css"/>
+		<link href="css/mycss.css" rel="stylesheet" type="text/css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/TweenMax.min.js"></script>
+		<script src="js/wateraction.js"></script>
+		<script src="js/btn.js"></script>
+	</head>
+
+	<body>
+		<div class="menubar">
+			<div id="top_tool">
+				主页等按钮
+			</div>
+			<div class="styled-select">
+				<select id="languageMenu">
+					<option>中文</option>
+					<option>English</option>
+				</select>
+			</div>
+		</div>
+		<section class="container">
+			<div class="cont_main">
+				<div class="cont_inner_top">
+					<div id="innertop_name">
+						<h3>GAME:NAME</h3></div>
+					<div class="dots">
+						<button type="button" class="select">1</button>
+						<button type="button" class="levelbtn">1</button>
+						<button type="button" class="levelbtn">2</button>
+						<button type="button" class="levelbtn">3</button>
+						<button type="button" class="levelbtn">4</button>
+						<button type="button" class="levelbtn">5</button>
+					</div>
+					<section class="showcodeBox">
+						<button type="button" class="showcode">显示代码</button>
+					</section>
+				</div>
+				<div class="cont_inner_left">
+					<div class="game_view">
+						<canvas></canvas>
+
+					</div>
+					<div class="buttonbox">
+						<button type="button" class="runbtn">运行</button>
+						<button type="button" class="resetbtn">重置</button>
+					</div>
+
+				</div>
+				<div class="cont_inner_right">
+					<div id="workspce_block" class="content_b"></div>
+				</div>
+
+			</div>
+			<xml id="toolbox" style="display: none"></xml>
+
+		</section>
+		<script src="js/btn.js" async="true"></script>
+		<script src="js/levelbtn.js" async="true"></script>
+		<script>
+			var menubar = document.getElementsByClassName('menubar')[0];
+			window.addEventListener('mousewheel', function(event) {
+				if(event.deltaY > 0) {
+					menubar.classList.add('anim');
+				}
+				if(event.deltaY <= 0) {
+					menubar.classList.remove('anim');
+				}
+			})
+		</script>
+	</body>
+
+</html>

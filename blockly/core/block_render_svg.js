@@ -614,15 +614,15 @@ Blockly.BlockSvg.prototype.renderDrawTop_ =
 //      Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_LTR);
     // Top-left rounded corner. 左上角的圆角。
     steps.push(Blockly.BlockSvg.TOP_LEFT_CORNER);
-//  highlightSteps.push(Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT);
+  //highlightSteps.push(Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT);
   }
 
   // Top edge. 顶边
   if (this.previousConnection) {
     steps.push('H', Blockly.BlockSvg.NOTCH_WIDTH - 16.5);
-//  highlightSteps.push('H', Blockly.BlockSvg.NOTCH_WIDTH - 15);
+ // highlightSteps.push('H', Blockly.BlockSvg.NOTCH_WIDTH - 15);
     steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
-//  highlightSteps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT);
+  //highlightSteps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT);
 
     var connectionX = (this.RTL ?
         -Blockly.BlockSvg.NOTCH_WIDTH : Blockly.BlockSvg.NOTCH_WIDTH);

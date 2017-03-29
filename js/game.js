@@ -229,10 +229,10 @@ Game.displayLevelLink = function() {
 		a = document.createElement('a');
 		a.innerHTML = i;
 		a.href = '?lang=' + Game.LANG + '&level=' + i;
-		a.classList.add('circle');
-		if( i === Game.LEVEL){
-			a.classList.add('selected');
-		}
+		a.classList.add('levelbtn');
+//		if( i === Game.LEVEL){
+//			a.classList.add('levelactive');
+//		}
 		levelLink.appendChild(a);
 	}
 };
@@ -359,6 +359,20 @@ Game.initToolbox = function(game) {
 		block.setAttribute('type', blocks[index]);
 		toolbox.appendChild(block);
 	}
+};
+
+/**
+ * Highlight the block (or clear highlighting).
+ * @param {?string} id ID of block that triggered this action.
+ */
+Game.highlight = function(id) {
+//	if (id) {
+//  	var m = id.match(/^block_id_([^']+)$/);
+//  	if (m) {
+//    		id = m[1];
+//  	}
+//	}
+  	Game.workspace.highlightBlock(id);
 };
 
 /**
