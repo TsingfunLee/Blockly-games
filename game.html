@@ -7,7 +7,7 @@
 		<link href="css/reset.css" rel="stylesheet" />
 		<link href="css/mycss.css" rel="stylesheet" />
 		<link href="css/default.css" rel="stylesheet" />
-		
+
 		<script type="text/javascript" src="blockly/blockly_uncompressed.js"></script>
 		<!-- Begin define blocks -->
 		<script type="text/javascript" src="blockly/blocks/variables.js"></script>
@@ -18,12 +18,12 @@
 		<script type="text/javascript" src="blockly/blocks/colour.js"></script>
 		<script type="text/javascript" src="blockly/blocks/math.js"></script>
 		<script type="text/javascript" src="blockly/blocks/procedures.js"></script>
-		
+
 		<!-- Custom blocks -->
 		<script type="text/javascript" src="blocks/action.js"></script>
 		<script type="text/javascript" src="blocks/brush.js"></script>
 		<!-- End difine blocks -->
-		
+
 		<!-- Begin generating code from blocks -->
 		<script type="text/javascript" src="blockly/generators/javascript.js"></script>
 		<script type="text/javascript" src="blockly/generators/javascript/logic.js"></script>
@@ -37,7 +37,7 @@
 		<!-- Custom JavaScript generators -->
 		<script type="text/javascript" src="generators/JavaScript/action.js"></script>
 		<script type="text/javascript" src="generators/JavaScript/brush.js"></script>
-		
+
 		<script type="text/javascript" src="blockly/generators/python.js"></script>
 		<script type="text/javascript" src="blockly/generators/python/colour.js"></script>
 		<script type="text/javascript" src="blockly/generators/python/lists.js"></script>
@@ -46,29 +46,29 @@
 		<script type="text/javascript" src="blockly/generators/python/math.js"></script>
 		<script type="text/javascript" src="blockly/generators/python/procedures.js"></script>
 		<script type="text/javascript" src="blockly/generators/python/text.js"></script>
-		<script type="text/javascript" src="blockly/generators/python/variables.js"></script>		
-		
+		<script type="text/javascript" src="blockly/generators/python/variables.js"></script>
+
 		<!-- End generating code from blocks -->
-		
+
 		<script type="text/javascript" src="blockly/msg/messages.js"></script>
 		<script type="text/javascript" src="msg/messages.js"></script>
-			
+
 		<!-- Begin syntax hightlight -->
 		<link rel="stylesheet" href="prettify/prettify.css" />
 		<script type="text/javascript" src="prettify/prettify.js"></script>
 		<!-- End syntax hightlight -->
-		
+
 		<script src="js/jquery.min.js"></script>
 		<script src="js/TweenMax.min.js"></script>
 		<script src="js/wateraction.js"></script>
 
 		<!-- JS-Interpreter -->
 		<script type="text/javascript" src="js/lib/acorn_interpreter.js"></script>
-					
-	    <script type="text/javascript" src="js/game.js"></script>
+
+		<script type="text/javascript" src="js/game.js"></script>
 		<!--<script type="text/javascript" src="js/maze.js"></script>-->
 		<script type="text/javascript" src="js/painting.js"></script>
-		
+
 	</head>
 
 	<body>
@@ -114,17 +114,29 @@
 		</section>
 		<script src="js/btn.js" async="true"></script>
 		<script>
+			var mousewheelEvent = window.navigator.appName === 'Netscape' ? 'DOMMouseScroll' : 'mousewheel';
+			console.log(navigator.appName)
 			var menubar = document.getElementsByClassName('toolbar')[0];
-			window.addEventListener('mousewheel', function(event) {
-				if(event.deltaY > 0) {
-					menubar.classList.add('anim');
+			window.addEventListener(mousewheelEvent, function(event) {
+				if(event.wheelDelta) {
+					if(event.deltaY > 0) {
+						menubar.classList.add('anim');
+					}
+					if(event.deltaY <= 0) {
+						menubar.classList.remove('anim');
+					}
+				} else if(event.detail) {
+					if(event.detail > 0) {
+						menubar.classList.add('anim');
+					}
+					if(event.detail <= 0) {
+						menubar.classList.remove('anim');
+					}
 				}
-				if(event.deltaY <= 0) {
-					menubar.classList.remove('anim');
-				}
+
 			});
 		</script>
-			
+
 	</body>
 
 </html>

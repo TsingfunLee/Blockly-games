@@ -146,7 +146,7 @@ Game.changeLanguage = function() {
 		languageMenu.options[languageMenu.selectedIndex].value);
 	var search = window.location.search;
 	if(search.length <= 1) {
-		search = '?lang=' + newLang;
+		search = '?lang=' + newLang + '&level=' + Game.LEVEL;
 	} else if(search.match(/[?&]lang=[^&]*/)) {
 		search = search.replace(/([?&]lang=)[^&]*/, '$1' + newLang);
 	} else {
@@ -241,11 +241,11 @@ Game.displayLevelLink = function() {
 		a.href = '?lang=' + Game.LANG + '&level=' + i;
 		a.addEventListener('mouseover', wateraction);
 		a.classList.add('levelbtn');
-		//button = document.createElement('button');
-		//button.type = 'button';
-		//button.classList.add('levelbtn');
-		//button.addEventListener('click', wateraction);
-		//button.appendChild(a);
+//		button = document.createElement('input');
+//		button.type = 'button';
+//		button.classList.add('levelbtn');
+//		button.addEventListener('click', wateraction);
+//		button.appendChild(a);
 		//		if( i === Game.LEVEL){
 		//			a.classList.add('levelactive');
 		//		}
@@ -258,7 +258,8 @@ Game.displayLevelLink = function() {
  */
 Game.init = function() {
 	Game.initLanguage();
-
+	Game.displayLevelLink();
+	
 	// Add to reserved word list: Local variables in execution environment (runJS)
 	// and the infinite loop detection function.
 	Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
@@ -269,9 +270,7 @@ Game.init = function() {
 		// Hook a save function onto unload.
 		BlocklyStorage.backupOnUnload(Game.workspace);
 	}
-	
-	Game.displayLevelLink();
-	
+		
 	// Switch to zero-based indexing so that later JS levels match the blocks.
     Blockly.Blocks && (Blockly.Blocks.ONE_BASED_INDEXING = false);
     Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
@@ -310,6 +309,7 @@ Game.initLanguage = function() {
 	// Inject language strings.
 	document.getElementById('playBtn').textContent = MSG['play'];
 	document.getElementById('resetBtn').textContent = MSG['reset'];
+	document.getElementsByClassName('showcode')[0].textContent = MSG['showcode'];
 };
 
 /**

@@ -22,5 +22,6 @@ var MSG = {
   hashError: "Sorry, '%1' doesn't correspond with any saved program.",
   
   play: "Play",
-  reset: "Reset"
+  reset: "Reset",
+  showcode: "Show Code"
 };

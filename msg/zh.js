@@ -22,5 +22,6 @@ var MSG = {
   hashError: "对不起，没有任何已保存的程序对应'%1' 。",
   
   play: "运行",
-  reset: "重置"
+  reset: "重置",
+  showcode: "显示代码"
 };

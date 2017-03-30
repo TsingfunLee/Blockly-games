@@ -286,15 +286,15 @@ img {
 	text-align: center;
 	/*按钮样式*/
 	height: 30px;
-	width:90px;
+/*	width:90px;*/
 	border-radius: 15px;
-	padding: 0;
+	padding: 0 10px 0 10px;
 	display: inline-block;
     outline: none;
     border:none;
     cursor: pointer;
 	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
-    background: -moz-linear-gradient(top,  #0493ff,  #35dfff);
+    background: -moz-linear-gradient(left,  #0493ff,  #35dfff);
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
 
     box-shadow: 1px 2px 10px  #0889C9;
