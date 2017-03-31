@@ -82,7 +82,7 @@ Maze.map = [
 	[0, 0, 0, 4, 1, 0, 1, 0],
 	[0, 0, 0, 0, 4, 1, 1, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0]	
+	[0, 0, 0, 0, 0, 0, 0, 0]
 ]][Game.LEVEL];
 
 /**
@@ -171,7 +171,7 @@ Maze.setNum = function() {
 			Maze.NUM = 4;
 			break;
 		default:
-			console.log('Level is undefined.');			
+			console.log('Level is undefined.');
 	}
 };
 
@@ -182,7 +182,7 @@ Maze.init = function() {
 	canvas.className = 'canvas';
 	visilization.appendChild(canvas);
 	Maze.context = canvas.getContext('2d');
-	
+
 	var canvasBg = document.createElement('canvas');
 	canvasBg.id = 'canvas-bg';
 	canvasBg.className = 'canvas';
@@ -194,13 +194,13 @@ Maze.init = function() {
 	canvas.height = Maze.HEIGHT;
 	canvasBg.width = Maze.WIDTH;
 	canvasBg.height = Maze.HEIGHT;
-	
+
 	Game.initToolbox(Maze);
 	Game.initWorkspace();
-	
+
 	Maze.setDirection();
 	Maze.setNum();
-	
+
 	// Set start point and finish point.
 	for (var i = 0, j = 0; i < Maze.ROWS; ++i) {
 		for (j = 0; j < Maze.COLS; ++j) {
@@ -220,8 +220,8 @@ Maze.init = function() {
 
 	Maze.initPath().then(Maze.initRole);
 
-	document.getElementById('playBtn').addEventListener('click', Maze.play);
-	document.getElementById('resetBtn').addEventListener('click', Maze.reset);
+	Game.bindClick(document.getElementById('playBtn'), Maze.play);
+	Game.bindClick(document.getElementById('resetBtn'), Maze.reset);
 
 	window.onresize = Maze.onresize;
 };
@@ -278,7 +278,7 @@ Maze.drawPath = function() {
 		for(j = 0; j < Maze.COLS; ++j) {
 			if(Maze.map[i][j] != Maze.pathType.WALL) {
 				Maze.contextBg.drawImage(Maze.earth, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
-			}			
+			}
 		}
 	}
 };
@@ -289,8 +289,8 @@ Maze.drawCollection = function() {
 		for (j = 0; j < Maze.COLS; ++j) {
 			if(Maze.map[i][j] === Maze.pathType.PICK) {
 				Maze.contextBg.drawImage(Maze.collection, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
-				//Game.context2.fillText(Game.number[k++], 
-				//j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);	
+				//Game.context2.fillText(Game.number[k++],
+				//j * Game.SQUARE + Game.SQUARE - 8, i * Game.SQUARE + Game.SQUARE - 5);
 			}
 		}
 	}
@@ -304,7 +304,7 @@ Maze.drawDestination = function() {
 				Maze.contextBg.drawImage(Maze.destination, j * Maze.SQUARE, i * Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
 			}
 		}
-	}	
+	}
 };
 
 
@@ -314,11 +314,11 @@ Maze.onresize = function() {
 };
 
 Maze.animate = function() {
-	
+
 };
 
 // core.
-Maze.moveforward = function(id) {		
+Maze.moveforward = function(id) {
 	switch(Maze.DIRECTION){
 		case Maze.directionType.NORTH:
 			Maze.role.position.y -= 1;
@@ -332,22 +332,22 @@ Maze.moveforward = function(id) {
 		case Maze.directionType.WEST:
 			Maze.role.position.x -= 1;
 			break;
-		default: 
+		default:
 			console.log(Maze.DIRECTION);
 			console.error('direction is wrong.');
 	}
-	
+
 	if(!Maze.checkWall(Maze.role.position.x, Maze.role.position.y)) {
-		return;	
+		return;
 	}
-	
+
 	Maze.delta ++;
-	
+
 	Maze.context.save();
 	Maze.context.clearRect(Maze.role.lastPosition.x, Maze.role.lastPosition.y, Maze.SQUARE, Maze.SQUARE);
 	Maze.drawRole(Maze.role.position.x, Maze.role.position.y);
 	Maze.context.restore();
-	
+
 	var raf = window.requestAnimationFrame(Maze.moveforward);
 	if(Maze.delta === Maze.SQUARE){
 		Maze.delta = 0;
@@ -357,12 +357,12 @@ Maze.moveforward = function(id) {
 
 Maze.turnright = function(id) {
 	Maze.context.save();
-	Maze.context.rotate(Math.PI / 2);	
+	Maze.context.rotate(Math.PI / 2);
 	Maze.context.translate(Maze.role.position.y - Maze.role.position.x, - (Maze.role.position.y + Maze.role.position.x));
 	Maze.context.clearRect(Maze.role.position.x, Maze.role.position.y - Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
 	Maze.drawRole(Maze.role.position.x, Maze.role.position.y - Maze.SQUARE);
 	Maze.context.restore();
-	
+
 	// Set current direction.
 	// direction 0 ~ 3.
 	Maze.DIRECTION = (Maze.DIRECTION + 1) % 4;
@@ -370,11 +370,11 @@ Maze.turnright = function(id) {
 
 Maze.turnleft = function(id) {
 	Maze.context.save();
-	Maze.context.rotate(-Math.PI / 2);	
+	Maze.context.rotate(-Math.PI / 2);
 	Maze.context.translate(- (Maze.role.position.y + Maze.role.position.x), Maze.role.position.x - Maze.role.position.y);
 	Maze.drawRole(Maze.role.position.x - Maze.SQUARE, Maze.role.position.y);
 	Maze.context.restore();
-	
+
 	// Set current direction.
 	// direction 0 ~ 3.
 	Maze.DIRECTION = (Maze.DIRECTION + 3) % 4;
@@ -384,10 +384,10 @@ Maze.collect = function(id) {
 	var j = Maze.role.position.x / Maze.SQUARE,
 		i = Maze.role.position.y / Maze.SQUARE;
 	if(Maze.map[i][j] === Maze.pathType.PICK) {
-		Maze.count ++;	
+		Maze.count ++;
 		Maze.contextBg.save();
 		Maze.contextBg.clearRect(Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
-		Maze.contextBg.drawImage(Maze.earth, Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);	
+		Maze.contextBg.drawImage(Maze.earth, Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
 		Maze.contextBg.restore();
 	}else {
 		alert('There is none!!!!');
@@ -407,7 +407,7 @@ Maze.checkWall = function(x, y) {
 	}else {
 		i = y / Maze.SQUARE;
 	}
-	
+
 	if(x < Maze.role.lastPosition.x) {
 		j = Math.floor(x / Maze.SQUARE);
 	}else if(x > Maze.role.lastPosition.x) {
@@ -415,7 +415,7 @@ Maze.checkWall = function(x, y) {
 	}else {
 		j = x / Maze.SQUARE;
 	}
-	
+
 	if(Maze.map[i][j] === Maze.pathType.WALL) {
 		console.log('Can\'t walking!!!!');
 		Maze.result = Maze.resultType.CRASH;
@@ -450,7 +450,7 @@ Maze.checkResult = function(x, y) {
 			if(Maze.count != Maze.NUM) {
 				console.log('Pick up all collection!')
 			}
-		}		
+		}
 	}
 };
 
@@ -466,19 +466,19 @@ Maze.initApi = function(interpreter, scope) {
 		return interpreter.createPrimitive(Maze.moveforward(id));
 	};
 	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));
-	
+
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
 		return interpreter.createPrimitive(Maze.turnleft(id));
 	};
 	interpreter.setProperty(scope, 'turnleft', interpreter.createNativeFunction(wrapper));
-	
+
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
 		return interpreter.createPrimitive(Maze.turnright(id));
 	};
 	interpreter.setProperty(scope, 'turnright', interpreter.createNativeFunction(wrapper));
-	
+
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
 		return interpreter.createPrimitive(Maze.collect(id));
@@ -515,7 +515,7 @@ Maze.play = function() {
 	} catch(e) {
 		alert(MSG['badCode'].replace('%1', e));
 	}
-	
+
 	document.getElementById('resetBtn').style.visibility = 'visible';
 	document.getElementById('playBtn').style.visibility = 'hidden';
 };
@@ -524,20 +524,20 @@ Maze.reset = function() {
 	// Clear canvas.
 	Maze.context.clearRect(0, 0, Maze.WIDTH, Maze.HEIGHT);
 	Maze.initPath().then(Maze.initRole);
-	
+
 	Maze.setDirection();
 	Maze.setNum();
 	Maze.count = 0;
-	
+
 	Maze.result = Maze.resultType.UNSET;
-	
+
 	document.getElementById('playBtn').style.visibility = 'visible';
 	document.getElementById('resetBtn').style.visibility = 'hidden';
 };
 
 Maze.nextLevel = function() {
     if (Game.LEVEL < Game.MAX_LEVEL) {
-        window.location = window.location.protocol + '//' + 
+        window.location = window.location.protocol + '//' +
         window.location.host + window.location.pathname +
         '?lang=' + Game.LANG + '&level=' + (Game.LEVEL + 1);
     } else {

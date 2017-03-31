@@ -5,17 +5,17 @@
 }
 
 #canvas{
-	z-index: 2;
+	z-index: 1;
 }
 
 #canvas-bg{
 	z-index: 0;
 }
 
-#canvas-answer{
-	z-index: 1;
+#canvas-scratch{
+	display: none;
 }
 
-#canvas-display{
-	z-index: 0;
+#canvas-answer{
+	display: none;
 }

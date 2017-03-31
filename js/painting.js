@@ -38,13 +38,18 @@ Painting.DEFAULT_LINEWIDTH = 5;
 Painting.DEFAULT_COLOR = 'white';
 Painting.DEFAULT_DIS = 100;
 
+/**
+* Number of milliseconds that execution should delay.
+*/
+Painting.PAUSE = 500;
+
 Painting.init = function() {
 	var visilization = document.getElementById('visilazation');
-	var canvas = document.createElement('canvas');
-	canvas.id = 'canvas';
-	canvas.className = 'canvas';
-	visilization.appendChild(canvas);
-	Painting.ctxUser = canvas.getContext('2d');
+	var canvasScratch = document.createElement('canvas');
+	canvasScratch.id = 'canvas-scratch';
+	canvasScratch.className = 'canvas';
+	visilization.appendChild(canvasScratch);
+	Painting.ctxScratch = canvasScratch.getContext('2d');
 
 	var canvasAnswer = document.createElement('canvas');
 	canvasAnswer.id = 'canvas-answer';
@@ -59,8 +64,8 @@ Painting.init = function() {
 	Painting.ctxDisplay = canvasDisplay.getContext('2d');
 
 	// Set width and height of canvas.
-	canvas.width = Painting.WIDTH;
-	canvas.height = Painting.HEIGHT;
+	canvasScratch.width = Painting.WIDTH;
+	canvasScratch.height = Painting.HEIGHT;
 	canvasAnswer.width = Painting.WIDTH;
 	canvasAnswer.height = Painting.HEIGHT;
 	canvasDisplay.width = Painting.WIDTH;
@@ -74,40 +79,38 @@ Painting.init = function() {
 	};
 
 	// Initialize pen width and pen color.
-	Painting.ctxUser.lineWidth = Painting.DEFAULT_LINEWIDTH;
-	Painting.ctxUser.strokeStyle = Painting.DEFAULT_COLOR;
+	Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
+	Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
 	Painting.ctxAnswer.lineWidth = Painting.DEFAULT_LINEWIDTH;
 	Painting.ctxAnswer.strokeStyle = Painting.DEFAULT_COLOR;
 	Painting.ctxDisplay.lineWidth = Painting.DEFAULT_LINEWIDTH;
 	Painting.ctxDisplay.strokeStyle = Painting.DEFAULT_COLOR;
 
-	// Set initial point in focus of canvas.
-	Painting.ctxUser.moveTo(Painting.WIDTH / 2, Painting.HEIGHT / 2);
-	Painting.ctxAnswer.moveTo(Painting.WIDTH / 2, Painting.HEIGHT / 2);
-	Painting.ctxDisplay.moveTo(Painting.WIDTH / 2, Painting.HEIGHT / 2);
+	// Initial pen x/y coodinates.
+	Painting.x = Painting.WIDTH / 2;
+	Painting.y = Painting.HEIGHT / 2;
 
-	// Initial pen position.
-	Painting.position = {
-		x: Painting.WIDTH / 2,
-		y: Painting.HEIGHT / 2
-	};
+	// Set initial point in focus of canvas.
+	Painting.ctxScratch.moveTo(Painting.x, Painting.y);
+	Painting.ctxAnswer.moveTo(Painting.x, Painting.y);
+	Painting.ctxDisplay.moveTo(Painting.x, Painting.y);
 
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
 
-	Painting.initAnswer();
+	Painting.drawAnswer();
+	Painting.reset();
 
-	document.getElementById('playBtn').addEventListener('click', Painting.run);
-	document.getElementById('resetBtn').addEventListener('click', Painting.reset);
+	Game.bindClick(document.getElementById('playBtn'), Painting.run);
+	Game.bindClick(document.getElementById('resetBtn'), Painting.reset);
 };
 
 Painting.initAnswer = function() {
 	switch(Game.LEVEL){
 		case 1:
-			Painting.move(0);
-			Painting.move(1);
-			Painting.move(2);
-			Painting.move(3);
+			Painting.move();
+			Painting.heading = 90;
+			Painting.move();
 			break;
 		case 2:
 		case 3:
@@ -119,53 +122,124 @@ Painting.initAnswer = function() {
 };
 
 /**
-* Animate pidList.
-*/
-Painting.animate = function() {
-	var raf;
-	var position = Painting.pidList.shift();
-
-	Painting.ctxDisplay.lineTo(position.x, position.y);
-	raf = window.requestAnimationFrame(Painting.animate);
-
-	if(Painting.pidList.length === 0){
-		window.cancelAnimationFrame(raf);
-		Painting.ctxDisplay.stroke();
-	}
+ * On startup draw the expected answer and save it to the answer canvas.
+ */
+Painting.drawAnswer = function() {
+  Painting.reset();
+  Painting.initAnswer();
+  Painting.ctxAnswer.globalCompositeOperation = 'copy';
+  Painting.ctxAnswer.drawImage(Painting.ctxScratch.canvas, 0, 0);
+  Painting.ctxAnswer.globalCompositeOperation = 'source-over';
 };
 
 /**
- * @param {Number} direction
- */
-Painting.move = function(direction) {
-	switch(direction){
-		case Painting.direction.NORTH:
-			Painting.position.y -= Painting.DEFAULT_DIS;
-			//console.log(Painting.position);
-			break;
-		case Painting.direction.EAST:
-			Painting.position.x += Painting.DEFAULT_DIS;
-			break;
-		case Painting.direction.SOUTH:
-			Painting.position.y += Painting.DEFAULT_DIS;
-			break;
-		case Painting.direction.WEST:
-			Painting.position.x -= Painting.DEFAULT_DIS;
-			break;
-	}
-	Painting.pidList.push({x:Painting.position.x,y:Painting.position.y})
+*
+*/
+Painting.display = function() {
+  // Draw the answer layer.
+  Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+  Painting.ctxDisplay.globalAlpha = 0.2;
+  Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
+  Painting.ctxDisplay.globalAlpha = 1;
+
+  // Draw the user layer.
+  Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+  Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
 };
 
-Painting.excute = function() {
+/**
+* Animate pidList.
+*/
+Painting.animate = function(id) {
+	Painting.display();
+  if (id) {
+    BlocklyInterface.highlight(id);
+    // Scale the speed non-linearly, to give better precision at the fast end.
+    // var stepSpeed = 1000 * Math.pow(1 - Painting.speedSlider.getValue(), 2);
+    // Painting.pause = Math.max(1, stepSpeed);
+  }
+};
 
+/**
+ *
+ */
+Painting.move = function(id) {
+	if (Painting.penDownValue) {
+    Painting.ctxScratch.beginPath();
+    Painting.ctxScratch.moveTo(Painting.x, Painting.y);
+  }
+  //if (distance) {
+    Painting.x += Painting.DEFAULT_DIS * Math.sin(2 * Math.PI * Painting.heading / 360);
+    Painting.y -= Painting.DEFAULT_DIS * Math.cos(2 * Math.PI * Painting.heading / 360);
+  //   var bump = 0;
+  // } else {
+  //   // WebKit (unlike Gecko) draws nothing for a zero-length line.
+  //   var bump = 0.1;
+  // }
+  if (Painting.penDownValue) {
+    Painting.ctxScratch.lineTo(Painting.x, Painting.y);
+    Painting.ctxScratch.stroke();
+  }
+  Painting.animate(id);
+};
+
+/**
+ * API added to interpreter.
+ * @param {Interpreter} JS interpreter.
+ * @param {Object} scope.
+ */
+Painting.initApi = function(interpreter, scope) {
+	var wrapper = function(id) {
+		id = id ? id.toString() : '';
+		Painting.heading = 0;
+		return interpreter.createPrimitive(Painting.move(id));
+	};
+	interpreter.setProperty(scope, 'movenorth',
+		interpreter.createNativeFunction(wrapper));
+
+	wrapper = function(id) {
+		id = id ? id.toString() : '';
+		Painting.heading = 90;
+		return interpreter.createPrimitive(Painting.move(id));
+	};
+	interpreter.setProperty(scope, 'moveeast',
+		interpreter.createNativeFunction(wrapper));
+};
+
+Painting.excute = function(interpreter) {
+	if (interpreter.step()) {
+		Painting.animate();
+		window.setTimeout(function(){
+			Painting.excute(interpreter);
+		}, Painting.PUASE);
+	}
 };
 
 Painting.run = function() {
-	Painting.animate();
+	var code = Blockly.JavaScript.workspaceToCode(Game.workspace);
+	Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+	var interpreter = new Interpreter(code, Painting.initApi);
+	try {
+		Painting.excute(interpreter);
+	} catch(e) {
+		alert(MSG['badCode'].replace('%1', e));
+	}
 };
 
 Painting.reset = function() {
+  // Starting location and heading of the pen.
+  Painting.x = Painting.HEIGHT / 2;
+  Painting.y = Painting.WIDTH / 2;
+  Painting.heading = 0;
+  Painting.penDownValue = true;
 
+  // Clear the canvas.
+  Painting.ctxScratch.canvas.width = Painting.ctxScratch.canvas.width;
+  Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
+  //Painting.ctxScratch.fillStyle = '#ffffff';
+  Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
+  Painting.ctxScratch.lineCap = 'round';
+  Painting.display();
 };
 
 window.addEventListener('load', Painting.init);

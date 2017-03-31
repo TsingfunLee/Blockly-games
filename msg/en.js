@@ -20,8 +20,8 @@ var MSG = {
   httpRequestError: "There was a problem with the request.",
   linkAlert: "Share your blocks with this link:\n\n%1",
   hashError: "Sorry, '%1' doesn't correspond with any saved program.",
-  
-  play: "Play",
+
+  play: "Run",
   reset: "Reset",
-  showcode: "Show Code"
+  showcode: "Toggle Code"
 };

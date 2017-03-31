@@ -17,7 +17,7 @@ ul,li {
 img {
 	    border: none;
 	}
-	
+
 /*顶部工具栏*/
 .toolbar{
 	width: 100%;
@@ -62,7 +62,7 @@ img {
    position: absolute;
    top: 25%;
    right: 2%;
-  
+
 }
 /*大容器*/
 .container{
@@ -73,7 +73,7 @@ img {
 	background-image:url(../img/backgroundimg.jpg);
 	background-size: cover;
 	z-index: -10;/*让图片显示在底层*/
-	
+
 }
 
 .cont_main{
@@ -183,7 +183,7 @@ img {
     left:60%;
     /*阴影设置*/
    box-shadow: 1px 2px 10px  #0889C9;
-    
+
   z-index: 0;
 }
 .resetbtn:hover,active{
@@ -242,7 +242,7 @@ img {
     position:relative;
     margin-left:20px;
     z-index:2;
- 
+
 }
 .levelactive{
 	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
