@@ -27,8 +27,8 @@ Painting.direction = {
 };
 
 /**
-* Frame schedules of animation.
-*/
+ * Frame schedules of animation.
+ */
 Painting.pidList = [];
 
 /**
@@ -39,8 +39,8 @@ Painting.DEFAULT_COLOR = 'white';
 Painting.DEFAULT_DIS = 100;
 
 /**
-* Number of milliseconds that execution should delay.
-*/
+ * Number of milliseconds that execution should delay.
+ */
 Painting.PAUSE = 500;
 
 Painting.init = function() {
@@ -71,13 +71,6 @@ Painting.init = function() {
 	canvasDisplay.width = Painting.WIDTH;
 	canvasDisplay.height = Painting.HEIGHT;
 
-	// Display backgroung.
-	var bgImg = new Image();
-	bgImg.src = 'img/bg.jpg';
-	bgImg.onload = function() {
-		Painting.ctxDisplay.drawImage(this, 0, 0, Painting.WIDTH, Painting.HEIGHT);
-	};
-
 	// Initialize pen width and pen color.
 	Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
 	Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
@@ -98,15 +91,23 @@ Painting.init = function() {
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
 
-	Painting.drawAnswer();
-	Painting.reset();
+	// Display backgroung.
+	var bgImg = new Image();
+	bgImg.src = 'img/bg.jpg';
+	bgImg.onload = function() {		
+		Painting.ctxDisplay.drawImage(this, 0, 0, Painting.WIDTH, Painting.HEIGHT);
+	
+		
+		Painting.drawAnswer();
+	};
 
 	Game.bindClick(document.getElementById('playBtn'), Painting.run);
 	Game.bindClick(document.getElementById('resetBtn'), Painting.reset);
 };
 
 Painting.initAnswer = function() {
-	switch(Game.LEVEL){
+//	Painting.ctxScratch.globalAlpha = 0.2
+	switch(Game.LEVEL) {
 		case 1:
 			Painting.move();
 			Painting.heading = 90;
@@ -125,62 +126,65 @@ Painting.initAnswer = function() {
  * On startup draw the expected answer and save it to the answer canvas.
  */
 Painting.drawAnswer = function() {
-  Painting.reset();
-  Painting.initAnswer();
-  Painting.ctxAnswer.globalCompositeOperation = 'copy';
-  Painting.ctxAnswer.drawImage(Painting.ctxScratch.canvas, 0, 0);
-  Painting.ctxAnswer.globalCompositeOperation = 'source-over';
+	Painting.reset();
+	Painting.initAnswer();
+	Painting.ctxAnswer.globalCompositeOperation = 'copy';
+	Painting.ctxAnswer.drawImage(Painting.ctxScratch.canvas, 0, 0);
+	Painting.ctxAnswer.globalCompositeOperation = 'source-over';
 };
 
 /**
-*
-*/
+ *
+ */
 Painting.display = function() {
-  // Draw the answer layer.
-  Painting.ctxDisplay.globalCompositeOperation = 'source-over';
-  Painting.ctxDisplay.globalAlpha = 0.2;
-  Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
-  Painting.ctxDisplay.globalAlpha = 1;
+	// Draw the answer layer.
+	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+//	Painting.ctxDisplay.globalAlpha = 0.2;
+//	Painting.ctxDisplay.beginPath()
+//	Painting.ctxDisplay.rect(0, 0, 100, 100)
+//	Painting.ctxDisplay.stroke()
+	Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
+	Painting.ctxDisplay.globalAlpha = 1;
 
-  // Draw the user layer.
-  Painting.ctxDisplay.globalCompositeOperation = 'source-over';
-  Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
+	// Draw the user layer.
+	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+	Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
 };
 
 /**
-* Animate pidList.
-*/
+ * Animate pidList.
+ */
 Painting.animate = function(id) {
 	Painting.display();
-  if (id) {
-    BlocklyInterface.highlight(id);
-    // Scale the speed non-linearly, to give better precision at the fast end.
-    // var stepSpeed = 1000 * Math.pow(1 - Painting.speedSlider.getValue(), 2);
-    // Painting.pause = Math.max(1, stepSpeed);
-  }
+	if(id) {
+		BlocklyInterface.highlight(id);
+		// Scale the speed non-linearly, to give better precision at the fast end.
+		// var stepSpeed = 1000 * Math.pow(1 - Painting.speedSlider.getValue(), 2);
+		// Painting.pause = Math.max(1, stepSpeed);
+	}
 };
 
 /**
  *
  */
 Painting.move = function(id) {
-	if (Painting.penDownValue) {
-    Painting.ctxScratch.beginPath();
-    Painting.ctxScratch.moveTo(Painting.x, Painting.y);
-  }
-  //if (distance) {
-    Painting.x += Painting.DEFAULT_DIS * Math.sin(2 * Math.PI * Painting.heading / 360);
-    Painting.y -= Painting.DEFAULT_DIS * Math.cos(2 * Math.PI * Painting.heading / 360);
-  //   var bump = 0;
-  // } else {
-  //   // WebKit (unlike Gecko) draws nothing for a zero-length line.
-  //   var bump = 0.1;
-  // }
-  if (Painting.penDownValue) {
-    Painting.ctxScratch.lineTo(Painting.x, Painting.y);
-    Painting.ctxScratch.stroke();
-  }
-  Painting.animate(id);
+	if(Painting.penDownValue) {
+		Painting.ctxScratch.beginPath();
+		Painting.ctxScratch.moveTo(Painting.x, Painting.y);
+	}
+	//if (distance) {
+	Painting.x += Painting.DEFAULT_DIS * Math.sin(2 * Math.PI * Painting.heading / 360);
+	Painting.y -= Painting.DEFAULT_DIS * Math.cos(2 * Math.PI * Painting.heading / 360);
+	//   var bump = 0;
+	// } else {
+	//   // WebKit (unlike Gecko) draws nothing for a zero-length line.
+	//   var bump = 0.1;
+	// }
+	if(Painting.penDownValue) {
+		Painting.ctxScratch.lineTo(Painting.x, Painting.y);
+		Painting.ctxScratch.stroke();
+	}
+	Painting.animate(id);
 };
 
 /**
@@ -207,9 +211,9 @@ Painting.initApi = function(interpreter, scope) {
 };
 
 Painting.excute = function(interpreter) {
-	if (interpreter.step()) {
+	if(interpreter.step()) {
 		Painting.animate();
-		window.setTimeout(function(){
+		window.setTimeout(function() {
 			Painting.excute(interpreter);
 		}, Painting.PUASE);
 	}
@@ -227,19 +231,20 @@ Painting.run = function() {
 };
 
 Painting.reset = function() {
-  // Starting location and heading of the pen.
-  Painting.x = Painting.HEIGHT / 2;
-  Painting.y = Painting.WIDTH / 2;
-  Painting.heading = 0;
-  Painting.penDownValue = true;
+	// Starting location and heading of the pen.
+	Painting.x = Painting.HEIGHT / 2;
+	Painting.y = Painting.WIDTH / 2;
+	Painting.heading = 0;
+	Painting.penDownValue = true;
 
-  // Clear the canvas.
-  Painting.ctxScratch.canvas.width = Painting.ctxScratch.canvas.width;
-  Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
-  //Painting.ctxScratch.fillStyle = '#ffffff';
-  Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
-  Painting.ctxScratch.lineCap = 'round';
-  Painting.display();
+	// Clear the canvas.
+	Painting.ctxScratch.canvas.width = Painting.ctxScratch.canvas.width;
+	Painting.ctxScratch.globalAlpha = 0.2;
+	Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
+	//Painting.ctxScratch.fillStyle = '#ffffff';
+	Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
+	Painting.ctxScratch.lineCap = 'round';
+	Painting.display();
 };
 
 window.addEventListener('load', Painting.init);
