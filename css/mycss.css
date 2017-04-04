@@ -157,6 +157,8 @@ img {
 }
 .runbtn:hover,active{
 	box-shadow: none ;
+	/*transition: background-color 1s linear;
+	background: -webkit-gradient(linear, left top, right bottom, from(#35dfff), to(#0493ff));*/
 }
 .resetbtn{
 	/*文字设置*/

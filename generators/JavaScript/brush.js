@@ -16,6 +16,14 @@ Blockly.JavaScript['brush_move_east'] = function(block) {
 	return 'moveeast(\'' + block.id + '\');\n';
 };
 
+Blockly.JavaScript['brush_move_south'] = function(block) {
+	return 'movesouth(\'' + block.id + '\');\n';
+};
+
+Blockly.JavaScript['brush_move_west'] = function(block) {
+	return 'movewest(\'' + block.id + '\');\n';
+};
+
 Blockly.JavaScript['brush_moveforward'] = function(block) {
 	return 'moveforward(\'' + block.id + '\');\n';
 };

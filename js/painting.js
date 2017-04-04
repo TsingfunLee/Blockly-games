@@ -27,11 +27,6 @@ Painting.direction = {
 };
 
 /**
- * Frame schedules of animation.
- */
-Painting.pidList = [];
-
-/**
  * Default pen constants.
  */
 Painting.DEFAULT_LINEWIDTH = 5;
@@ -41,7 +36,7 @@ Painting.DEFAULT_DIS = 100;
 /**
  * Number of milliseconds that execution should delay.
  */
-Painting.PAUSE = 500;
+Painting.pause = 100;
 
 Painting.init = function() {
 	var visilization = document.getElementById('visilazation');
@@ -62,6 +57,13 @@ Painting.init = function() {
 	canvasDisplay.className = 'canvas';
 	visilization.appendChild(canvasDisplay);
 	Painting.ctxDisplay = canvasDisplay.getContext('2d');
+	
+	// Background image.
+	var img = document.createElement('img');
+	img.src = 'img/bg.jpg';
+	img.width = Painting.WIDTH;
+	img.height = Painting.HEIGHT;
+	visilization.appendChild(img);
 
 	// Set width and height of canvas.
 	canvasScratch.width = Painting.WIDTH;
@@ -71,35 +73,22 @@ Painting.init = function() {
 	canvasDisplay.width = Painting.WIDTH;
 	canvasDisplay.height = Painting.HEIGHT;
 
-	// Initialize pen width and pen color.
-	Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
-	Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
-	Painting.ctxAnswer.lineWidth = Painting.DEFAULT_LINEWIDTH;
-	Painting.ctxAnswer.strokeStyle = Painting.DEFAULT_COLOR;
-	Painting.ctxDisplay.lineWidth = Painting.DEFAULT_LINEWIDTH;
-	Painting.ctxDisplay.strokeStyle = Painting.DEFAULT_COLOR;
-
-	// Initial pen x/y coodinates.
-	Painting.x = Painting.WIDTH / 2;
-	Painting.y = Painting.HEIGHT / 2;
-
-	// Set initial point in focus of canvas.
-	Painting.ctxScratch.moveTo(Painting.x, Painting.y);
-	Painting.ctxAnswer.moveTo(Painting.x, Painting.y);
-	Painting.ctxDisplay.moveTo(Painting.x, Painting.y);
+//	// Set initial point in focus of canvas.
+//	Painting.ctxScratch.moveTo(Painting.x, Painting.y);
+//	Painting.ctxAnswer.moveTo(Painting.x, Painting.y);
+//	Painting.ctxDisplay.moveTo(Painting.x, Painting.y);
 
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
 
 	// Display backgroung.
-	var bgImg = new Image();
-	bgImg.src = 'img/bg.jpg';
-	bgImg.onload = function() {		
-		Painting.ctxDisplay.drawImage(this, 0, 0, Painting.WIDTH, Painting.HEIGHT);
-	
-		
+//	Painting.bgImg = new Image();
+//	Painting.bgImg.src = 'img/bg.jpg';
+//	img.onload = function() {				
 		Painting.drawAnswer();
-	};
+		Painting.reset();
+//	};
+	
 
 	Game.bindClick(document.getElementById('playBtn'), Painting.run);
 	Game.bindClick(document.getElementById('resetBtn'), Painting.reset);
@@ -110,7 +99,11 @@ Painting.initAnswer = function() {
 	switch(Game.LEVEL) {
 		case 1:
 			Painting.move();
-			Painting.heading = 90;
+			Painting.heading += 90;
+			Painting.move();
+			Painting.heading += 90;
+			Painting.move();
+			Painting.heading += 90;
 			Painting.move();
 			break;
 		case 2:
@@ -137,12 +130,13 @@ Painting.drawAnswer = function() {
  *
  */
 Painting.display = function() {
+	// Draw the background.
+//	Painting.ctxDisplay.drawImage(Painting.bgImg, 0, 0, Painting.WIDTH, Painting.HEIGHT);	
+	Painting.ctxDisplay.canvas.width = Painting.ctxDisplay.canvas.width;
+	
 	// Draw the answer layer.
 	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
-//	Painting.ctxDisplay.globalAlpha = 0.2;
-//	Painting.ctxDisplay.beginPath()
-//	Painting.ctxDisplay.rect(0, 0, 100, 100)
-//	Painting.ctxDisplay.stroke()
+	Painting.ctxDisplay.globalAlpha = 0.2;
 	Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
 	Painting.ctxDisplay.globalAlpha = 1;
 
@@ -157,7 +151,7 @@ Painting.display = function() {
 Painting.animate = function(id) {
 	Painting.display();
 	if(id) {
-		BlocklyInterface.highlight(id);
+		Game.highlight(id);
 		// Scale the speed non-linearly, to give better precision at the fast end.
 		// var stepSpeed = 1000 * Math.pow(1 - Painting.speedSlider.getValue(), 2);
 		// Painting.pause = Math.max(1, stepSpeed);
@@ -185,6 +179,7 @@ Painting.move = function(id) {
 		Painting.ctxScratch.stroke();
 	}
 	Painting.animate(id);
+	console.log('mo')
 };
 
 /**
@@ -196,6 +191,7 @@ Painting.initApi = function(interpreter, scope) {
 	var wrapper = function(id) {
 		id = id ? id.toString() : '';
 		Painting.heading = 0;
+		console.log('wrapper')
 		return interpreter.createPrimitive(Painting.move(id));
 	};
 	interpreter.setProperty(scope, 'movenorth',
@@ -208,14 +204,39 @@ Painting.initApi = function(interpreter, scope) {
 	};
 	interpreter.setProperty(scope, 'moveeast',
 		interpreter.createNativeFunction(wrapper));
+		
+	wrapper = function(id) {
+		id = id ? id.toString() : '';
+		Painting.heading = 180;
+		return interpreter.createPrimitive(Painting.move(id));
+	};
+	interpreter.setProperty(scope, 'movesouth',
+		interpreter.createNativeFunction(wrapper));
+		
+	wrapper = function(id) {
+		id = id ? id.toString(): '';
+		Painting.heading = 270;
+		return interpreter.createPrimitive(Painting.move(id));
+	};
+	interpreter.setProperty(scope, 'movewest',
+		interpreter.createNativeFunction(wrapper));
 };
 
 Painting.excute = function(interpreter) {
-	if(interpreter.step()) {
-		Painting.animate();
-		window.setTimeout(function() {
-			Painting.excute(interpreter);
-		}, Painting.PUASE);
+//	if(interpreter.step()) {
+//		window.setTimeout(function() {
+//			console.log('ex')
+//			Painting.excute(interpreter);
+//			
+//		}, Painting.PUASE);
+//	}else{
+//		
+//	}
+	var go = interpreter.step();
+	if(!go){
+		clearInterval(Painting.pid);
+		
+		Painting.checkAnswer();
 	}
 };
 
@@ -224,7 +245,10 @@ Painting.run = function() {
 	Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
 	var interpreter = new Interpreter(code, Painting.initApi);
 	try {
-		Painting.excute(interpreter);
+		Painting.pid = setInterval(function(){
+			Painting.excute(interpreter);
+		}, Painting.pause);
+		
 	} catch(e) {
 		alert(MSG['badCode'].replace('%1', e));
 	}
@@ -238,13 +262,79 @@ Painting.reset = function() {
 	Painting.penDownValue = true;
 
 	// Clear the canvas.
-	Painting.ctxScratch.canvas.width = Painting.ctxScratch.canvas.width;
-	Painting.ctxScratch.globalAlpha = 0.2;
+	Painting.ctxScratch.canvas.width = Painting.ctxScratch.canvas.width;	
 	Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
-	//Painting.ctxScratch.fillStyle = '#ffffff';
 	Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
 	Painting.ctxScratch.lineCap = 'round';
 	Painting.display();
+};
+
+/**
+ * Verify if the answer is correct.
+ * If so, move on to next level.
+ */
+Painting.checkAnswer = function() {
+  // Compare the Alpha (opacity) byte of each pixel in the user's image and
+  // the sample answer image.
+  var userImage =
+      Painting.ctxScratch.getImageData(0, 0, Painting.WIDTH, Painting.HEIGHT);
+  var answerImage =
+      Painting.ctxAnswer.getImageData(0, 0, Painting.WIDTH, Painting.HEIGHT);
+  var len = Math.min(userImage.data.length, answerImage.data.length);
+  var delta = 0;
+  // Pixels are in RGBA format.  Only check the Alpha bytes.
+  for (var i = 3; i < len; i += 4) {
+    // Check the Alpha byte.
+    if (Math.abs(userImage.data[i] - answerImage.data[i]) > 64) {
+      delta++;
+    }
+  }
+  if (Painting.isCorrect(delta)) {
+    //BlocklyInterface.saveToLocalStorage();
+    if (Game.LEVEL < Game.MAX_LEVEL) {
+      // No congrats for last level, it is open ended.
+      //BlocklyGames.workspace.playAudio('win', 0.5);
+      //BlocklyDialogs.congratulations();
+      alert('Complete!')
+    }
+  } else {
+    //Painting.penColour('#ff0000');
+    alert('error')
+  }
+};
+
+/**
+ * Validate whether the user's answer is correct.
+ * @param {number} pixelErrors Number of pixels that are wrong.
+ * @return {boolean} True if the level is solved, false otherwise.
+ */
+Painting.isCorrect = function(pixelErrors) {
+  if (Game.LEVEL == Game.MAX_LEVEL) {
+    // Any non-null answer is correct.
+    return Game.workspace.getAllBlocks().length > 1;
+  }
+  console.log('Pixel errors: ' + pixelErrors);
+  if (pixelErrors > 100) {
+    // Too many errors.
+    return false;
+  }
+//if ((Game.LEVEL <= 2 &&
+//     Game.workspace.getAllBlocks().length > 3) ||
+//    (Game.LEVEL == 3 &&
+//     Game.workspace.getAllBlocks().length > 4)) {
+//  // Use a loop, dummy.
+//  //var content = document.getElementById('helpUseLoop');
+////  var style = {
+////    'width': '30%',
+////    'left': '35%',
+////    'top': '12em'
+////  };
+////  BlocklyDialogs.showDialog(content, null, false, true, style,
+////      BlocklyDialogs.stopDialogKeyDown);
+////  BlocklyDialogs.startDialogKeyDown();
+//  return false;
+//}
+  return true;
 };
 
 window.addEventListener('load', Painting.init);
