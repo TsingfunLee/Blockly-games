@@ -116,19 +116,23 @@ Blockly.Blocks['brush_turnright'] = {
 };
 
 Blockly.Blocks['brush_set_color'] = {
+	/**
+	 * Block for set color brush.
+	 * @this Blockly.Block
+	 */
 	init: function() {
 		this.jsonInit({
 			"message0": Blockly.Msg.BRUSH_SET_COLOR + "%1",
 			"args0": [{
 				"type": "field_colour",
 				"name": "COLOUR",
-				"colour": "#ffffff"
+				"colour": "#ffff33"
 			}],
 //			"output": "Colour",
 			"previousStatement": null,
 			"nextStatement": null,
 			"colour": 160,
 			"tooltip": Blockly.Msg.BRUSH_SET_COLOR_TOOLTIP
-		});
+	});
 	}
 };

@@ -129,33 +129,33 @@ Painting.loadImage = function(callback) {
 };
 
 Painting.initAnswer = function() {
-//	Painting.ctxScratch.globalAlpha = 0.2
+    var star = function() {
+    	for (var i = 0; i < 5; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(144);
+			}
+    }; 
+    
 	switch(Game.LEVEL) {
 		case 1:
 			Painting.move();
 			Painting.stars.push([Painting.x, Painting.y]);
-			
-			Painting.heading += 90;
-			Painting.move();
-			Painting.stars.push([Painting.x, Painting.y]);
-			
-			Painting.heading += 90;
-			Painting.move();
-			Painting.stars.push([Painting.x, Painting.y]);
-			
-			Painting.heading += 90;
-			Painting.move();
-			Painting.stars.push([Painting.x, Painting.y]);
+			for(var i = 0; i < 3; i++) {
+				Painting.heading += 90;
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+			}
 			break;
 		case 2:
-			for (var i = 0; i < 5; i++) {
+			for(var i = 0; i < 5; i++) {
 				Painting.move();
 				Painting.stars.push([Painting.x, Painting.y]);
 				Painting.turnright(72);
 			}
 			break;
 		case 3:
-			for (var i = 0; i < 6; i++) {
+			for(var i = 0; i < 6; i++) {
 				Painting.move();
 				Painting.stars.push([Painting.x, Painting.y]);
 				Painting.turnright(60);
@@ -163,12 +163,12 @@ Painting.initAnswer = function() {
 			break;
 		case 4:
 			Painting.setColor('#ffff33');
-			for (var i = 0; i < 5; i++) {
-				Painting.move();
-				Painting.stars.push([Painting.x, Painting.y]);
-				Painting.turnright(144);
-			}
+			star();
+			break;
 		case 5:
+			Painting.setColor('#ff6666');
+			star();
+			break;
 		default:
 			console.error('Level is undifined!');
 	}
