@@ -30,3 +30,5 @@ Blockly.Msg.BRUSH_MOVE_FORWARD = 'move forward';
 Blockly.Msg.BRUSH_MOVE_FORWARD_TOOLTIP = 'Take bar to move forward.';
 Blockly.Msg.BRUSH_TURN_RIGHT = 'turn right';
 Blockly.Msg.BRUSH_TURN_RIGHT_TOOLTIP = 'Turn right';
+Blockly.Msg.BRUSH_SET_COLOR = 'set color';
+Blockly.Msg.BRUSH_SET_COLOR_TOOLTIP = 'Set bar color.';

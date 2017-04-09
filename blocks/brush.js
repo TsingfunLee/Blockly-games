@@ -93,25 +93,42 @@ Blockly.Blocks['brush_turnright'] = {
 	init: function() {
 		this.jsonInit({
 			"message0": Blockly.Msg.BRUSH_TURN_RIGHT + "%1",
-			"args0": [
-				{
-					"type": "field_dropdown",
-					"name": "angle",
-					"options": [
-						["15", "15"],
-						["30", "30"],
-						["45", "45"],
-						["90", "90"],
-						["72", "72"],
-						["120", "120"],
-						["144", "144"]
-					]
-				}
-			],
+			"args0": [{
+				"type": "field_dropdown",
+				"name": "ANGLE",
+				"options": [
+					["15°", "15"],
+					["30°", "30"],
+					["45°", "45"],
+					["60°", "60"],
+					["90°", "90"],
+					["72°", "72"],
+					["120°", "120"],
+					["144°", "144"]
+				]
+			}],
 			"previousStatement": null,
 			"nextStatement": null,
 			"colour": 160,
 			"tooltip": Blockly.Msg.BRUSH_TURN_RIGHT_TOOLTIP
+		});
+	}
+};
+
+Blockly.Blocks['brush_set_color'] = {
+	init: function() {
+		this.jsonInit({
+			"message0": Blockly.Msg.BRUSH_SET_COLOR + "%1",
+			"args0": [{
+				"type": "field_colour",
+				"name": "COLOUR",
+				"colour": "#ffffff"
+			}],
+//			"output": "Colour",
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": 160,
+			"tooltip": Blockly.Msg.BRUSH_SET_COLOR_TOOLTIP
 		});
 	}
 };

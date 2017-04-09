@@ -14,8 +14,8 @@ Painting.HEIGHT = 500;
 Painting.blocks = [
 	['brush_move_north', 'brush_move_east', 'brush_move_south', 'brush_move_west'],
 	['brush_moveforward', 'brush_turnright'],
-	[],
-	[],
+	['brush_moveforward', 'brush_turnright', 'controls_repeat'],
+	['brush_moveforward', 'brush_turnright', 'controls_repeat', 'brush_set_color'],
 	[]
 ];
 
@@ -104,8 +104,8 @@ Painting.init = function() {
 	// Load images.
 	Painting.loadImage(function(){
 		Painting.drawAnswer();
+		//Painting.drawStar();
 		Painting.reset();
-		Painting.ctxDisplay.drawImage(Painting.imgs[0], Painting.x - 25, Painting.y - 25);
 	});
 	
 
@@ -148,8 +148,26 @@ Painting.initAnswer = function() {
 			Painting.stars.push([Painting.x, Painting.y]);
 			break;
 		case 2:
+			for (var i = 0; i < 5; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(72);
+			}
+			break;
 		case 3:
+			for (var i = 0; i < 6; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(60);
+			}
+			break;
 		case 4:
+			Painting.setColor('#ffff33');
+			for (var i = 0; i < 5; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(144);
+			}
 		case 5:
 		default:
 			console.error('Level is undifined!');
@@ -167,32 +185,32 @@ Painting.drawAnswer = function() {
 	Painting.ctxAnswer.globalCompositeOperation = 'source-over';
 };
 
-Painting.star = function() {
-	
-};
-
-Painting.display = function() {
-	// Draw the background.
-//	Painting.ctxDisplay.drawImage(Painting.bgImg, 0, 0, Painting.WIDTH, Painting.HEIGHT);	
-	Painting.ctxDisplay.canvas.width = Painting.ctxDisplay.canvas.width;
-	
-	// Draw the answer layer.
-//	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
-//	Painting.ctxDisplay.globalAlpha = 0.2;
-//	Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
-//	Painting.ctxDisplay.globalAlpha = 1;
-	
+Painting.drawStar = function() {
 	// Draw stars.
 	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
 	Painting.ctxDisplay.globalAlpha = 0.8;
 	console.log(Painting.stars)
+	console.log(Painting.stars.length)
 	for (var i = 0; i < Painting.stars.length; i++) {
 		var index = Math.ceil(Math.random() * 4);
 		Painting.ctxDisplay.drawImage(Painting.imgs[index], Painting.stars[i][0] - 15, Painting.stars[i][1] - 15, 30, 30);
 	}
+};
+
+Painting.display = function() {
+	// Clear canvas.
+	Painting.ctxDisplay.canvas.width = Painting.ctxDisplay.canvas.width;
+	
+	// Draw the answer layer.
+	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+	Painting.ctxDisplay.globalAlpha = 0.2;
+	Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
+
+	// Draw the answer star layer.
+	Painting.drawStar();
 
 	// Draw the user layer.
-	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+	//Painting.ctxDisplay.globalCompositeOperation = 'source-over';
 	Painting.ctxDisplay.globalAlpha = 1;
 	Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
 	
@@ -235,6 +253,15 @@ Painting.move = function(id) {
 	console.log('mo')
 };
 
+Painting.turnright = function(angle, id) {
+	Painting.heading += angle;
+	Painting.animate(id);
+};
+
+Painting.setColor = function(color, id) {
+	Painting.ctxScratch.strokeStyle = color;
+};
+
 /**
  * API added to interpreter.
  * @param {Interpreter} JS interpreter.
@@ -273,6 +300,30 @@ Painting.initApi = function(interpreter, scope) {
 	};
 	interpreter.setProperty(scope, 'movewest',
 		interpreter.createNativeFunction(wrapper));
+		
+	wrapper = function(id) {
+		id = id ? id.toString(): '';
+		return interpreter.createPrimitive(Painting.move(id));
+	};
+	interpreter.setProperty(scope, 'moveforward', 
+		interpreter.createNativeFunction(wrapper));
+		
+	wrapper = function(angle, id) {
+		id = id ? id.toString(): '';
+		angle = angle.data;
+		return interpreter.createPrimitive(Painting.turnright(angle, id));
+	};
+	interpreter.setProperty(scope, 'turnright',
+		interpreter.createNativeFunction(wrapper));
+		
+	wrapper = function(color, id) {
+		id = id ? id.toString() : '';
+		color = color.data;
+		console.log(color)
+		return interpreter.createPrimitive(Painting.setColor(color, id));
+	};
+	interpreter.setProperty(scope, 'setcolor',
+		interpreter.createNativeFunction(wrapper));
 };
 
 Painting.excute = function(interpreter) {
@@ -308,6 +359,9 @@ Painting.run = function() {
 };
 
 Painting.reset = function() {
+	// Stop interval.
+	clearInterval(Painting.pid);
+	
 	// Starting location and heading of the pen.
 	Painting.x = Painting.HEIGHT / 2;
 	Painting.y = Painting.WIDTH / 2;

@@ -27,3 +27,13 @@ Blockly.JavaScript['brush_move_west'] = function(block) {
 Blockly.JavaScript['brush_moveforward'] = function(block) {
 	return 'moveforward(\'' + block.id + '\');\n';
 };
+
+Blockly.JavaScript['brush_turnright'] = function(block) {
+	var angle = block.getFieldValue('ANGLE');
+	return 'turnright(' + angle + ', \'' + block.id + '\');\n';
+};
+
+Blockly.JavaScript['brush_set_color'] = function(block) {
+	var color = '\'' + block.getFieldValue('COLOUR') + '\'';
+	return 'setcolor(' + color + ', \'' + block.id + '\');\n';
+};
