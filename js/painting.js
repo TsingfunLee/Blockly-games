@@ -13,18 +13,28 @@ Painting.HEIGHT = 500;
  */
 Painting.blocks = [
 	['brush_move_north', 'brush_move_east', 'brush_move_south', 'brush_move_west'],
-	[],
+	['brush_moveforward', 'brush_turnright'],
 	[],
 	[],
 	[]
 ];
 
-Painting.direction = {
-	NORTH: 0,
-	EAST: 1,
-	SOUTH: 2,
-	WEST: 3
-};
+//Painting.direction = {
+//	NORTH: 0,
+//	EAST: 1,
+//	SOUTH: 2,
+//	WEST: 3
+//};
+
+/**
+ * Positions of stars.
+ */
+Painting.stars = [];
+
+/**
+ * List of image sources.
+ */
+Painting.src = ['img/pen.png', 'img/star_blue.png', 'img/star_green.png', 'img/star_purple.png', 'img/star_yellow.png'];
 
 /**
  * Default pen constants.
@@ -81,17 +91,41 @@ Painting.init = function() {
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
 
-	// Display backgroung.
-//	Painting.bgImg = new Image();
-//	Painting.bgImg.src = 'img/bg.jpg';
-//	img.onload = function() {				
+	// Load pan image.
+//	Painting.penImg = new Image();
+//	Painting.penImg.src = 'img/pen.png';
+//	// Make sure image have been loaded.
+//	Painting.penImg.onload = function() {				
+//		Painting.drawAnswer();
+//		Painting.reset();
+//		Painting.ctxDisplay.drawImage(Painting.penImg, Painting.x - 25, Painting.y - 25);
+//	};
+
+	// Load images.
+	Painting.loadImage(function(){
 		Painting.drawAnswer();
 		Painting.reset();
-//	};
+		Painting.ctxDisplay.drawImage(Painting.imgs[0], Painting.x - 25, Painting.y - 25);
+	});
 	
 
 	Game.bindClick(document.getElementById('playBtn'), Painting.run);
 	Game.bindClick(document.getElementById('resetBtn'), Painting.reset);
+};
+
+Painting.loadImage = function(callback) {
+	var num = 0
+	Painting.imgs = [];
+	for(var i in Painting.src){
+		Painting.imgs[i] = new Image();
+		Painting.imgs[i].src = Painting.src[i];
+		Painting.imgs[i].onload = function() {
+			num ++;
+			if(num >= Painting.src.length){
+				callback();
+			}
+		};
+	}
 };
 
 Painting.initAnswer = function() {
@@ -99,12 +133,19 @@ Painting.initAnswer = function() {
 	switch(Game.LEVEL) {
 		case 1:
 			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			
 			Painting.heading += 90;
 			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			
 			Painting.heading += 90;
 			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			
 			Painting.heading += 90;
 			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
 			break;
 		case 2:
 		case 3:
@@ -126,28 +167,39 @@ Painting.drawAnswer = function() {
 	Painting.ctxAnswer.globalCompositeOperation = 'source-over';
 };
 
-/**
- *
- */
+Painting.star = function() {
+	
+};
+
 Painting.display = function() {
 	// Draw the background.
 //	Painting.ctxDisplay.drawImage(Painting.bgImg, 0, 0, Painting.WIDTH, Painting.HEIGHT);	
 	Painting.ctxDisplay.canvas.width = Painting.ctxDisplay.canvas.width;
 	
 	// Draw the answer layer.
+//	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+//	Painting.ctxDisplay.globalAlpha = 0.2;
+//	Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
+//	Painting.ctxDisplay.globalAlpha = 1;
+	
+	// Draw stars.
 	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
-	Painting.ctxDisplay.globalAlpha = 0.2;
-	Painting.ctxDisplay.drawImage(Painting.ctxAnswer.canvas, 0, 0);
-	Painting.ctxDisplay.globalAlpha = 1;
+	Painting.ctxDisplay.globalAlpha = 0.8;
+	console.log(Painting.stars)
+	for (var i = 0; i < Painting.stars.length; i++) {
+		var index = Math.ceil(Math.random() * 4);
+		Painting.ctxDisplay.drawImage(Painting.imgs[index], Painting.stars[i][0] - 15, Painting.stars[i][1] - 15, 30, 30);
+	}
 
 	// Draw the user layer.
 	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
+	Painting.ctxDisplay.globalAlpha = 1;
 	Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
+	
+	// Draw the pen.
+	Painting.ctxDisplay.drawImage(Painting.imgs[0], Painting.x - 25, Painting.y - 25);
 };
 
-/**
- * Animate pidList.
- */
 Painting.animate = function(id) {
 	Painting.display();
 	if(id) {
@@ -169,6 +221,7 @@ Painting.move = function(id) {
 	//if (distance) {
 	Painting.x += Painting.DEFAULT_DIS * Math.sin(2 * Math.PI * Painting.heading / 360);
 	Painting.y -= Painting.DEFAULT_DIS * Math.cos(2 * Math.PI * Painting.heading / 360);
+	
 	//   var bump = 0;
 	// } else {
 	//   // WebKit (unlike Gecko) draws nothing for a zero-length line.

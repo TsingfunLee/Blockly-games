@@ -76,20 +76,42 @@ Blockly.Blocks['brush_moveforward'] = {
 	 */
 	init: function() {
 		this.jsonInit({
-			"message0": Blockly.Msg.BRUSH_MOVE_FORWARD + "%1",
-			"args0": [{
-				"type": "field_dropdown",
-				"name": "",
-				"options": [
-					["50", "50"],
-					["100", "100"],
-					["150", "150"]
-				]
-			}],
+			"message0": Blockly.Msg.BRUSH_MOVE_FORWARD,
 			"previousStatement": null,
 			"nextStatement": null,
 			"colour": 160,
 			"tooltip": Blockly.Msg.BRUSH_MOVE_FORWARD_TOOLTIP
+		});
+	}
+};
+
+Blockly.Blocks['brush_turnright'] = {
+	/**
+	 * Block for turn right brush.
+	 * @this Blockly.Block
+	 */
+	init: function() {
+		this.jsonInit({
+			"message0": Blockly.Msg.BRUSH_TURN_RIGHT + "%1",
+			"args0": [
+				{
+					"type": "field_dropdown",
+					"name": "angle",
+					"options": [
+						["15", "15"],
+						["30", "30"],
+						["45", "45"],
+						["90", "90"],
+						["72", "72"],
+						["120", "120"],
+						["144", "144"]
+					]
+				}
+			],
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": 160,
+			"tooltip": Blockly.Msg.BRUSH_TURN_RIGHT_TOOLTIP
 		});
 	}
 };
