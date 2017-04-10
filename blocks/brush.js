@@ -87,7 +87,7 @@ Blockly.Blocks['brush_moveforward'] = {
 
 Blockly.Blocks['brush_turnright'] = {
 	/**
-	 * Block for turn right brush.
+	 * Block for turning right brush.
 	 * @this Blockly.Block
 	 */
 	init: function() {
@@ -117,7 +117,7 @@ Blockly.Blocks['brush_turnright'] = {
 
 Blockly.Blocks['brush_set_color'] = {
 	/**
-	 * Block for set color brush.
+	 * Block for setting color brush.
 	 * @this Blockly.Block
 	 */
 	init: function() {
@@ -128,11 +128,42 @@ Blockly.Blocks['brush_set_color'] = {
 				"name": "COLOUR",
 				"colour": "#ffff33"
 			}],
-//			"output": "Colour",
 			"previousStatement": null,
 			"nextStatement": null,
 			"colour": 160,
 			"tooltip": Blockly.Msg.BRUSH_SET_COLOR_TOOLTIP
-	});
+		});
+	}
+};
+
+Blockly.Blocks['brush_pen_up'] = {
+	/**
+	 * Block for lifting up brush block.
+	 * @this Blockly.Block
+	 */
+	init: function() {
+		this.jsonInit({
+			"message0": Blockly.Msg.BRUSH_PEN_UP,
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": 160,
+			"tooltip": Blockly.Msg.BRUSH_PEN_UP_TOOLTIP
+		});
+	}
+};
+
+Blockly.Blocks['brush_pen_down'] = {
+	/**
+	 * Block for putting down brush block.
+	 * @this Blockly.Block
+	 */
+	init: function() {
+		this.jsonInit({
+			"message0": Blockly.Msg.BRUSH_PEN_DOWN,
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": 160,
+			"tooltip": Blockly.Msg.BRUSH_PEN_DOWN_TOOLTIP
+		});
 	}
 };

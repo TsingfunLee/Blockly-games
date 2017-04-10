@@ -28,6 +28,10 @@ Blockly.JavaScript['brush_moveforward'] = function(block) {
 	return 'moveforward(\'' + block.id + '\');\n';
 };
 
+Blockly.JavaScript['brush_moveback'] = function(block) {
+	return 'moveback(\'' + block.id + '\');\n';
+};
+
 Blockly.JavaScript['brush_turnright'] = function(block) {
 	var angle = block.getFieldValue('ANGLE');
 	return 'turnright(' + angle + ', \'' + block.id + '\');\n';
@@ -36,4 +40,12 @@ Blockly.JavaScript['brush_turnright'] = function(block) {
 Blockly.JavaScript['brush_set_color'] = function(block) {
 	var color = '\'' + block.getFieldValue('COLOUR') + '\'';
 	return 'setcolor(' + color + ', \'' + block.id + '\');\n';
+};
+
+Blockly.JavaScript['brush_pen_up'] = function(block) {
+  return 'upBar(\'' + block.id + '\');\n';
+};
+
+Blockly.JavaScript['brush_pen_down'] = function(block) {
+  return 'downBar(\'' + block.id + '\');\n';
 };

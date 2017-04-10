@@ -16,15 +16,8 @@ Painting.blocks = [
 	['brush_moveforward', 'brush_turnright'],
 	['brush_moveforward', 'brush_turnright', 'controls_repeat'],
 	['brush_moveforward', 'brush_turnright', 'controls_repeat', 'brush_set_color'],
-	[]
+	['brush_moveforward', 'brush_turnright', 'controls_repeat', 'brush_set_color', 'brush_pen_up', 'brush_pen_down']
 ];
-
-//Painting.direction = {
-//	NORTH: 0,
-//	EAST: 1,
-//	SOUTH: 2,
-//	WEST: 3
-//};
 
 /**
  * Positions of stars.
@@ -67,7 +60,7 @@ Painting.init = function() {
 	canvasDisplay.className = 'canvas';
 	visilization.appendChild(canvasDisplay);
 	Painting.ctxDisplay = canvasDisplay.getContext('2d');
-	
+
 	// Background image.
 	var img = document.createElement('img');
 	img.src = 'img/bg.jpg';
@@ -83,34 +76,22 @@ Painting.init = function() {
 	canvasDisplay.width = Painting.WIDTH;
 	canvasDisplay.height = Painting.HEIGHT;
 
-//	// Set initial point in focus of canvas.
-//	Painting.ctxScratch.moveTo(Painting.x, Painting.y);
-//	Painting.ctxAnswer.moveTo(Painting.x, Painting.y);
-//	Painting.ctxDisplay.moveTo(Painting.x, Painting.y);
-
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
-
-	// Load pan image.
-//	Painting.penImg = new Image();
-//	Painting.penImg.src = 'img/pen.png';
-//	// Make sure image have been loaded.
-//	Painting.penImg.onload = function() {				
-//		Painting.drawAnswer();
-//		Painting.reset();
-//		Painting.ctxDisplay.drawImage(Painting.penImg, Painting.x - 25, Painting.y - 25);
-//	};
 
 	// Load images.
 	Painting.loadImage(function(){
 		Painting.drawAnswer();
-		//Painting.drawStar();
 		Painting.reset();
 	});
-	
 
 	Game.bindClick(document.getElementById('playBtn'), Painting.run);
 	Game.bindClick(document.getElementById('resetBtn'), Painting.reset);
+};
+
+Painting.initSlider = function() {
+	var buttonBox = document.getElementsByClassName('buttonbox')[0];
+  
 };
 
 Painting.loadImage = function(callback) {
@@ -135,8 +116,8 @@ Painting.initAnswer = function() {
 				Painting.stars.push([Painting.x, Painting.y]);
 				Painting.turnright(144);
 			}
-    }; 
-    
+    };
+
 	switch(Game.LEVEL) {
 		case 1:
 			Painting.move();
@@ -167,6 +148,14 @@ Painting.initAnswer = function() {
 			break;
 		case 5:
 			Painting.setColor('#ff6666');
+			star();
+			Painting.penUp();
+			Painting.heading += 180;
+			Painting.move();
+			Painting.move();
+			Painting.heading += 180;
+			Painting.penDown();
+			Painting.setColor('#ffff33');
 			star();
 			break;
 		default:
@@ -200,7 +189,7 @@ Painting.drawStar = function() {
 Painting.display = function() {
 	// Clear canvas.
 	Painting.ctxDisplay.canvas.width = Painting.ctxDisplay.canvas.width;
-	
+
 	// Draw the answer layer.
 	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
 	Painting.ctxDisplay.globalAlpha = 0.2;
@@ -213,7 +202,7 @@ Painting.display = function() {
 	//Painting.ctxDisplay.globalCompositeOperation = 'source-over';
 	Painting.ctxDisplay.globalAlpha = 1;
 	Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
-	
+
 	// Draw the pen.
 	Painting.ctxDisplay.drawImage(Painting.imgs[0], Painting.x - 25, Painting.y - 25);
 };
@@ -239,7 +228,7 @@ Painting.move = function(id) {
 	//if (distance) {
 	Painting.x += Painting.DEFAULT_DIS * Math.sin(2 * Math.PI * Painting.heading / 360);
 	Painting.y -= Painting.DEFAULT_DIS * Math.cos(2 * Math.PI * Painting.heading / 360);
-	
+
 	//   var bump = 0;
 	// } else {
 	//   // WebKit (unlike Gecko) draws nothing for a zero-length line.
@@ -260,6 +249,17 @@ Painting.turnright = function(angle, id) {
 
 Painting.setColor = function(color, id) {
 	Painting.ctxScratch.strokeStyle = color;
+	Painting.animate(id);
+};
+
+Painting.penUp = function(id) {
+	Painting.penDownValue = false;
+	Painting.animate(id);
+};
+
+Painting.penDown = function(id) {
+	Painting.penDownValue = true;
+	Painting.animate(id);
 };
 
 /**
@@ -271,7 +271,7 @@ Painting.initApi = function(interpreter, scope) {
 	var wrapper = function(id) {
 		id = id ? id.toString() : '';
 		Painting.heading = 0;
-		console.log('wrapper')
+		console.log(id)
 		return interpreter.createPrimitive(Painting.move(id));
 	};
 	interpreter.setProperty(scope, 'movenorth',
@@ -284,7 +284,7 @@ Painting.initApi = function(interpreter, scope) {
 	};
 	interpreter.setProperty(scope, 'moveeast',
 		interpreter.createNativeFunction(wrapper));
-		
+
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
 		Painting.heading = 180;
@@ -292,7 +292,7 @@ Painting.initApi = function(interpreter, scope) {
 	};
 	interpreter.setProperty(scope, 'movesouth',
 		interpreter.createNativeFunction(wrapper));
-		
+
 	wrapper = function(id) {
 		id = id ? id.toString(): '';
 		Painting.heading = 270;
@@ -300,14 +300,14 @@ Painting.initApi = function(interpreter, scope) {
 	};
 	interpreter.setProperty(scope, 'movewest',
 		interpreter.createNativeFunction(wrapper));
-		
+
 	wrapper = function(id) {
 		id = id ? id.toString(): '';
 		return interpreter.createPrimitive(Painting.move(id));
 	};
-	interpreter.setProperty(scope, 'moveforward', 
+	interpreter.setProperty(scope, 'moveforward',
 		interpreter.createNativeFunction(wrapper));
-		
+
 	wrapper = function(angle, id) {
 		id = id ? id.toString(): '';
 		angle = angle.data;
@@ -315,7 +315,7 @@ Painting.initApi = function(interpreter, scope) {
 	};
 	interpreter.setProperty(scope, 'turnright',
 		interpreter.createNativeFunction(wrapper));
-		
+
 	wrapper = function(color, id) {
 		id = id ? id.toString() : '';
 		color = color.data;
@@ -324,6 +324,20 @@ Painting.initApi = function(interpreter, scope) {
 	};
 	interpreter.setProperty(scope, 'setcolor',
 		interpreter.createNativeFunction(wrapper));
+
+	wrapper = function(id) {
+		id = id ? id.toString() : '';
+		return interpreter.createPrimitive(Painting.penUp(id));
+	};
+	interpreter.setProperty(scope, 'penUp',
+		interpreter.createNativeFunction(wrapper));
+
+		wrapper = function(id) {
+			id = id ? id.toString() : '';
+			return interpreter.createPrimitive(Painting.penDown(id));
+		};
+		interpreter.setProperty(scope, 'penDown',
+			interpreter.createNativeFunction(wrapper));
 };
 
 Painting.excute = function(interpreter) {
@@ -331,15 +345,15 @@ Painting.excute = function(interpreter) {
 //		window.setTimeout(function() {
 //			console.log('ex')
 //			Painting.excute(interpreter);
-//			
+//
 //		}, Painting.PUASE);
 //	}else{
-//		
+//
 //	}
 	var go = interpreter.step();
 	if(!go){
 		clearInterval(Painting.pid);
-		
+
 		Painting.checkAnswer();
 	}
 };
@@ -352,7 +366,7 @@ Painting.run = function() {
 		Painting.pid = setInterval(function(){
 			Painting.excute(interpreter);
 		}, Painting.pause);
-		
+
 	} catch(e) {
 		alert(MSG['badCode'].replace('%1', e));
 	}
@@ -361,7 +375,7 @@ Painting.run = function() {
 Painting.reset = function() {
 	// Stop interval.
 	clearInterval(Painting.pid);
-	
+
 	// Starting location and heading of the pen.
 	Painting.x = Painting.HEIGHT / 2;
 	Painting.y = Painting.WIDTH / 2;
@@ -369,7 +383,7 @@ Painting.reset = function() {
 	Painting.penDownValue = true;
 
 	// Clear the canvas.
-	Painting.ctxScratch.canvas.width = Painting.ctxScratch.canvas.width;	
+	Painting.ctxScratch.canvas.width = Painting.ctxScratch.canvas.width;
 	Painting.ctxScratch.strokeStyle = Painting.DEFAULT_COLOR;
 	Painting.ctxScratch.lineWidth = Painting.DEFAULT_LINEWIDTH;
 	Painting.ctxScratch.lineCap = 'round';

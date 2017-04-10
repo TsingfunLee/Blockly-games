@@ -347,6 +347,7 @@ Maze.moveforward = function(id) {
 	Maze.context.clearRect(Maze.role.lastPosition.x, Maze.role.lastPosition.y, Maze.SQUARE, Maze.SQUARE);
 	Maze.drawRole(Maze.role.position.x, Maze.role.position.y);
 	Maze.context.restore();
+	Game.highlight(id);
 
 	var raf = window.requestAnimationFrame(Maze.moveforward);
 	if(Maze.delta === Maze.SQUARE){
@@ -463,6 +464,7 @@ Maze.initApi = function(interpreter, scope) {
 	// Add an API function for moveforward() block.
 	var wrapper = function(id) {
 		id = id ? id.toString() : '';
+		console.log(id)
 		return interpreter.createPrimitive(Maze.moveforward(id));
 	};
 	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));

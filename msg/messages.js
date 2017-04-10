@@ -32,3 +32,7 @@ Blockly.Msg.BRUSH_TURN_RIGHT = 'turn right';
 Blockly.Msg.BRUSH_TURN_RIGHT_TOOLTIP = 'Turn right';
 Blockly.Msg.BRUSH_SET_COLOR = 'set color';
 Blockly.Msg.BRUSH_SET_COLOR_TOOLTIP = 'Set bar color.';
+Blockly.Msg.BRUSH_PEN_UP = 'up';
+Blockly.Msg.BRUSH_PEN_UP_TOOLTIP = 'Lift up bar.';
+Blockly.Msg.BRUSH_PEN_DOWN = 'down';
+Blockly.Msg.BRUSH_PEN_DOWN_TOOLTIP = 'Put down bar.';

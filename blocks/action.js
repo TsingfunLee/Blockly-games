@@ -2,6 +2,7 @@
 
 goog.provide('Blockly.Blocks.action');
 
+goog.require('Blockly');
 goog.require('Blockly.Blocks');
 
 // Blockly.Blocks.action.HUE = 230;

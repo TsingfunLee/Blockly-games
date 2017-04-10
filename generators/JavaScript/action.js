@@ -13,13 +13,13 @@ Blockly.JavaScript['action_forward'] = function(block) {
 };
 
 Blockly.JavaScript['action_turnright'] = function(block) {
-	return 'turnright(\'block_id_' + block.id +'\');\n';
+	return 'turnright(\'' + block.id +'\');\n';
 };
 
 Blockly.JavaScript['action_turnleft'] = function(block) {
-	return 'turnleft(\'block_id_' + block.id +'\');\n';
+	return 'turnleft(\'' + block.id +'\');\n';
 };
 
 Blockly.JavaScript['action_collect'] = function(block) {
-	return 'collect(\'block_id_' + block.id +'\');\n';
+	return 'collect(\'' + block.id +'\');\n';
 };

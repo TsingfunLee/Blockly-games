@@ -34,7 +34,7 @@ Game.clamp = function(min, val, max) {
 	}else if(val > max){
 		val = max;
 	}
-	
+
 	return val;
 };
 
@@ -216,41 +216,52 @@ Game.renderContent = function() {
 			code = prettyPrintOne(code, 'py');
 			content.innerHTML = code;
 		}
-	} 
+	}
 };
 
 /**
- * 
+ *
  */
 Game.displayLevelLink = function() {
 	var levelLink = document.getElementById('levelLink');
-	var a = null,
-		button = null;
+		var a = null,
+			button = null;
+		var cur = null;
 
-	var wateraction = function() {
-		var cur = $(this);
-		var dest = cur.position().left;
+		var wateraction = function() {
+			var cur = $(this);
+			var dest = cur.position().left;
+			var t = 0.4;
+			dest -= 50 * (Game.LEVEL - 1);
+			TweenMax.to($('.select'), t, { x: dest, ease: Back.easeOut });
+	//		动态获得关卡数字
+			$('.select').html(cur.html());
+
+		};
+
+	//  动态生成关卡按钮
+		for(var i = 1; i <= Game.MAX_LEVEL; ++i) {
+			a = document.createElement('a');
+			a.innerHTML = i;
+			a.href = '?lang=' + Game.LANG + '&level=' + i;
+			a.addEventListener('mouseover', wateraction);
+			a.classList.add('levelbtn');
+			levelLink.appendChild(a);
+
+			if(i === Game.LEVEL){
+				cur = $(a);
+			}
+		}
+	//	鼠标离开dots时,select返回选中关卡
+	    var dest = cur.position().left;
 		var t = 0.4;
-		TweenMax.to($('.select'), t, { x: dest, ease: Back.easeOut });
-		$('.select').html(cur.html());
-	};
-
-	for(var i = 1; i <= Game.MAX_LEVEL; ++i) {
-		a = document.createElement('a');
-		a.innerHTML = i;
-		a.href = '?lang=' + Game.LANG + '&level=' + i;
-		a.addEventListener('mouseover', wateraction);
-		a.classList.add('levelbtn');
-//		button = document.createElement('input');
-//		button.type = 'button';
-//		button.classList.add('levelbtn');
-//		button.addEventListener('click', wateraction);
-//		button.appendChild(a);
-		//		if( i === Game.LEVEL){
-		//			a.classList.add('levelactive');
-		//		}
-		levelLink.appendChild(a);
-	}
+		dest -= 50 * (Game.LEVEL - 1);
+		$('.dots').mouseleave(function(){
+			TweenMax.to($('.select'), t, { x: dest, ease: Back.easeOut });
+			$('.select').html(cur.html());
+		})
+	//	选中关卡后,水滴停留在对应关卡
+		$('.select').css('left', cur.position().left + 15).html(Game.LEVEL);
 };
 
 /**
@@ -259,7 +270,7 @@ Game.displayLevelLink = function() {
 Game.init = function() {
 	Game.initLanguage();
 	Game.displayLevelLink();
-	
+
 	// Add to reserved word list: Local variables in execution environment (runJS)
 	// and the infinite loop detection function.
 	Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
@@ -270,7 +281,7 @@ Game.init = function() {
 		// Hook a save function onto unload.
 		BlocklyStorage.backupOnUnload(Game.workspace);
 	}
-		
+
 	// Switch to zero-based indexing so that later JS levels match the blocks.
     Blockly.Blocks && (Blockly.Blocks.ONE_BASED_INDEXING = false);
     Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
@@ -389,6 +400,7 @@ Game.highlight = function(id) {
 //  	}
 //	}
   	Game.workspace.highlightBlock(id);
+		console.log('hightlight')
 };
 
 /**
