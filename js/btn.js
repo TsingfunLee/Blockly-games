@@ -1,9 +1,9 @@
-var btnRun = document.querySelector('.runbtn');
-var btnReset = document.querySelector('.resetbtn');
+var btnRun = document.querySelector('#playBtn');
+var btnReset = document.querySelector('#resetBtn');
 var btnShowcode = document.querySelector('.showcode');
 var btnEvent = function() {
-	btnRun.classList.toggle('hidden');
-	btnReset.classList.toggle('active');
+	btnRun.classList.toggle('active');
+	btnReset.classList.toggle('active');	
 }
 btnRun.addEventListener('click', btnEvent);
 btnReset.addEventListener('click', btnEvent);
