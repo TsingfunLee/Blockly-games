@@ -102,9 +102,7 @@
 						<button type="button" class="btn active" id="playBtn">运行</button>
 						<button type="button" class="btn" id="resetBtn">重置</button>
 						<div class="slider">
-							<div class="slider-back">
-								<span class="slider-front"></span>
-							</div>							
+							<span class="slider-handle" id="sliderHandle"></span>
 						</div>
 					</div>
 
@@ -117,7 +115,6 @@
 			<xml id="toolbox" style="display: none"></xml>
 
 		</section>
-		<script src="js/btn.js" async="true"></script>
 		<script>
 			var mousewheelEvent = window.navigator.appName === 'Netscape' ? 'DOMMouseScroll' : 'mousewheel';
 			console.log(navigator.appName)

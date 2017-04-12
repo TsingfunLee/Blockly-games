@@ -165,7 +165,7 @@ Game.changeLanguage = function() {
  */
 Game.bindClick = function(el, func) {
 	if(typeof el == 'string') {
-		el = document.getElementById(el);
+		el = document.querySelector(el);
 	}
 	el.addEventListener('click', func, true);
 	el.addEventListener('touchend', func, true);
@@ -220,7 +220,7 @@ Game.renderContent = function() {
 };
 
 /**
- *
+ * Create level link button with water action effect.
  */
 Game.displayLevelLink = function() {
 	var levelLink = document.getElementById('levelLink');
@@ -265,11 +265,59 @@ Game.displayLevelLink = function() {
 };
 
 /**
+* Bind button click events.
+*/
+Game.btnEvent = function() {
+	var btnRun = document.getElementById('playBtn');
+	var btnReset = document.getElementById('resetBtn');
+	var btnEvent = function() {
+		btnRun.classList.toggle('active');
+		btnReset.classList.toggle('active');
+	};
+	Game.bindClick(btnRun, btnEvent);
+	Game.bindClick(btnReset, btnEvent);
+
+	var codebtnEvent = function(){
+		alert("显示代码窗口");
+	};
+	Game.bindClick('.showcode', codebtnEvent);
+
+	var sliderHandle = document.getElementById('sliderHandle');
+	sliderHandle.addEventListener('mousedown', function(e){
+		this.currentX = e.clientX;
+		this.selected = true;
+
+		console.log(this.currentX);
+	});
+	sliderHandle.addEventListener('mousemove', function(e) {
+		if(this.selected) {
+			var offset = e.clientX - this.currentX;
+			console.log(offset);
+			this.percent =  50 + offset / 2;
+			if (this.percent < 0) {
+				this.percent = 0;
+			}
+			if (this.percent > 100) {
+				this.percent = 100;
+			}
+			console.log(this.percent);
+			console.log(this.style.left);
+			this.style.left = this.percent + '%';
+		}
+	});
+	sliderHandle.addEventListener('mouseup', function(e) {
+		this.selected = false;
+		this.currentX = e.clientX;
+	});
+};
+
+/**
  * Initialize Blockly.
  */
 Game.init = function() {
 	Game.initLanguage();
 	Game.displayLevelLink();
+	Game.btnEvent();
 
 	// Add to reserved word list: Local variables in execution environment (runJS)
 	// and the infinite loop detection function.

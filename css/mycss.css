@@ -12,7 +12,7 @@ ul,li {
 img {
 	    border: none;
 	}
-	
+
 /*顶部工具栏*/
 .toolbar{
 	width: 100%;
@@ -57,7 +57,7 @@ img {
    position: absolute;
    top: 25%;
    right: 2%;
-  
+
 }
 /*大容器*/
 .container{
@@ -68,7 +68,7 @@ img {
 	background-image:url(../img/backgroundimg.jpg);
 	background-size: cover;
 	z-index: -10;/*让图片显示在底层*/
-	
+
 }
 
 .cont_main{
@@ -208,7 +208,7 @@ img {
     position:relative;
     margin-left:20px;
     z-index:2;
- 
+
 }
 .levelactive{
 	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
@@ -270,24 +270,21 @@ img {
 	box-shadow: none;
 }
 
-/** 
+/**
 * Slider
 */
 .slider {
-	margin-left: 30px;
-	margin-top: 46px;
-}
-
-.slider-back {
 	width: 200px;
 	height: 8px;
+	margin-left: 30px;
+	margin-top: 46px;
 	background: white;
 	box-shadow: 0 0 5px 2px #cccccc inset;
 	border-radius: 5px;
 	position: relative;
 }
 
-.slider-front {
+.slider-handle {
 	width: 15px;
 	height: 15px;
 	border-radius: 100%;
