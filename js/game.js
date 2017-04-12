@@ -283,32 +283,27 @@ Game.btnEvent = function() {
 	Game.bindClick('.showcode', codebtnEvent);
 
 	var sliderHandle = document.getElementById('sliderHandle');
-	sliderHandle.addEventListener('mousedown', function(e){
-		this.currentX = e.clientX;
-		this.selected = true;
-
-		console.log(this.currentX);
-	});
-	sliderHandle.addEventListener('mousemove', function(e) {
-		if(this.selected) {
-			var offset = e.clientX - this.currentX;
-			console.log(offset);
-			this.percent =  50 + offset / 2;
+	var onDrag = function(e) {
+			var offset = e.clientX - this.startX;
+			this.percent = (this.currentLeft !== undefined ? this.currentLeft : 50) + offset / 2;
 			if (this.percent < 0) {
 				this.percent = 0;
 			}
 			if (this.percent > 100) {
 				this.percent = 100;
 			}
-			console.log(this.percent);
-			console.log(this.style.left);
 			this.style.left = this.percent + '%';
-		}
+	};
+	var onDragend = function(e) {
+		this.currentLeft = this.percent;
+		this.removeEventListener('mousemove', onDrag);
+	};
+	sliderHandle.addEventListener('mousedown', function(e){
+		this.startX = e.clientX;
+		sliderHandle.addEventListener('mousemove', onDrag);
 	});
-	sliderHandle.addEventListener('mouseup', function(e) {
-		this.selected = false;
-		this.currentX = e.clientX;
-	});
+	sliderHandle.addEventListener('mouseup', onDragend);
+	sliderHandle.addEventListener('mouseleave', onDragend);
 };
 
 /**
