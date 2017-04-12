@@ -268,6 +268,7 @@ Game.displayLevelLink = function() {
 * Bind button click events.
 */
 Game.btnEvent = function() {
+  // Run and reset button.
 	var btnRun = document.getElementById('playBtn');
 	var btnReset = document.getElementById('resetBtn');
 	var btnEvent = function() {
@@ -277,33 +278,11 @@ Game.btnEvent = function() {
 	Game.bindClick(btnRun, btnEvent);
 	Game.bindClick(btnReset, btnEvent);
 
+  // Toggle code button.
 	var codebtnEvent = function(){
 		alert("显示代码窗口");
 	};
 	Game.bindClick('.showcode', codebtnEvent);
-
-	var sliderHandle = document.getElementById('sliderHandle');
-	var onDrag = function(e) {
-			var offset = e.clientX - this.startX;
-			this.percent = (this.currentLeft !== undefined ? this.currentLeft : 50) + offset / 2;
-			if (this.percent < 0) {
-				this.percent = 0;
-			}
-			if (this.percent > 100) {
-				this.percent = 100;
-			}
-			this.style.left = this.percent + '%';
-	};
-	var onDragend = function(e) {
-		this.currentLeft = this.percent;
-		this.removeEventListener('mousemove', onDrag);
-	};
-	sliderHandle.addEventListener('mousedown', function(e){
-		this.startX = e.clientX;
-		sliderHandle.addEventListener('mousemove', onDrag);
-	});
-	sliderHandle.addEventListener('mouseup', onDragend);
-	sliderHandle.addEventListener('mouseleave', onDragend);
 };
 
 /**

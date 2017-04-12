@@ -136,30 +136,39 @@ img {
 	border-radius: 20px;
 	padding: 0;
 	display: inline-block;
-    outline: none;
-    border:none;
-    cursor: pointer;
+  outline: none;
+  border:none;
+  cursor: pointer;
 	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
-    background: -moz-linear-gradient(left,  #0493ff,  #35dfff);
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
-    /*位置设置*/
-    position:absolute;
-    top:30px;
-    left:80%;
-    /*阴影设置*/
-   box-shadow: 2px 2px 4px  #0889C9;
-   visibility: hidden;
+  background: -moz-linear-gradient(left,  #0493ff,  #35dfff);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
+  /*位置设置*/
+  position:absolute;
+  top:30px;
+  left:80%;
+	/*阴影设置*/
+	/*box-shadow: 2px 2px 4px  #0889C9;*/
+	visibility: hidden;
 }
 .btn:hover,active{
-	box-shadow: none ;
+	/*box-shadow: none ;*/
+	box-shadow: 2px 2px 4px  #0889C9;
+	-webkit-animation-name: width;
+  -webkit-animation-duration: 0.5s;
+	-webkit-animation-timing-function: ease-in;
 }
 .active {
 	visibility: visible !important;
-	/*box-shadow: none;*/
 }
-/*.hidden{
-	visibility: hidden;
-}*/
+
+@keyframes width {
+	from{
+		width: 70px;
+	}
+	to{
+		width: 95px;
+	}
+}
 
 /*主体的头部*/
 #innertop_name{
@@ -224,8 +233,9 @@ img {
    /*background: -webkit-gradient(linear, left top, right bottom, from(#14b6ef), to(#38e8fb));
    background: -moz-linear-gradient(top,  #14b6ef,  #38e8fb);
    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#14b6ef', endColorstr='#38e8fb');*/
-  background-color: #35dfff;
-   opacity:0.5;
+  /*background-color: #35dfff;*/
+	background-color: #0493FF;
+   opacity:0.7;
    border:none;
    position:absolute;
    z-index:3;
@@ -282,6 +292,7 @@ img {
 	box-shadow: 0 0 5px 2px #cccccc inset;
 	border-radius: 5px;
 	position: relative;
+	display: none;
 }
 
 .slider-handle {
@@ -295,4 +306,5 @@ img {
 	margin-left: -7.5px;
 	top: -3.5px;
 	left: 50%;
+	cursor: default;
 }

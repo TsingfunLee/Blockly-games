@@ -37,9 +37,14 @@ Painting.DEFAULT_COLOR = 'white';
 Painting.DEFAULT_DIS = 100;
 
 /**
- * Number of milliseconds that execution should delay.
+ * Max number of milliseconds that execution should delay.
  */
-Painting.pause = 100;
+Painting.MAXPAUSE = 160;
+
+/**
+ * Min number of milliseconds that execution should delay.
+ */
+Painting.MINPAUSE = 40;
 
 Painting.init = function() {
 	var visilization = document.getElementById('visilazation');
@@ -78,6 +83,7 @@ Painting.init = function() {
 
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
+	Painting.initSlider();
 
 	// Load images.
 	Painting.loadImage(function(){
@@ -89,9 +95,41 @@ Painting.init = function() {
 	Game.bindClick(document.getElementById('resetBtn'), Painting.reset);
 };
 
+/**
+* Speed slider.
+*/
 Painting.initSlider = function() {
-	var buttonBox = document.getElementsByClassName('buttonbox')[0];
-  
+	// display slider bar.
+	document.querySelector('.slider').style.display = 'block';
+
+	Painting.sliderHandle = document.getElementById('sliderHandle');
+	Painting.sliderHandle.value = 0.5;
+
+	var onDrag = function(e) {
+		// calculate offset and assign it to left style attribute.
+		var offset = e.clientX - this.startX;
+		this.percent = (this.currentLeft !== undefined ? this.currentLeft : 50) + offset / 2;
+		if (this.percent < 0) {
+			this.percent = 0;
+		}
+		if (this.percent > 100) {
+			this.percent = 100;
+		}
+		this.style.left = this.percent + '%';
+	};
+
+	var onDragend = function(e) {
+		this.currentLeft = this.percent;
+		this.value = this.percent / 100;
+		this.removeEventListener('mousemove', onDrag);
+	};
+
+	sliderHandle.addEventListener('mousedown', function(e){
+		this.startX = e.clientX;
+		sliderHandle.addEventListener('mousemove', onDrag);
+	});
+	sliderHandle.addEventListener('mouseup', onDragend);
+	sliderHandle.addEventListener('mouseleave', onDragend);
 };
 
 Painting.loadImage = function(callback) {
@@ -341,15 +379,6 @@ Painting.initApi = function(interpreter, scope) {
 };
 
 Painting.excute = function(interpreter) {
-//	if(interpreter.step()) {
-//		window.setTimeout(function() {
-//			console.log('ex')
-//			Painting.excute(interpreter);
-//
-//		}, Painting.PUASE);
-//	}else{
-//
-//	}
 	var go = interpreter.step();
 	if(!go){
 		clearInterval(Painting.pid);
@@ -362,10 +391,11 @@ Painting.run = function() {
 	var code = Blockly.JavaScript.workspaceToCode(Game.workspace);
 	Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
 	var interpreter = new Interpreter(code, Painting.initApi);
+	var pause = Game.clamp(Painting.MINPAUSE, (Painting.MAXPAUSE - Painting.MINPAUSE) * Painting.sliderHandle.value + Painting.MINPAUSE, Painting.MAXPAUSE)
 	try {
 		Painting.pid = setInterval(function(){
 			Painting.excute(interpreter);
-		}, Painting.pause);
+		}, pause);
 
 	} catch(e) {
 		alert(MSG['badCode'].replace('%1', e));
