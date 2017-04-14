@@ -285,6 +285,10 @@ Game.initLanguage = function() {
 	document.getElementsByClassName('showcode')[0].textContent = MSG['showcode'];
 };
 
+/*
+* Common functions for game below.----------------------------------------------
+*/
+
 /**
  * Initialize workspace.
  */
