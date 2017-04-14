@@ -114,7 +114,7 @@ Maze.resultType = {
 	FAILURE: 1,
 	SUCCESS: 2,
 	CRASH: 3
-};
+}
 
 Maze.result = Maze.resultType.UNSET;
 
@@ -236,8 +236,6 @@ Maze.initRole = function() {
 		x: Maze.role.position.x,
 		y: Maze.role.position.y
 	};
-	Maze.role.sx = 0;
-	Maze.role.sy = 105;
 	Maze.role.onload = function() {
 		Maze.context.drawImage(Maze.role, Maze.start.x, Maze.start.y, Maze.SQUARE, Maze.SQUARE);
 	};
@@ -315,19 +313,13 @@ Maze.onresize = function() {
 	Blockly.svgResize(Game.workspace);
 };
 
-/**
-* Animation of role.
-* @param {Number} sx. The X coordinate of the top left corner of the sub-rectangle of the source image to draw into the destination context.
-* @param {Number} sy. The Y coordinate of the top left corner of the sub-rectangle of the source image to draw into the destination context.
-* @param {Number} dx. The X coordinate in the destination canvas at which to place the top-left corner of the source image.
-* @param {Number} dy. The Y coordinate in the destination canvas at which to place the top-left corner of the source image.
-*/
-Maze.animate = function(sx, sy, dx, dy) {
-	Maze.context.drawImage(Maze.role, sx, sy, 50, 105, dx, dy, 50, 105);
+Maze.animate = function() {
+
 };
 
 // core.
 Maze.moveforward = function(id) {
+	console.log('moveforward');
 	switch(Maze.DIRECTION){
 		case Maze.directionType.NORTH:
 			Maze.role.position.y -= 1;
@@ -337,10 +329,6 @@ Maze.moveforward = function(id) {
 			break;
 		case Maze.directionType.SOUTH:
 			Maze.role.position.y += 1;
-			Maze.role.sx += 50;
-			Maze.role.sy = 105;
-			Maze.animate(Maze.role.sx, Maze.role.sy, Maze.role.position.x, Maze.role.position.y);
-			// return;
 			break;
 		case Maze.directionType.WEST:
 			Maze.role.position.x -= 1;
@@ -370,6 +358,7 @@ Maze.moveforward = function(id) {
 };
 
 Maze.turnright = function(id) {
+	console.log('turnright');
 	Maze.context.save();
 	Maze.context.rotate(Math.PI / 2);
 	Maze.context.translate(Maze.role.position.y - Maze.role.position.x, - (Maze.role.position.y + Maze.role.position.x));
@@ -383,6 +372,7 @@ Maze.turnright = function(id) {
 };
 
 Maze.turnleft = function(id) {
+	console.log('turnleft');
 	Maze.context.save();
 	Maze.context.rotate(-Math.PI / 2);
 	Maze.context.translate(- (Maze.role.position.y + Maze.role.position.x), Maze.role.position.x - Maze.role.position.y);
@@ -395,6 +385,7 @@ Maze.turnleft = function(id) {
 };
 
 Maze.collect = function(id) {
+	console.log('collect');
 	var j = Maze.role.position.x / Maze.SQUARE,
 		i = Maze.role.position.y / Maze.SQUARE;
 	if(Maze.map[i][j] === Maze.pathType.PICK) {

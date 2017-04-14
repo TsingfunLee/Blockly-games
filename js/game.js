@@ -10,14 +10,6 @@ Game.LANGUAGE_NAME = {
 	'en': 'English'
 };
 
-/**
- * List of tab names.
- * @private
- */
-Game.TABS_ = ['javascript', 'python', 'dart', 'php', 'lua'];
-
-Game.selected = 'javascript';
-
 Game.workspace = null;
 
 Game.MAX_LEVEL = 5;
@@ -172,54 +164,6 @@ Game.bindClick = function(el, func) {
 };
 
 /**
- * Switch the visible pane when a tab is clicked.
- * @param {string} clickedName Name of tab clicked.
- */
-Game.tabClick = function(clickedName) {
-	// Deselect all tabs and hide all panes.
-	for(var i = 0; i < Game.TABS_.length; i++) {
-		var name = Game.TABS_[i];
-		document.getElementById('tab_' + name).className = 'taboff';
-		document.getElementById('content_' + name).style.display = 'none';
-	}
-
-	// Select the active tab.
-	Game.selected = clickedName;
-	document.getElementById('tab_' + clickedName).className = 'tabon';
-	// Show the selected pane.
-	document.getElementById('content_' + clickedName).style.display =
-		'block';
-	Game.renderContent();
-
-	Blockly.svgResize(Game.workspace);
-};
-
-/**
- * Populate the currently selected pane with content generated from the blocks.
- */
-Game.renderContent = function() {
-	var content = document.getElementById('content_' + Game.selected);
-	// Initialize the pane.
-	if(content.id == 'content_javascript') {
-		var code = Blockly.JavaScript.workspaceToCode(Game.workspace);
-		content.textContent = code;
-		if(typeof prettyPrintOne == 'function') {
-			code = content.textContent;
-			code = prettyPrintOne(code, 'js');
-			content.innerHTML = code;
-		}
-	} else if(content.id == 'content_python') {
-		code = Blockly.Python.workspaceToCode(Game.workspace);
-		content.textContent = code;
-		if(typeof prettyPrintOne == 'function') {
-			code = content.textContent;
-			code = prettyPrintOne(code, 'py');
-			content.innerHTML = code;
-		}
-	}
-};
-
-/**
  * Create level link button with water action effect.
  */
 Game.displayLevelLink = function() {
@@ -292,10 +236,6 @@ Game.init = function() {
 	Game.initLanguage();
 	Game.displayLevelLink();
 	Game.btnEvent();
-
-	// Add to reserved word list: Local variables in execution environment (runJS)
-	// and the infinite loop detection function.
-	Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
 
 	Game.loadBlocks('');
 
@@ -415,29 +355,8 @@ Game.initToolbox = function(game) {
  * @param {?string} id ID of block that triggered this action.
  */
 Game.highlight = function(id) {
-//	if (id) {
-//  	var m = id.match(/^block_id_([^']+)$/);
-//  	if (m) {
-//    		id = m[1];
-//  	}
-//	}
   	Game.workspace.highlightBlock(id);
-		console.log('hightlight')
 };
-
-/**
-* Discard all blocks from the workspace.
-*/
-//App.discard = function() {
-//	var count = App.workspace.getAllBlocks().length;
-//	if (count < 2 ||
-//	      window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
-//	    App.workspace.clear();
-//	    if (window.location.hash) {
-//	      window.location.hash = '';
-//	    }
-//	}
-//};
 
 // Load the language strings.
 document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
