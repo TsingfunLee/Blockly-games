@@ -5,8 +5,9 @@
 		<meta charset="utf-8" />
 		<title>积木块编程工具</title>
 		<link href="css/reset.css" rel="stylesheet" />
+		<link href="css/comment/header.css" rel="stylesheet" />
 		<link href="css/mycss.css" rel="stylesheet" />
-		<link href="css/default.css" rel="stylesheet" />
+		<link href="css/game.css" rel="stylesheet" />
 
 		<script type="text/javascript" src="blockly/blockly_uncompressed.js"></script>
 		<!-- Begin define blocks -->
@@ -58,14 +59,16 @@
 		<script type="text/javascript" src="prettify/prettify.js"></script>
 		<!-- End syntax hightlight -->
 
-		<script src="js/jquery.min.js"></script>
-		<script src="js/TweenMax.min.js"></script>
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/TweenMax.min.js"></script>
 		<script src="js/wateraction.js"></script>
 
 		<!-- JS-Interpreter -->
 		<script type="text/javascript" src="js/lib/acorn_interpreter.js"></script>
 
+		<script type="text/javascript" src="js/page.js">
 		<script type="text/javascript" src="js/game.js"></script>
+
 		<script type="text/javascript" src="js/maze.js"></script>
 		<!-- <script type="text/javascript" src="js/painting.js"></script> -->
 
@@ -74,7 +77,17 @@
 	<body>
 		<div class="toolbar">
 			<div id="top_tool">
-				主页等按钮
+				<div id="logo_img">
+					LOGO
+				</div>
+				<div id="nav">
+					<div class="nav-menu">
+					<a href="index.html" target="_blank">首页</a>
+					<a href="selcet.html" target="_blank" class="current">游戏</a>
+					<a href="aboutus.html" target="_blank" >关于我们</a>
+					</div>
+					<div class="nav-current"></div>
+				</div>
 			</div>
 			<div class="styled-select">
 				<select id="languageMenu">
@@ -115,30 +128,11 @@
 			<xml id="toolbox" style="display: none"></xml>
 
 		</section>
-		<script>
-			var mousewheelEvent = window.navigator.appName === 'Netscape' ? 'DOMMouseScroll' : 'mousewheel';
-			console.log(navigator.appName)
-			var menubar = document.getElementsByClassName('toolbar')[0];
-			window.addEventListener(mousewheelEvent, function(event) {
-				if(event.wheelDelta) {
-					if(event.deltaY > 0) {
-						menubar.classList.add('anim');
-					}
-					if(event.deltaY <= 0) {
-						menubar.classList.remove('anim');
-					}
-				} else if(event.detail) {
-					if(event.detail > 0) {
-						menubar.classList.add('anim');
-					}
-					if(event.detail <= 0) {
-						menubar.classList.remove('anim');
-					}
-				}
-
-			});
-		</script>
-
+		<div id="footer">
+				数字媒体技术
+		</div>
+		 <script type="text/javascript" src="js/btn.js"></script>
+        <script type="text/javascript" src="js/page.js"></script>
 	</body>
 
 </html>

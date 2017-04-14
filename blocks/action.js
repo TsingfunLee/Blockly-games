@@ -17,7 +17,7 @@ Blockly.Blocks['action_forward'] = {
 			"message0": Blockly.Msg.ACTION_MOVE_FORWARD,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 160,
+			"colour": 198,
 			"tooltip": Blockly.Msg.ACTION_MOVE_FORWARD_TOOLTIP
 		});
 	}
@@ -33,7 +33,7 @@ Blockly.Blocks['action_turnright'] = {
 			"message0": Blockly.Msg.ACTION_TURN_RIGHT,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 160,
+			"colour": 198,
 			"tooltip": Blockly.Msg.ACTION_TURN_RIGHT_TOOLTIP
 		});
 	}
@@ -49,7 +49,7 @@ Blockly.Blocks['action_turnleft'] = {
 			"message0": Blockly.Msg.ACTION_TURN_LEFT,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 160,
+			"colour": 198,
 			"tooltip": Blockly.Msg.ACTION_TURN_LEFT_TOOLTIP
 		});
 	}
@@ -65,7 +65,7 @@ Blockly.Blocks['action_collect'] = {
 			"message0": Blockly.Msg.ACTION_COLLECT,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 160,
+			"colour": 198,
 			"tooltip": Blockly.Msg.ACTION_COLLECT_TOOLTIP
 		});
 	}

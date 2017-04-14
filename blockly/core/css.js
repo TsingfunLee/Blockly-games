@@ -220,7 +220,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklySelected>.blocklyPath {',
-    'stroke: #fc3;',
+    'stroke: #fcc80d;',
     'stroke-width: 3px;',
   '}',
 
@@ -280,8 +280,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyFlyout {',
-    'position: absolute;',
-    'z-index: 20;',
+    'position: relative;',
   '}',
   '.blocklyFlyoutButton {',
     'fill: #888;',
@@ -382,7 +381,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyFlyoutBackground {',
-    'fill: #ddd;',
+    'fill: #E2F3FE;',
     'fill-opacity: .8;',
   '}',
 
@@ -397,7 +396,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyScrollbarHandle {',
-    'fill: #ccc;',
+    'filllllllll: #ccc;',
   '}',
 
   '.blocklyScrollbarBackground:hover+.blocklyScrollbarHandle,',

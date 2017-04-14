@@ -1,0 +1,96 @@
+body {
+	   font:normal 100%  "微软雅黑",arial,sans-serif;
+	  /* overflow: hidden;*/
+	   height:100%;
+	}
+.clear {
+	    clear: both;
+	}
+ul,li {
+	    list-style: none;
+	}
+img {
+	    border: none;
+	}
+	
+/*顶部工具栏*/
+.toolbar{
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	top:0;
+	background-color: #FFFFFF;
+	-webkit-box-shadow:0 2px 10px 0 rgba(0,137,196,0.16), 0 2px 15px 0 rgba(0,137,196,0.12);
+	box-shadow: 0 2px 10px 0 rgba(0,137,196,0.16), 0 2px 15px 0 rgba(0,137,196,0.12);
+	transition: height 0.5s ease-in;/*高度变化过度,0.5秒变化逐渐变快*/
+	z-index: 10;
+}
+/*头部滚动高度动画效果*/
+.anim{
+	height: 50px;
+	transition: height 0.5s ease-in;/*高度变化过度,0.5秒变化逐渐变快*/
+}
+#top_tool{
+	/*border:1px solid #434343;*/
+	height:100%;
+	width:90%;
+	float:left;
+}
+#logo_img{
+	float: left;
+	height:100%;
+	width:30%;
+	/*border: 1px solid #000000;*/
+}
+#nav{ 
+	float: left;
+	height: 100%;
+	width:30%; 
+	margin:0.6% auto 0 auto; 
+}
+#nav .nav-menu{ 
+	height:50px;
+}
+#nav .nav-menu a{ 
+	display:block; 
+	float:left; 
+	height:50px; 
+	padding:0 8.3%; 
+	line-height:50px; 
+	color:#666; 
+	font-size:16px; 
+	text-decoration:none;
+}
+#nav .nav-current{ 
+	position:absolute; 
+	bottom:-2px; 
+	height:5px; 
+	overflow:hidden; 
+	background:#0889c9;
+}
+
+/*选择框的范围要比外面包围的底部div范围广,才能确保默认的向下箭头消失,使用自己的向下箭头*/
+.styled-select #languageMenu {
+   background: transparent;
+   width: 110px;
+   font-size: 18px;
+   color:#3eddfd;
+   padding-left: 4px;
+   border: 1px solid #e1f3fd;
+   border-radius: 4px;
+   height: 30px;
+   -webkit-appearance: none; /*for chrome*/
+   outline: none;
+}
+
+.styled-select {
+   width: 90px;
+   border-radius: 4px;
+   height: 30px;
+   overflow: hidden;
+   background: url(../../img/select.png) no-repeat right  #e1f3fd;
+   position: absolute;
+   top: 25%;
+   right: 2%;
+  
+}

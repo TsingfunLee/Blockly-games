@@ -1348,6 +1348,8 @@ Blockly.BlockSvg.prototype.updateDisabled = function() {
                       'blocklyDisabled')) {
       this.svgPath_.setAttribute('fill',
           'url(#' + this.workspace.options.disabledPatternId + ')');
+//    this.svgPath_.setAttribute('stroke',
+//        '#ffd710');
     }
   } else {
     if (Blockly.utils.removeClass(/** @type {!Element} */ (this.svgGroup_),
@@ -1519,11 +1521,14 @@ Blockly.BlockSvg.prototype.setHighlighted = function(highlighted) {
     return;
   }
   if (highlighted) {
-    this.svgPath_.setAttribute('filter',
-        'url(#' + this.workspace.options.embossFilterId + ')');
+  	//运行是高亮设置，边框颜色、宽度
+    this.svgPath_.setAttribute('stroke-width','3');
+    this.svgPath_.setAttribute('stroke','#fcc80d');
     this.svgPathLight_.style.display = 'none';
   } else {
-    this.svgPath_.removeAttribute('filter');
+  	//运行结束时，去除边框设置
+    this.svgPath_.setAttribute('stroke-width','0');
+    this.svgPath_.removeAttribute('stroke');
     delete this.svgPathLight_.style.display;
   }
 };
