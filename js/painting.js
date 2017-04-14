@@ -25,11 +25,6 @@ Painting.blocks = [
 Painting.stars = [];
 
 /**
- * List of image sources.
- */
-Painting.src = ['img/pen.png', 'img/star_blue.png', 'img/star_green.png', 'img/star_purple.png', 'img/star_yellow.png'];
-
-/**
  * Default pen constants.
  */
 Painting.DEFAULT_LINEWIDTH = 5;
@@ -86,7 +81,8 @@ Painting.init = function() {
 	Painting.initSlider();
 
 	// Load images.
-	Painting.loadImage(function(){
+	var src = ['img/pen.png', 'img/star_blue.png', 'img/star_green.png', 'img/star_purple.png', 'img/star_yellow.png'];
+	Game.loadImages(src, function(){
 		Painting.drawAnswer();
 		Painting.reset();
 	});
@@ -132,20 +128,20 @@ Painting.initSlider = function() {
 	sliderHandle.addEventListener('mouseleave', onDragend);
 };
 
-Painting.loadImage = function(callback) {
-	var num = 0
-	Painting.imgs = [];
-	for(var i in Painting.src){
-		Painting.imgs[i] = new Image();
-		Painting.imgs[i].src = Painting.src[i];
-		Painting.imgs[i].onload = function() {
-			num ++;
-			if(num >= Painting.src.length){
-				callback();
-			}
-		};
-	}
-};
+// Painting.loadImage = function(callback) {
+// 	var num = 0
+// 	Painting.imgs = [];
+// 	for(var i in Painting.src){
+// 		Painting.imgs[i] = new Image();
+// 		Painting.imgs[i].src = Painting.src[i];
+// 		Painting.imgs[i].onload = function() {
+// 			num ++;
+// 			if(num >= Painting.src.length){
+// 				callback();
+// 			}
+// 		};
+// 	}
+// };
 
 Painting.initAnswer = function() {
     var star = function() {
@@ -220,7 +216,7 @@ Painting.drawStar = function() {
 	console.log(Painting.stars.length)
 	for (var i = 0; i < Painting.stars.length; i++) {
 		var index = Math.ceil(Math.random() * 4);
-		Painting.ctxDisplay.drawImage(Painting.imgs[index], Painting.stars[i][0] - 15, Painting.stars[i][1] - 15, 30, 30);
+		Painting.ctxDisplay.drawImage(Game.imgs[index], Painting.stars[i][0] - 15, Painting.stars[i][1] - 15, 30, 30);
 	}
 };
 
@@ -242,7 +238,7 @@ Painting.display = function() {
 	Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
 
 	// Draw the pen.
-	Painting.ctxDisplay.drawImage(Painting.imgs[0], Painting.x - 25, Painting.y - 25);
+	Painting.ctxDisplay.drawImage(Game.imgs[0], Painting.x - 25, Painting.y - 25);
 };
 
 Painting.animate = function(id) {

@@ -358,7 +358,7 @@ Game.initToolbox = function(game) {
 
 /**
  * Highlight the block (or clear highlighting).
- * @param {?string} id ID of block that triggered this action.
+ * @param {String} id ID of block that triggered this action.
  */
 Game.highlight = function(id) {
   	Game.workspace.highlightBlock(id);
@@ -366,8 +366,22 @@ Game.highlight = function(id) {
 
 /**
 * Preload images.
+* @param {Array} src. List of string of Images sources.
 */
-
+Game.loadImages = function(src, onComplete) {
+	var num = 0
+	Game.imgs = [];
+	for(var i in src){
+		Game.imgs[i] = new Image();
+		Game.imgs[i].src = src[i];
+		Game.imgs[i].onload = function() {
+			num ++;
+			if(num >= src.length){
+				onComplete();
+			}
+		};
+	}
+};
 
 // Load the language strings.
 document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
