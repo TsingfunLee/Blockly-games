@@ -197,7 +197,7 @@ Game.displayLevelLink = function() {
 			}
 		}
 	//	鼠标离开dots时,select返回选中关卡
-	    var dest = cur.position().left;
+	  var dest = cur.position().left;
 		var t = 0.4;
 		dest -= 50 * (Game.LEVEL - 1);
 		$('.dots').mouseleave(function(){
