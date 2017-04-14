@@ -245,8 +245,8 @@ Game.init = function() {
 	}
 
 	// Switch to zero-based indexing so that later JS levels match the blocks.
-    Blockly.Blocks && (Blockly.Blocks.ONE_BASED_INDEXING = false);
-    Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
+  Blockly.Blocks && (Blockly.Blocks.ONE_BASED_INDEXING = false);
+  Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
 
 	// Lazy-load the syntax-highlighting.
 	window.setTimeout(Game.importPrettify, 1);
