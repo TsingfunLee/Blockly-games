@@ -285,8 +285,10 @@ Game.initLanguage = function() {
 	document.getElementsByClassName('showcode')[0].textContent = MSG['showcode'];
 };
 
-/*
-* Common functions for game below.----------------------------------------------
+/**
+* ----------------------------------------------
+* Common functions for game below.
+* ----------------------------------------------
 */
 
 /**
@@ -361,6 +363,11 @@ Game.initToolbox = function(game) {
 Game.highlight = function(id) {
   	Game.workspace.highlightBlock(id);
 };
+
+/**
+* Preload images.
+*/
+
 
 // Load the language strings.
 document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
