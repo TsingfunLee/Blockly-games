@@ -12,7 +12,7 @@ ul,li {
 img {
 	    border: none;
 	}
-	
+
 /*顶部工具栏*/
 .toolbar{
 	width: 100%;
@@ -42,30 +42,30 @@ img {
 	width:30%;
 	/*border: 1px solid #000000;*/
 }
-#nav{ 
+#nav{
 	float: left;
 	height: 100%;
-	width:30%; 
-	margin:0.6% auto 0 auto; 
+	width:30%;
+	margin:0.6% auto 0 auto;
 }
-#nav .nav-menu{ 
+#nav .nav-menu{
 	height:50px;
 }
-#nav .nav-menu a{ 
-	display:block; 
-	float:left; 
-	height:50px; 
-	padding:0 8.3%; 
-	line-height:50px; 
-	color:#666; 
-	font-size:16px; 
+#nav .nav-menu a{
+	display:block;
+	float:left;
+	height:50px;
+	padding:0 8.3%;
+	line-height:50px;
+	color:#666;
+	font-size:16px;
 	text-decoration:none;
 }
-#nav .nav-current{ 
-	position:absolute; 
-	bottom:-2px; 
-	height:5px; 
-	overflow:hidden; 
+#nav .nav-current{
+	position:absolute;
+	bottom:-2px;
+	height:5px;
+	overflow:hidden;
 	background:#0889c9;
 }
 
@@ -83,7 +83,7 @@ img {
    outline: none;
 }
 
-.styled-select {
+.styled-select{
    width: 90px;
    border-radius: 4px;
    height: 30px;
@@ -92,5 +92,5 @@ img {
    position: absolute;
    top: 25%;
    right: 2%;
-  
+
 }

@@ -79,6 +79,18 @@ Game.getLevel = function() {
 };
 
 /**
+* Get the name of this game frome the URL.
+* @return {String} Game's name.
+*/
+Game.getGameName = function() {
+	var name = Game.getStringParamFromUrl('game', '');
+	if(name === '') {
+		name = 'maze';
+	}
+	return name;
+};
+
+/**
  * Current language.
  */
 Game.LANG = Game.getLang();
@@ -87,6 +99,11 @@ Game.LANG = Game.getLang();
  * Current game level.
  */
 Game.LEVEL = Game.getLevel();
+
+/**
+* Current game name.
+*/
+Game.NAME = Game.getGameName();
 
 /**
  * Load blocks saved on App Engine Storage or in session/local storage.
@@ -371,12 +388,12 @@ Game.highlight = function(id) {
 Game.loadImages = function(src, onComplete) {
 	var num = 0
 	Game.imgs = [];
-	for(var i in src){
+	for(var i in src) {
 		Game.imgs[i] = new Image();
 		Game.imgs[i].src = src[i];
 		Game.imgs[i].onload = function() {
 			num ++;
-			if(num >= src.length){
+			if(num >= src.length) {
 				onComplete();
 			}
 		};
