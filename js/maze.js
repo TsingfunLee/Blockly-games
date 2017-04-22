@@ -14,26 +14,51 @@ Maze.ROWS = Maze.COLS;
 Maze.SQUARE = Maze.WIDTH / Maze.COLS;
 
 /**
-* Sprite 一格的宽度和高度
+* Sprite 一格的宽度
 */
-Maze.SPRITEWIDTH = 50;
-Maze.SPRITEHEIGHT = 70;
+Maze.SPRITEWIDTH = 150;
 
 /**
  * Pictures source.
  */
-Maze.src = ['img/idle.png',
-'img/front_jump.png',
-'img/maze_bg.jpg',
-'img/earth.jpg',
-'img/destination.png',
-'img/star.png'];
 Maze.IDLESRC = 'img/idle.png';
 Maze.FRONT_JUMPSRC = 'img/front_jump.png';
-Maze.BGSRC = 'img/maze_bg.jpg';
-Maze.EARTHSRC = 'img/earth.jpg';
-Maze.DESTINATIONSRC = 'img/destination.png';
-Maze.COLLECTIONSRC = 'img/star.png';
+Maze.BACK_JUMPSRC = 'img/back_jump.png';
+Maze.RIGHT_JUMPSRC = 'img/right_jump.png';
+Maze.LEFT_JUMPSRC = 'img/left_jump.png';
+Maze.TRUNSRC = 'img/turn.png';
+Maze.BGSRC = 'img/level' + Game.LEVEL +'.jpg';
+Maze.COLLECTIONSRC = 'img/carrot.png';
+
+Maze.NUMSRC0 = 'img/number/0.png';
+Maze.NUMSRC1 = 'img/number/1.png';
+Maze.NUMSRC2 = 'img/number/2.png';
+Maze.NUMSRC3 = 'img/number/3.png';
+Maze.NUMSRC4 = 'img/number/4.png';
+Maze.NUMSRC5 = 'img/number/5.png';
+Maze.NUMSRC6 = 'img/number/6.png';
+Maze.NUMSRC7 = 'img/number/7.png';
+Maze.NUMSRC8 = 'img/number/8.png';
+Maze.NUMSRC9 = 'img/number/9.png';
+
+Maze.src = [Maze.IDLESRC,
+Maze.FRONT_JUMPSRC,
+Maze.BACK_JUMPSRC,
+Maze.RIGHT_JUMPSRC,
+Maze.LEFT_JUMPSRC,
+Maze.TRUNSRC,
+Maze.BGSRC,
+Maze.COLLECTIONSRC,
+Maze.NUMSRC0,
+Maze.NUMSRC1,
+Maze.NUMSRC2,
+Maze.NUMSRC3,
+Maze.NUMSRC4,
+Maze.NUMSRC5,
+Maze.NUMSRC6,
+Maze.NUMSRC7,
+Maze.NUMSRC8,
+Maze.NUMSRC9];
 
 Maze.blocks = [
 	['action_forward'],
@@ -53,20 +78,8 @@ Maze.map = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 2, 1, 1, 3, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 2, 1, 3, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-],
-[
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
-	[0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
-	[0, 0, 0, 2, 0, 3, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -76,7 +89,19 @@ Maze.map = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 1, 1, 4, 0, 0, 0, 0],
+	[0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+	[0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+	[0, 0, 0, 2, 0, 0, 3, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+],
+[
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 4, 1, 1, 3, 0, 0, 0],
+	[0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -87,24 +112,24 @@ Maze.map = [
 [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-	[0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-	[0, 2, 0, 3, 1, 1, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+	[0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+	[0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+	[0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+	[0, 0, 0, 2, 0, 3, 1, 1, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ],
 [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 2, 0, 0, 0, 0, 3, 0, 0, 0],
-	[0, 4, 1, 0, 0, 0, 1, 0, 0, 0],
-	[0, 0, 4, 1, 0, 0, 1, 0, 0, 0],
-	[0, 0, 0, 4, 1, 0, 1, 0, 0, 0],
-	[0, 0, 0, 0, 4, 1, 1, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 2, 0, 0, 0, 0, 3, 0, 0],
+	[0, 0, 1, 4, 0, 0, 0, 1, 0, 0],
+	[0, 0, 0, 1, 4, 0, 0, 1, 0, 0],
+	[0, 0, 0, 0, 1, 4, 0, 1, 0, 0],
+	[0, 0, 0, 0, 0, 1, 4, 1, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]][Game.LEVEL];
@@ -152,7 +177,8 @@ Maze.animationState = 0;
 Maze.animationStateType = {
 	UNSET: 0,
 	MOVEFORWARD: 1,
-	TURNRIGHT: 2
+	TURNRIGHT: 2,
+	TURNLEFT: 3
 };
 
 /**
@@ -164,9 +190,6 @@ Maze.NUM = 0;
  * The number of stuff that have collected.
  */
 Maze.count = 0;
-
-// Maze.go = true;
-Maze.state = 0;
 
 Maze.setDirection = function() {
 	switch(Game.LEVEL) {
@@ -255,11 +278,19 @@ Maze.init = function() {
 
 Maze.initImages = function() {
 	Maze.idle = Game.imgs[Maze.src.indexOf(Maze.IDLESRC)];
-	Maze.jump = Game.imgs[Maze.src.indexOf(Maze.FRONT_JUMPSRC)];
+	Maze.frontJump = Game.imgs[Maze.src.indexOf(Maze.FRONT_JUMPSRC)];
+	Maze.backJump = Game.imgs[Maze.src.indexOf(Maze.BACK_JUMPSRC)];
+	Maze.rightJump = Game.imgs[Maze.src.indexOf(Maze.RIGHT_JUMPSRC)];
+	Maze.leftJump = Game.imgs[Maze.src.indexOf(Maze.LEFT_JUMPSRC)];
+	Maze.turn = Game.imgs[Maze.src.indexOf(Maze.TRUNSRC)];
 	Maze.bg = Game.imgs[Maze.src.indexOf(Maze.BGSRC)];
-	Maze.earth = Game.imgs[Maze.src.indexOf(Maze.EARTHSRC)];
-	Maze.destination = Game.imgs[Maze.src.indexOf(Maze.DESTINATIONSRC)];
 	Maze.carrot = Game.imgs[Maze.src.indexOf(Maze.COLLECTIONSRC)];
+	Maze.number = [];
+	for (var i = 0; i < 10; i++) {
+		var s = 'NUMSRC' + i;
+		Maze.number[i] = Game.imgs[Maze.src.indexOf(Maze[s])];
+		// console.log(Maze.number[i]);
+	}
 
 	// Draw game scene.
 	Maze.initScene();
@@ -276,10 +307,10 @@ Maze.initRole = function() {
 		x: Maze.start.x,
 		y: Maze.start.y
 	};
-	Maze.role.lastPosition = {
-		x: Maze.role.position.x,
-		y: Maze.role.position.y
-	};
+	// Maze.role.lastPosition = {
+	// 	x: Maze.role.position.x,
+	// 	y: Maze.role.position.y
+	// };
 	switch (Maze.DIRECTION) {
 		case Maze.directionType.NORTH:
 			Maze.role.sx = 0;
@@ -313,6 +344,7 @@ Maze.onresize = function() {
 */
 Maze.startAnimation = function(fps) {
 	Maze.fpsInterval = 1000 / fps;
+	Maze.totalTime = Maze.fpsInterval * fps;
   Maze.then = Date.now();
   Maze.startTime = Maze.then;
   Maze.animate();
@@ -339,27 +371,27 @@ Maze.animate = function() {
         Maze.then = Maze.now - (Maze.elapsed % Maze.fpsInterval);
 
         // Put your drawing code here
-				Maze.role.sx += 50;
-
-				if (Maze.now - Maze.startTime > Maze.fpsInterval * 8) {
+				if (Maze.now - Maze.startTime > Maze.totalTime) {
 					Maze.stopAnimation();
-					// Maze.go = true;
-					Maze.state = 0;
 				}
 
 				if (Maze.animationState == Maze.animationStateType.MOVEFORWARD) {
 					switch(Maze.DIRECTION){
 						case Maze.directionType.NORTH:
 							Maze.role.position.y -= 6.25;
+							Maze.role.img = Maze.backJump;
 							break;
 						case Maze.directionType.EAST:
 							Maze.role.position.x += 6.25;
+							Maze.role.img = Maze.rightJump;
 							break;
 						case Maze.directionType.SOUTH:
 							Maze.role.position.y += 6.25;
+							Maze.role.img = Maze.frontJump;
 							break;
 						case Maze.directionType.WEST:
 							Maze.role.position.x -= 6.25;
+							Maze.role.img = Maze.leftJump;
 							break;
 						default:
 							console.log(Maze.DIRECTION);
@@ -368,10 +400,23 @@ Maze.animate = function() {
 					// Draw game scene.
 					Maze.drawScene(function(){
 						Maze.drawRoleJump(Maze.role.position.x, Maze.role.position.y);
+						Maze.role.sx += 150;
 					});
-
-					console.log('animate');
+				}else if (Maze.animationState == Maze.animationStateType.TURNRIGHT) {
+					// Draw game scene.
+					Maze.drawScene(function(){
+						Maze.drawRoleTurn(Maze.role.position.x, Maze.role.position.y);
+						Maze.role.sx -= 150;
+					});
+				}else if (Maze.animationState == Maze.animationStateType.TURNLEFT) {
+					// Draw game scene.
+					// console.log(Maze.role.img);
+					Maze.drawScene(function(){
+						Maze.drawRoleTurn(Maze.role.position.x, Maze.role.position.y);
+						Maze.role.sx += 150;
+					});
 				}
+				console.log('animate');
     }
 };
 
@@ -391,21 +436,37 @@ Maze.moveforward = function(id) {
 
 	Maze.role.sx = 0;
 	Maze.role.sy = 0;
-	Maze.role.img = Maze.jump;
+	// Maze.role.img = Maze.jump;
 	Maze.animationState = Maze.animationStateType.MOVEFORWARD;
-	//Maze.go = false;
-	Maze.state = 1;
 	Maze.startAnimation(8);
 };
 
 Maze.turnright = function(id) {
 	console.log('turnright');
-	Maze.context.save();
-	Maze.context.rotate(Math.PI / 2);
-	Maze.context.translate(Maze.role.position.y - Maze.role.position.x, - (Maze.role.position.y + Maze.role.position.x));
-	Maze.context.clearRect(Maze.role.position.x, Maze.role.position.y - Maze.SQUARE, Maze.SQUARE, Maze.SQUARE);
-	Maze.drawRole(Maze.role.position.x, Maze.role.position.y - Maze.SQUARE);
-	Maze.context.restore();
+
+  Game.highlight(id);
+
+	switch(Maze.DIRECTION){
+		case Maze.directionType.NORTH:
+			Maze.role.sx = 4 * Maze.SPRITEWIDTH;
+			break;
+		case Maze.directionType.EAST:
+			Maze.role.sx = 2 * Maze.SPRITEWIDTH;
+			break;
+		case Maze.directionType.SOUTH:
+			Maze.role.sx = 8 * Maze.SPRITEWIDTH;
+			break;
+		case Maze.directionType.WEST:
+			Maze.role.sx = 6 * Maze.SPRITEWIDTH;
+			break;
+		default:
+			console.log(Maze.DIRECTION);
+			console.error('direction is wrong.');
+	}
+	Maze.role.sy = 0;
+	Maze.role.img = Maze.turn;
+	Maze.animationState = Maze.animationStateType.TURNRIGHT;
+	Maze.startAnimation(3);
 
 	// Set current direction.
 	// direction 0 ~ 3.
@@ -414,11 +475,29 @@ Maze.turnright = function(id) {
 
 Maze.turnleft = function(id) {
 	console.log('turnleft');
-	Maze.context.save();
-	Maze.context.rotate(-Math.PI / 2);
-	Maze.context.translate(- (Maze.role.position.y + Maze.role.position.x), Maze.role.position.x - Maze.role.position.y);
-	Maze.drawRole(Maze.role.position.x - Maze.SQUARE, Maze.role.position.y);
-	Maze.context.restore();
+	Game.highlight(id);
+
+	switch(Maze.DIRECTION){
+		case Maze.directionType.NORTH:
+			Maze.role.sx = 4 * Maze.SPRITEWIDTH;
+			break;
+		case Maze.directionType.EAST:
+			Maze.role.sx = 2 * Maze.SPRITEWIDTH;
+			break;
+		case Maze.directionType.SOUTH:
+			Maze.role.sx = 0;
+			break;
+		case Maze.directionType.WEST:
+			Maze.role.sx = 6 * Maze.SPRITEWIDTH;
+			break;
+		default:
+			console.log(Maze.DIRECTION);
+			console.error('direction is wrong.');
+	}
+	Maze.role.sy = 0;
+	Maze.role.img = Maze.turn;
+	Maze.animationState = Maze.animationStateType.TURNLEFT;
+	Maze.startAnimation(3);
 
 	// Set current direction.
 	// direction 0 ~ 3.
@@ -431,10 +510,26 @@ Maze.collect = function(id) {
 		i = Maze.role.position.y / Maze.SQUARE;
 	if(Maze.map[i][j] === Maze.pathType.PICK) {
 		Maze.count ++;
-		// Maze.contextBg.save();
-		// Maze.contextBg.clearRect(Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
-		// Maze.contextBg.drawImage(Maze.earth, Maze.role.position.x, Maze.role.position.y, Maze.SQUARE, Maze.SQUARE);
-		// Maze.contextBg.restore();
+		Maze.role.img = Maze.idle;
+		switch (Maze.DIRECTION) {
+			case Maze.directionType.NORTH:
+				Maze.role.sx = 0;
+				break;
+			case Maze.directionType.EAST:
+				Maze.role.sx = Maze.SPRITEWIDTH;
+				break;
+			case Maze.directionType.SOUTH:
+				Maze.role.sx = 2 * Maze.SPRITEWIDTH;
+				break;
+			case Maze.directionType.WEST:
+				Maze.role.sx = 3 * Maze.SPRITEWIDTH;
+				break;
+			default:
+				console.log('direction is undifined.');
+		}
+		Maze.drawScene(function() {
+			Maze.drawRoleIdle(Maze.role.position.x, Maze.role.position.y);
+		});
 	}else {
 		alert('There is none!!!!');
 	}
@@ -486,6 +581,7 @@ Maze.checkWall = function(x, y) {
 	if(Maze.map[i][j] === Maze.pathType.WALL) {
 		console.log('Can\'t walking!!!!');
 		Maze.result = Maze.resultType.CRASH;
+		alert('Crash')
 		return false;
 	}else {
 		return true;
@@ -506,6 +602,7 @@ Maze.checkResult = function(x, y) {
 	if(Maze.map[i][j] === Maze.pathType.FINISH && Maze.count === Maze.NUM) {
 		console.log('Success!!!!');
 		Maze.result = Maze.resultType.SUCCESS;
+		alert('success')
 	}else {
 		// Just picking up stuff, level 3 is success.
 		if(Game.LEVEL === 3 && Maze.count === Maze.NUM) {
@@ -514,6 +611,7 @@ Maze.checkResult = function(x, y) {
 		}else {
 			console.log('Failure!!!!');
 			Maze.result = Maze.resultType.FAILURE;
+			alert('failure!')
 			if(Maze.count != Maze.NUM) {
 				console.log('Pick up all collection!')
 			}
@@ -530,28 +628,25 @@ Maze.initApi = function(interpreter, scope) {
 	// Add an API function for moveforward() block.
 	var wrapper = function(id) {
 		id = id ? id.toString() : '';
-		console.log(id)
 		Maze.moveforward(id);
-		//Maze.state = 1;
-		//return interpreter.createPrimitive(Maze.moveforward(id));
 	};
 	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));
 
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(Maze.turnleft(id));
+		Maze.turnleft(id);
 	};
 	interpreter.setProperty(scope, 'turnleft', interpreter.createNativeFunction(wrapper));
 
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(Maze.turnright(id));
+		Maze.turnright(id);
 	};
 	interpreter.setProperty(scope, 'turnright', interpreter.createNativeFunction(wrapper));
 
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
-		return interpreter.createPrimitive(Maze.collect(id));
+		Maze.collect(id);
 	};
 	interpreter.setProperty(scope, 'collect', interpreter.createNativeFunction(wrapper));
 };
@@ -561,32 +656,21 @@ Maze.initApi = function(interpreter, scope) {
  * @param {Interpreter} JS interpreter.
  */
 Maze.excute = function(interpreter) {
-	// while (interpreter.step()) {
-	// 	//Maze.excute(interpreter);
-	// 	// if (true) {
-	// 	//
-	// 	// }
-	// 	//interpreter.step();
-	// 	//if (Maze.state == 0) {
-	// 		;
-	// 	//}else if (Maze.state == 1) {
-	// 		console.log('ing');
-	// 	//}
-	// }
-	Maze.checkResult(Maze.role.position.x, Maze.role.position.y)
 	if(interpreter.step() /*&& Maze.result === Maze.resultType.UNSET*/) {
 		// Remenber last postion.
-		Maze.role.lastPosition = {
-			x: Maze.role.position.x,
-			y: Maze.role.position.y
-		};
-		console.log('excute');
+		// Maze.role.lastPosition = {
+		// 	x: Maze.role.position.x,
+		// 	y: Maze.role.position.y
+		// };
+		// console.log('excute');
 		window.setTimeout(function() {
 			Maze.excute(interpreter);
 		}, 300);
 	}else{
 		//Check result.
-		Maze.checkResult(Maze.role.position.x, Maze.role.position.y);
+		if (Maze.result == Maze.resultType.UNSET) {
+			Maze.checkResult(Maze.role.position.x, Maze.role.position.y);
+		}
 	}
 };
 
