@@ -14,8 +14,8 @@
 	/*引入不同格式的字体,兼容各个不同的浏览器*/
 	src: url(../fonts/icomoon.eot);
 	src: url(../fonts/icomoon.eot?#iefix) format('embedded-opentype'),
-	 url(../fonts/icomoon.woff) format('woff'), 
-	 url(../fonts/icomoon.ttf) format('truetype'), 
+	 url(../fonts/icomoon.woff) format('woff'),
+	 url(../fonts/icomoon.ttf) format('truetype'),
 	 url(../fonts/icomoon.svg#icomoon) format('svg');
 	font-weight: 400;
 	font-style: normal
@@ -310,7 +310,7 @@ html[xmlns] .flexslider .slides {
 #con1_img li{
 	display: block;
 	float: left;
-	width: 309px;
+	width: 308px;
 	height: 160px;
 	color: #65676A;
 	font-size: 30px;
@@ -334,7 +334,7 @@ html[xmlns] .flexslider .slides {
 	color: #fefefe;
 	position: relative;
 	top: 83px;
-	left: 90px;	
+	left: 90px;
 }
 /*第二*/
 .construct2{
@@ -365,7 +365,7 @@ html[xmlns] .flexslider .slides {
 	padding:15px 0 15px 0;
 	line-height: 30px;
 }
-/*第三*/ 
+/*第三*/
 .construct3{
 	width: 940px;
 	height: 390px;
@@ -435,7 +435,7 @@ p.game_text{
 	bottom: -29px;
 }
 #con3_l{
-	background-color: #e3ce5f;	
+	background-color: #e3ce5f;
 }
 
 #con3_m{
