@@ -16,7 +16,13 @@ Blockly.Msg.ACTION_TURN_RIGHT_TOOLTIP = 'Turn right.';
 Blockly.Msg.ACTION_TURN_LEFT = 'turn left';
 Blockly.Msg.ACTION_TURN_LEFT_TOOLTIP = 'Turn left.';
 Blockly.Msg.ACTION_COLLECT = 'pick up';
-Blockly.Msg.ACTION_COLLECT_TOOLTIP = 'Pick up 待定.';
+Blockly.Msg.ACTION_COLLECT_TOOLTIP = 'Pick up carrot.';
+Blockly.Msg.ACTION_IF = 'if path';
+Blockly.Msg.ACTION_DO = 'do';
+Blockly.Msg.ACTION_ELSE = 'else';
+Blockly.Msg.ACTION_IF_FORWARD = 'ahead';
+Blockly.Msg.ACTION_IF_LEFT = 'to the left';
+Blockly.Msg.ACTION_IF_RIGHT = 'to the right';
 
 Blockly.Msg.BRUSH_MOVE_NORTH = '↑';
 Blockly.Msg.BRUSH_MOVE_NORTH_TOOLTIP = 'Take bar to move north';

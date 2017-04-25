@@ -6,9 +6,8 @@
 	top:60px;
 	padding-top: 30px;
 	/*position: absolute;*/
-	background-image:url(../img/backgroundimg.jpg);
-	background-size: cover;
-	/*z-index: 1;/*让图片显示在底层*/*/
+	background-color: #b0c2d4;
+	background-image:url(../img/backgroundimg.png);
 
 }
 
@@ -74,15 +73,16 @@
 	/*按钮样式*/
 	height: 40px;
 	width:95px;
-	border-radius: 20px;
+	border-radius: 6px;
 	padding: 0;
 	display: inline-block;
  	outline: none;
  	border:none;
   	cursor: pointer;
-	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
+	/*background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
     background: -moz-linear-gradient(left,  #0493ff,  #35dfff);
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');*/
+   background: #537faa;
   	/*位置设置*/
   	position:absolute;
   	top:30px;
@@ -92,7 +92,7 @@
 	visibility: hidden;
 }
 .btn:hover,active{
-	box-shadow: 2px 2px 4px  #0889C9 ;
+	box-shadow: 2px 2px 4px  #9E9E9E ;
 }
 .active {
 	visibility: visible !important;
@@ -118,7 +118,7 @@
   /* -webkit-filter:blur(0.5px);*/
    padding:0;
    margin:0;
-   width:270px;
+   /*width:270px;*/
    line-height: 60px;
    position: relative;
    float:left;
@@ -142,7 +142,7 @@
     outline: none;
     border:none;
     cursor: pointer;
-    background: #e1f3fd;
+    background: #e1e5ee;
     position:relative;
     margin-left:20px;
  /*   z-index:2;*/
@@ -159,17 +159,12 @@
    border-radius:100%;
    width:40px;
    height:40px;
-   /*background: -webkit-gradient(linear, left top, right bottom, from(#14b6ef), to(#38e8fb));
-   background: -moz-linear-gradient(top,  #14b6ef,  #38e8fb);
-   filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#14b6ef', endColorstr='#38e8fb');*/
-  /*background-color: #35dfff;*/
-	background-color: #0493FF;
-   opacity:0.7;
+   background-color: #537faa;
+   opacity:0.8;
    border:none;
    position:absolute;
    z-index:3;
    top:12px;
- /*  left:15px;*/
    pointer-events:none;
    color:#FFFFFF;
    font-size: 17px;
@@ -189,24 +184,26 @@
 	font-size: 18px;
 	text-decoration: none;
 	text-align: center;
+	line-height: 30px;
 	/*按钮样式*/
 	height: 30px;
 	width:auto;
-	border-radius: 15px;
+	border-radius: 4px;
 	padding: 0 10px;
 	display: inline-block;
     outline: none;
     border:none;
     cursor: pointer;
-	background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
+	/*background: -webkit-gradient(linear, left top, right bottom, from(#0493ff), to(#35dfff));
     background: -moz-linear-gradient(left,  #0493ff,  #35dfff);
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0493ff', endColorstr='#35dfff');*/
+   background: #537faa;
 
     box-shadow:none;
  /*   z-index: 2;*/
 }
 .showcode:hover,active{
-	box-shadow:  2px 2px 4px  #0889C9;
+	box-shadow:  1px 1px 4px  #9E9E9E;
 }
 
 /**
@@ -236,14 +233,4 @@
 	top: -3.5px;
 	left: 50%;
 	cursor: default;
-}
-#footer{
-	width:100%;
-	height:60px;
-	background-color:#0086B3;
-	text-align: center;
-	line-height: 60px;
-	color: #FFFFFF;
-	/*opacity: 0.5;*/
-	position: relative;
 }

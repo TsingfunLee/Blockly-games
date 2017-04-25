@@ -5,6 +5,8 @@ goog.provide('Blockly.Blocks.brush');
 goog.require('Blockly');
 goog.require('Blockly.Blocks');
 
+Blockly.Blocks.brush.HUE = 208;
+
 Blockly.Blocks['brush_move_north'] = {
 	/**
 	 * Block for moving north.
@@ -15,7 +17,7 @@ Blockly.Blocks['brush_move_north'] = {
 			"message0": Blockly.Msg.BRUSH_MOVE_NORTH,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_MOVE_NORTH_TOOLTIP
 		});
 	}
@@ -31,7 +33,7 @@ Blockly.Blocks['brush_move_east'] = {
 			"message0": Blockly.Msg.BRUSH_MOVE_EAST,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_MOVE_EAST_TOOLTIP
 		});
 	}
@@ -47,7 +49,7 @@ Blockly.Blocks['brush_move_south'] = {
 			"message0": Blockly.Msg.BRUSH_MOVE_SOUTH,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_MOVE_SOUTH_TOOLTIP
 		});
 	}
@@ -63,7 +65,7 @@ Blockly.Blocks['brush_move_west'] = {
 			"message0": Blockly.Msg.BRUSH_MOVE_WEST,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_MOVE_WEST_TOOLTIP
 		});
 	}
@@ -79,7 +81,7 @@ Blockly.Blocks['brush_moveforward'] = {
 			"message0": Blockly.Msg.BRUSH_MOVE_FORWARD,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_MOVE_FORWARD_TOOLTIP
 		});
 	}
@@ -109,7 +111,7 @@ Blockly.Blocks['brush_turnright'] = {
 			}],
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_TURN_RIGHT_TOOLTIP
 		});
 	}
@@ -130,7 +132,7 @@ Blockly.Blocks['brush_set_color'] = {
 			}],
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_SET_COLOR_TOOLTIP
 		});
 	}
@@ -146,7 +148,7 @@ Blockly.Blocks['brush_pen_up'] = {
 			"message0": Blockly.Msg.BRUSH_PEN_UP,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_PEN_UP_TOOLTIP
 		});
 	}
@@ -162,7 +164,7 @@ Blockly.Blocks['brush_pen_down'] = {
 			"message0": Blockly.Msg.BRUSH_PEN_DOWN,
 			"previousStatement": null,
 			"nextStatement": null,
-			"colour": 198,
+			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_PEN_DOWN_TOOLTIP
 		});
 	}

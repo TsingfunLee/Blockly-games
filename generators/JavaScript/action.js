@@ -23,3 +23,23 @@ Blockly.JavaScript['action_turnleft'] = function(block) {
 Blockly.JavaScript['action_collect'] = function(block) {
 	return 'collect(\'' + block.id +'\');\n';
 };
+
+Blockly.JavaScript['action_if'] = function(block) {
+  // Generate JavaScript for 'if' conditional if there is a path.
+  var argument = block.getFieldValue('DIR') +
+      '(\'' + block.id + '\')';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  var code = 'if (' + argument + ') {\n' + branch + '}\n';
+  return code;
+};
+
+Blockly.JavaScript['action_ifElse'] = function(block) {
+  // Generate JavaScript for 'if/else' conditional if there is a path.
+  var argument = block.getFieldValue('DIR') +
+      '(\'' + block.id + '\')';
+  var branch0 = Blockly.JavaScript.statementToCode(block, 'DO');
+  var branch1 = Blockly.JavaScript.statementToCode(block, 'ELSE');
+  var code = 'if (' + argument + ') {\n' + branch0 +
+             '} else {\n' + branch1 + '}\n';
+  return code;
+};

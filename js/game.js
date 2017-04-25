@@ -12,7 +12,7 @@ Game.LANGUAGE_NAME = {
 
 Game.workspace = null;
 
-Game.MAX_LEVEL = 5;
+Game.MAX_LEVEL = 10;
 
 /**
  * Return a value that between min and max.
@@ -398,6 +398,10 @@ Game.loadImages = function(src, onComplete) {
 			}
 		};
 	}
+};
+
+Game.showDialog = function() {
+
 };
 
 // Load the language strings.

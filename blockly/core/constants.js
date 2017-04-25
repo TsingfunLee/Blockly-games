@@ -62,13 +62,13 @@ Blockly.SOUND_LIMIT = 100;
  * The richness of block colours, regardless of the hue.
  * Must be in the range of 0 (inclusive) to 1 (exclusive).
  */
-Blockly.HSV_SATURATION = 0.91;
+Blockly.HSV_SATURATION = 0.72;
 
 /**
  * The intensity of block colours, regardless of the hue.
  * Must be in the range of 0 (inclusive) to 1 (exclusive).
  */
-Blockly.HSV_VALUE = 0.98;
+Blockly.HSV_VALUE = 0.88;
 
 /**
  * Sprited icons and images.

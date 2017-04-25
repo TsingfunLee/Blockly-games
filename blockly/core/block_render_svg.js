@@ -296,8 +296,8 @@ Blockly.BlockSvg.prototype.render = function(opt_bubble) {
  */
 Blockly.BlockSvg.prototype.renderFields_ =
     function(fieldList, cursorX, cursorY) {
-  /* eslint-disable indent   eslint禁用缩进*/
-  cursorY += Blockly.BlockSvg.INLINE_PADDING_Y;
+  /* eslint-disable indent*/
+  cursorY += Blockly.BlockSvg.INLINE_PADDING_Y+4;
   if (this.RTL) {
     cursorX = -cursorX;
   }
@@ -338,7 +338,7 @@ Blockly.BlockSvg.prototype.renderCompute_ = function(iconWidth) {
   inputRows.rightEdge = iconWidth + Blockly.BlockSvg.SEP_SPACE_X * 2;
   if (this.previousConnection || this.nextConnection) {
     inputRows.rightEdge = Math.max(inputRows.rightEdge,
-        Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.SEP_SPACE_X);
+        Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.SEP_SPACE_X );
   }
   var fieldValueWidth = 0;  // Width of longest external value field. 最长外部值字段的宽度。
   var fieldStatementWidth = 0;  // Width of longest statement field.  最长语句字段的宽度。
@@ -363,7 +363,7 @@ Blockly.BlockSvg.prototype.renderCompute_ = function(iconWidth) {
       } else {
         row.type = input.type;
       }
-      row.height = 0;
+      row.height = 37;
       inputRows.push(row);
     } else {
       row = inputRows[inputRows.length - 1];
@@ -766,7 +766,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
       this.renderFields_(input.fieldRow, fieldX, fieldY);
       
       //steps.push('v', row.height);
-      steps.push('a 15 15 90 0 1 0 30')
+      steps.push('a 18 18 90 0 1 0 36')
       
   } else if (row.type == Blockly.NEXT_STATEMENT) {
       // Nested statement.  嵌套语句。
@@ -791,9 +791,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function(steps, highlightSteps,
       }
       this.renderFields_(input.fieldRow, fieldX, fieldY);
       cursorX = inputRows.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH;
-      steps.push('H', cursorX);
+      steps.push('H', cursorX+0.5);
       steps.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER);
-      steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS);
+      steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS-1);
       steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
       steps.push('H', inputRows.rightEdge);
 	  
@@ -848,7 +848,7 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ =  function(steps, highlightSteps, 
       connectionX = Blockly.BlockSvg.NOTCH_WIDTH;
     }
     this.nextConnection.setOffsetInBlock(connectionX, cursorY + 1);
-    this.height += 4;  // Height of tab. 标签高度。
+    this.height += 4;  // Height of tab. 
   }
 
   // Should the bottom-left corner be rounded or square? 左下角应该是圆形还是正方形？
