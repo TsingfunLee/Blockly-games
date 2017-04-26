@@ -1,4 +1,4 @@
-#dialog1 {
+#dialogCode {
   width: 790px;
   height: 290px;
   margin-left: -395px;
@@ -7,7 +7,7 @@
   display: none;
 }
 
-#dialog2 {
+#dialogTip {
   width: 340px;
   height: 500px;
   margin-left: -170px;
@@ -16,7 +16,7 @@
   text-align: center;
 }
 
-#dialog3 {
+#dialogWin {
   width: 340px;
   height: 500px;
   margin-left: -170px;
@@ -25,7 +25,7 @@
   text-align: center;
 }
 
-#dialog3 .dialog-btn-small {
+#dialogWin .dialog-btn-small {
   position: relative !important;
   margin-left: 10px;
   margin-right: 10px;
