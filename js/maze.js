@@ -85,6 +85,13 @@ Maze.setDirection = function() {
 		case 5:
 			Maze.DIRECTION = Maze.directionType.SOUTH;
 			break;
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+			Maze.DIRECTION = Maze.directionType.EAST;
+			break;
 		default:
 			Maze.DIRECTION = Maze.directionType.EAST;
 			console.log('Level is undefined.');
@@ -106,6 +113,13 @@ Maze.setNum = function() {
 			break;
 		case 5:
 			Maze.NUM = 4;
+			break;
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+			Maze.NUM = 0;
 			break;
 		default:
 			console.log('Level is undefined.');

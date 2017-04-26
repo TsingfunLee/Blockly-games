@@ -1,15 +1,52 @@
+#dialog1 {
+  width: 790px;
+  height: 290px;
+  margin-left: -395px;
+  margin-top: -195px;
+  padding: 20px;
+  display: none;
+}
+
 #dialog2 {
   width: 340px;
   height: 500px;
+  margin-left: -170px;
+  margin-top: -250px;
+  display: none;
+  text-align: center;
+}
+
+#dialog3 {
+  width: 340px;
+  height: 500px;
+  margin-left: -170px;
+  margin-top: -250px;
+  display: none;
+  text-align: center;
+}
+
+#dialog3 .dialog-btn-small {
+  position: relative !important;
+  margin-left: 10px;
+  margin-right: 10px;
+  top: 50px;
+}
+
+.dialog {
   background-color: white;
   position: fixed;
   left: 50%;
   top: 50%;
-  margin-left: -170px;
-  margin-top: -250px;
-  text-align: center;
   z-index: 12;
-  display: none;
+}
+
+.dialog-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding-left: 280px;
 }
 
 .dialog-h {
@@ -24,11 +61,23 @@
 
 .dialog-btn {
   font-size: 20px;
-  width: 225px;
-  height: 44px;
   position: absolute;
   bottom: 45px;
+  background-color: #5883b0;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+
+.dialog-btn-big {
+  width: 225px;
+  height: 44px;
   margin-left: -112.5px;
+}
+
+.dialog-btn-small {
+  width: 113px;
+  height: 44px;
 }
 
 .layer {

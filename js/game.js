@@ -345,25 +345,7 @@ Game.initToolbox = function(game) {
 	var blocks = [];
 
 	// Block type needed.
-	switch(Game.LEVEL) {
-		case 1:
-			blocks = game.blocks[0];
-			break;
-		case 2:
-			blocks = game.blocks[1];
-			break;
-		case 3:
-			blocks = game.blocks[2];
-			break;
-		case 4:
-			blocks = game.blocks[3];
-			break;
-		case 5:
-			blocks = game.blocks[4];
-			break;
-		default:
-			console.log('Level is undefined.');
-	}
+	blocks = game.blocks[Game.LEVEL - 1];
 
 	// Create toolbox xml.
 	for(var index in blocks) {
