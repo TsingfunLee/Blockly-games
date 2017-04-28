@@ -70,6 +70,11 @@ Maze.NUM = 0;
  */
 Maze.count = 0;
 
+// /**
+// * If decrease difficultity.
+// */
+// Maze.easy = false;
+
 Maze.setDirection = function() {
 	switch(Game.LEVEL) {
 		case 1:
@@ -140,8 +145,13 @@ Maze.init = function() {
 
 	// Preparatory works.
 	Game.initToolbox(Maze);
-	Game.initWorkspace();
+	Game.initWorkspace(Maze.maxBlocks);
 	Game.loadImages(Maze.src, Maze.initImages);
+	if (Game.LEVEL == 1) {
+		Maze.beginDialog();
+	}else {
+		Maze.popover(DIALOG.maze[Game.LEVEL - 1].begin);
+	}
 
 	Maze.setDirection();
 	Maze.setNum();
@@ -163,13 +173,74 @@ Maze.init = function() {
 		}
 	}
 
+	Game.workspace.addChangeListener(function() {Maze.updateCapacity()});
+
 	Game.bindClick(document.getElementById('playBtn'), Maze.play);
 	Game.bindClick(document.getElementById('resetBtn'), Maze.reset);
 
 	window.onresize = Maze.onresize;
 };
 
+Maze.beginDialog = function() {
+	var dialogHeader = document.querySelector('#dialogTip h6');
+	var dialogContent = '';
+	dialogContent = DIALOG.maze[0].begin;
+	if (Game.LEVEL == 10) {
+		dialogContent = DIALOG.maze[9].win;
+	}
+	dialogHeader.textContent = dialogContent;
+	Game.showDialog('dialogTip');
+};
 
+Maze.successDialog = function() {
+	var dialogP = document.querySelector('#dialogWin .dialog-p');
+	var dialogContent = '';
+	dialogContent = DIALOG.maze[Game.LEVEL - 1].win;
+	dialogP.textContent = dialogContent;
+	Game.showDialog('dialogWin');
+};
+
+Maze.popover = function(content) {
+	var popover = document.getElementById('popover');
+	var popoverP = document.querySelector('#popover p');
+	var popoverBtn = document.querySelector('#popover button');
+	var isDisplay = false;
+	if (Game.LEVEL == 10 && Maze.result == Maze.resultType.FAILURE) {
+		isDisplay = true;
+		popoverBtn.style.display = 'block';
+		popoverBtn.addEventListener('click', function(){
+			var defaultXml = '<xml>' +
+			'<block type="controls_repeat" x="38" y="63">' +
+			'<field name="TIMES">10</field>' +
+			'<statement name="DO">' +
+			'<block type="action_ifElse">' +
+			'<field name="DIR">isPathForward</field>' +
+			'<statement name="DO">' +
+			'<block type="action_if">' +
+			'<field name="DIR">isPathRight</field>' +
+			'</block></statement>' +
+			'<statement name="ELSE">' +
+			'<block type="action_if">' +
+			'<field name="DIR">isPathLeft</field>' +
+			'</block></statement></block></statement></block></xml>'
+			Game.loadBlocks(defaultXml);
+			Maze.reset();
+		});
+	}
+	popoverP.textContent = content;
+	popover.style.display = 'block';
+	popover.addEventListener('mouseenter', function(){
+		isDisplay = true;
+	});
+	popover.addEventListener('mouseleave', function(){
+		popover.style.display = 'none';
+	});
+	setTimeout(function() {
+		if (!isDisplay) {
+			popover.style.display = 'none';
+		}
+	}, 2000);
+};
 
 Maze.initImages = function() {
 	Maze.idle = Game.imgs[Maze.src.indexOf(Maze.IDLESRC)];
@@ -226,6 +297,19 @@ Maze.onresize = function() {
 	Blockly.svgResize(Game.workspace);
 };
 
+Maze.updateCapacity = function() {
+  var cap = Game.workspace.remainingCapacity();
+	var capacity = document.getElementById('capacity');
+	var p = document.getElementById('capacityNum');
+	p.textContent = Number(cap);
+	if (cap != Infinity) {
+		capacity.style.display = 'block';
+	}
+	if (cap == 0) {
+		console.log('积木块已用完');
+	}
+};
+
 /**
  * API added to interpreter.
  * @param {Interpreter} JS interpreter.
@@ -256,6 +340,31 @@ Maze.initApi = function(interpreter, scope) {
 		Maze.collect(id);
 	};
 	interpreter.setProperty(scope, 'collect', interpreter.createNativeFunction(wrapper));
+
+	wrapper = function(id) {
+		console.log('ispathforward');
+    return interpreter.createPrimitive(Maze.isPath(0, id.toString()));
+  };
+  interpreter.setProperty(scope, 'isPathForward',
+      interpreter.createNativeFunction(wrapper));
+
+  wrapper = function(id) {
+    return interpreter.createPrimitive(Maze.isPath(1, id.toString()));
+  };
+  interpreter.setProperty(scope, 'isPathRight',
+      interpreter.createNativeFunction(wrapper));
+
+  wrapper = function(id) {
+    return interpreter.createPrimitive(Maze.isPath(2, id.toString()));
+  };
+  interpreter.setProperty(scope, 'isPathBackward',
+      interpreter.createNativeFunction(wrapper));
+
+  wrapper = function(id) {
+    return interpreter.createPrimitive(Maze.isPath(3, id.toString()));
+  };
+  interpreter.setProperty(scope, 'isPathLeft',
+      interpreter.createNativeFunction(wrapper));
 };
 
 /**
@@ -302,16 +411,6 @@ Maze.reset = function() {
 
 	document.getElementById('playBtn').style.visibility = 'visible';
 	document.getElementById('resetBtn').style.visibility = 'hidden';
-};
-
-Maze.nextLevel = function() {
-    if (Game.LEVEL < Game.MAX_LEVEL) {
-        window.location = window.location.protocol + '//' +
-        window.location.host + window.location.pathname +
-        '?lang=' + Game.LANG + '&level=' + (Game.LEVEL + 1);
-    } else {
-    	console.log('Last level!!!!')
-    }
 };
 
 window.addEventListener('load', Maze.init, false);

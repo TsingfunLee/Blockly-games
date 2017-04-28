@@ -113,6 +113,9 @@
 				</div>
 				<div class="cont_inner_left">
 					<div class="game_view" id="visilazation">
+						<div id="capacity">
+							<p>积木块还剩<span id="capacityNum"></span>块</p>
+						</div>
 					</div>
 					<div class="buttonbox">
 						<button type="button" class="btn active" id="playBtn">运行</button>
@@ -144,19 +147,25 @@
 		<!-- Dialog for game tip -->
 		<div id="dialogTip" class="dialog">
 			<img src="img/dialog2.jpg">
-			<h6 class="dialog-h">dfdsfdsaf</h6>
-			<p class="dialog-p">fffffffffffff</p>
+			<h6 class="dialog-h"></h6>
+			<!-- <p class="dialog-p">fffffffffffff</p> -->
 			<button class="dialog-btn dialog-btn-big">确定</button>
 		</div>
 		<!-- Dialog for game success -->
 		<div id="dialogWin" class="dialog">
 			<img src="img/dialog2.jpg">
-			<h6 class="dialog-h">dfdsfdsaf</h6>
-			<p class="dialog-p">fffffffffffff</p>
-			<button class="dialog-btn dialog-btn-small">确定</button>
-			<button class="dialog-btn dialog-btn-small">下一关</button>
+			<h6 class="dialog-h">成功！</h6>
+			<p class="dialog-p">恭喜通关</p>
+			<button class="dialog-btn dialog-btn-small dialog-btn-left">重玩</button>
+			<button class="dialog-btn dialog-btn-small dialog-btn-right">下一关</button>
 		</div>
 		<div class="layer"></div>
+
+		<div id="popover" class="popover">
+			<img src="img/carrot.png">
+			<p>提示</p>
+			<button>降低难度</button>
+		</div>
 
 	<div class="footer">
 				Copyright © ICode Inc,All Right Reserved

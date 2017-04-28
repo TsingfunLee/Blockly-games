@@ -53,6 +53,9 @@ Maze.blocks = [
 	['action_forward', 'controls_repeat', 'action_if', 'action_ifElse', 'action_turnright', 'action_turnleft']
 ];
 
+Maze.maxBlocks = [undefined, // Level 0.
+    Infinity, Infinity, Infinity, 6, Infinity, 4, 4, 6, 4, Infinity][Game.LEVEL];
+
 /**
  * 1 --- path; 0 --- wall; 2 --- start; 3 --- finish.
  */

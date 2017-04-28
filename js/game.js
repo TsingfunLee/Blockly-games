@@ -128,7 +128,10 @@ Game.loadBlocks = function(defaultXml) {
 	} else if(defaultXml) {
 		// Load the editor with default starting blocks.
 		var xml = Blockly.Xml.textToDom(defaultXml);
+		// Clear the workspace to avoid merge.
+		Game.workspace.clear();
 		Blockly.Xml.domToWorkspace(xml, Game.workspace);
+		Game.workspace.clearUndo();
 	} else if('BlocklyStorage' in window) {
 		// Restore saved blocks in a separate thread so that subsequent
 		// initialization is not affected from a failed load.
@@ -241,9 +244,31 @@ Game.btnEvent = function() {
 
   // Toggle code button.
 	var codebtnEvent = function(){
-		alert("显示代码窗口");
+		//alert("显示代码窗口");
+		var dialogCode = document.getElementById('dialogCode');
+		var dialogP = document.querySelector('#dialogCode p');
+		var layer = document.getElementsByClassName('layer')[0];
+		var code = Blockly.JavaScript.workspaceToCode(Game.workspace);
+		code = code.replace(/(,\s*)?'block_id_[^']+'\)/g, ')');
+		dialogP.textContent = code;
+		dialogCode.style.display = 'block';
+		layer.style.display = 'block';
 	};
 	Game.bindClick('.showcode', codebtnEvent);
+
+	// Dialog button.
+	var btnConfirm = document.getElementsByClassName('dialog-btn');
+	console.log(btnConfirm[0]);
+	Game.bindClick(btnConfirm[0], function() {
+		Game.hideDialog('dialogCode');
+	});
+	Game.bindClick(btnConfirm[1], function() {
+		Game.hideDialog('dialogTip')
+	});
+	Game.bindClick(btnConfirm[2], function() {
+		Game.hideDialog('dialogWin')
+	});
+	Game.bindClick(btnConfirm[3], Game.nextLevel);
 };
 
 /**
@@ -310,13 +335,18 @@ Game.initLanguage = function() {
 
 /**
  * Initialize workspace.
+ * @param {Number} maxBlocks. Maximum number of blocks that may be created.
  */
-Game.initWorkspace = function() {
+Game.initWorkspace = function(maxBlocks) {
 	// Interpolate translated messages into toolbox.
 	var toolboxText = document.getElementById('toolbox').outerHTML;
 	toolboxText = toolboxText.replace(/{(\w+)}/g,
 		function(m, p1) { return MSG[p1]; });
 	var toolboxXml = Blockly.Xml.textToDom(toolboxText);
+
+	if (maxBlocks == void 0) {
+		maxBlocks = Infinity;
+	}
 
 	Game.workspace = Blockly.inject('workspce_block', {
 		grid: {
@@ -325,6 +355,7 @@ Game.initWorkspace = function() {
 			colour: '#ccc',
 			snap: true
 		},
+		maxBlocks: maxBlocks,
 		media: 'media/',
 		toolbox: toolboxXml,
 		trashcan: true,
@@ -360,7 +391,13 @@ Game.initToolbox = function(game) {
  * @param {String} id ID of block that triggered this action.
  */
 Game.highlight = function(id) {
-  	Game.workspace.highlightBlock(id);
+	if (id) {
+    var m = id.match(/^block_id_([^']+)$/);
+    if (m) {
+      id = m[1];
+    }
+  }
+  Game.workspace.highlightBlock(id);
 };
 
 /**
@@ -382,13 +419,38 @@ Game.loadImages = function(src, onComplete) {
 	}
 };
 
-Game.showDialog = function() {
-
+Game.nextLevel = function() {
+    if (Game.LEVEL < Game.MAX_LEVEL) {
+        window.location = window.location.protocol + '//' +
+        window.location.host + window.location.pathname +
+        '?lang=' + Game.LANG + '&level=' + (Game.LEVEL + 1);
+    } else {
+    	alert('Exceed max level!!!!');
+    }
 };
+
+/**
+* @param {String} id. id of dialog html.
+*/
+Game.showDialog = function(id) {
+	var dialog = document.getElementById(id);
+	var layer = document.getElementsByClassName('layer')[0];
+	dialog.style.display = 'block';
+	layer.style.display = 'block';
+};
+
+Game.hideDialog = function(id) {
+	var dialog = document.getElementById(id);
+	var layer = document.getElementsByClassName('layer')[0];
+	dialog.style.display = 'none';
+	layer.style.display = 'none';
+}
 
 // Load the language strings.
 document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
 document.write('<script src="blockly/msg/js/' + Game.LANG + '.js"></script>\n');
+// Load dialog language strings.
+document.write('<script src="msg/dialogContent_' + Game.LANG + '.js"></script>\n');
 
 window.addEventListener('load', Game.init);

@@ -90,6 +90,7 @@ Maze.moveforward = function(id) {
 	console.log('moveforward' + Maze.DIRECTION);
 
 	if(!Maze.checkWall(Maze.role.position.x, Maze.role.position.y, 0)) {
+		Maze.displayResult();
 		return;
 	}
 
@@ -97,7 +98,6 @@ Maze.moveforward = function(id) {
 
 	Maze.role.sx = 0;
 	Maze.role.sy = 0;
-	// Maze.role.img = Maze.jump;
 	Maze.animationState = Maze.animationStateType.MOVEFORWARD;
 	Maze.startAnimation(8);
 };
@@ -194,6 +194,12 @@ Maze.collect = function(id) {
 	}else {
 		alert('There is none!!!!');
 	}
+	Game.highlight(id);
+};
+
+Maze.isPath = function(direction, id) {
+	Game.highlight(id);
+	return Maze.checkWall(Maze.role.position.x, Maze.role.position.y, direction);
 };
 
 /**
@@ -204,21 +210,6 @@ Maze.collect = function(id) {
  */
 Maze.checkWall = function(x, y, direction) {
 	var i, j;
-	// if(y < Maze.role.lastPosition.y) {
-	// 	i = Math.floor(y / Maze.SQUARE);
-	// }else if(y > Maze.role.lastPosition.y) {
-	// 	i = Math.ceil(y / Maze.SQUARE);
-	// }else {
-	// 	i = y / Maze.SQUARE;
-	// }
-	//
-	// if(x < Maze.role.lastPosition.x) {
-	// 	j = Math.floor(x / Maze.SQUARE);
-	// }else if(x > Maze.role.lastPosition.x) {
-	// 	j = Math.ceil(x / Maze.SQUARE);
-	// }else {
-	// 	j = x / Maze.SQUARE;
-	// }
   var effectiveDirection = Maze.DIRECTION + direction;
   effectiveDirection = effectiveDirection % 4;
   if (effectiveDirection < 0) {
@@ -247,7 +238,8 @@ Maze.checkWall = function(x, y, direction) {
 
 	if(Maze.map[i][j] === Maze.pathType.WALL) {
 		Maze.result = Maze.resultType.CRASH;
-		alert('Crash')
+		//alert('Crash')
+		//Maze.displayResult();
 		return false;
 	}else {
 		return true;
@@ -268,19 +260,41 @@ Maze.checkResult = function(x, y) {
 	if(Maze.map[i][j] === Maze.pathType.FINISH && Maze.count === Maze.NUM) {
 		console.log('Success!!!!');
 		Maze.result = Maze.resultType.SUCCESS;
-		alert('success')
+		//alert('success')
 	}else {
-		// Just picking up stuff, level 3 is success.
-		if(Game.LEVEL === 3 && Maze.count === Maze.NUM) {
-			console.log('Success!!!!');
-			Maze.result = Maze.resultType.SUCCESS;
-		}else {
-			console.log('Failure!!!!');
-			Maze.result = Maze.resultType.FAILURE;
-			alert('failure!')
-			if(Maze.count != Maze.NUM) {
-				console.log('Pick up all collection!')
+		console.log('Failure!!!!');
+		Maze.result = Maze.resultType.FAILURE;
+		//alert('failure!')
+	}
+
+	Maze.displayResult();
+};
+
+Maze.displayResult = function() {
+	switch (Maze.result) {
+		case Maze.resultType.CRASH:
+
+			//break;
+		case Maze.resultType.FAILURE:
+			var content = DIALOG.maze[Game.LEVEL - 1].lose;
+			if (Game.LEVEL == 5 || Game.LEVEL == 3) {
+				if(Maze.count != Maze.NUM) {
+					console.log('Pick up all collection!');
+					content = content[0];
+				}else {
+					content = content[1];
+				}
 			}
-		}
+
+			Maze.popover(content);
+			break;
+		case Maze.resultType.SUCCESS:
+			if (Game.LEVEL != 10) {
+				Maze.successDialog();
+			}else {
+				Maze.beginDialog();
+			}
+
+			break;
 	}
 };
