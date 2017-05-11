@@ -239,11 +239,13 @@
 .fast {
 	position: relative;
 	left: 30px;
+	top: 5px;
 }
 
 .slow {
 	position: relative;
 	left: 182px;
+	top: 5px;
 }
 /*@media  screen and (max-width: 1520px) {
 	.container{
