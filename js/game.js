@@ -205,7 +205,7 @@ Game.displayLevelLink = function() {
 		for(var i = 1; i <= Game.MAX_LEVEL; ++i) {
 			a = document.createElement('a');
 			a.innerHTML = i;
-			a.href = '?lang=' + Game.LANG + '&level=' + i;
+			a.href = '?lang=' + Game.LANG + '&level=' + i + '&name=' + Game.NAME;
 			a.addEventListener('mouseover', wateraction);
 			a.classList.add('levelbtn');
 			levelLink.appendChild(a);
@@ -500,5 +500,7 @@ document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
 document.write('<script src="blockly/msg/js/' + Game.LANG + '.js"></script>\n');
 // Load dialog language strings.
 document.write('<script src="msg/dialogContent_' + Game.LANG + '.js"></script>\n');
+// Load game JavaScript.
 Game.importGameScript();
+
 window.addEventListener('load', Game.init);
