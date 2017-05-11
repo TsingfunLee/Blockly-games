@@ -105,6 +105,7 @@
 	width:180px;
 	margin: 0;
 	color: #0493FF;
+	font-size: 22px;
 	line-height: 60px;
 	text-align: center;
 	position: relative;
@@ -215,7 +216,7 @@
 	margin-left: 30px;
 	margin-top: 46px;
 	background: white;
-	box-shadow: 0 0 5px 2px #cccccc inset;
+	box-shadow: 0 0 5px 2px #b0c2d4 inset;
 	border-radius: 5px;
 	position: relative;
 	display: none;
@@ -226,7 +227,7 @@
 	height: 15px;
 	border-radius: 100%;
 	background: white;
-	box-shadow: 0 0 5px 2px #cccccc;
+	box-shadow: 0 0 5px 2px #b0c2d4;
 	display: inline-block;
 	position: absolute;
 	margin-left: -7.5px;
@@ -234,3 +235,21 @@
 	left: 50%;
 	cursor: default;
 }
+
+.fast {
+	position: relative;
+	left: 30px;
+}
+
+.slow {
+	position: relative;
+	left: 182px;
+}
+/*@media  screen and (max-width: 1520px) {
+	.container{
+	width:1520px;
+    }
+    .footer{
+    	width: 1520px;
+    }
+}*/

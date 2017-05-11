@@ -13,10 +13,15 @@ Painting.HEIGHT = 500;
  */
 Painting.blocks = [
 	['brush_move_north', 'brush_move_east', 'brush_move_south', 'brush_move_west'],
-	['brush_moveforward', 'brush_turnright'],
 	['brush_moveforward', 'brush_turnright', 'controls_repeat'],
-	['brush_moveforward', 'brush_turnright', 'controls_repeat', 'brush_set_color'],
-	['brush_moveforward', 'brush_turnright', 'controls_repeat', 'brush_set_color', 'brush_pen_up', 'brush_pen_down']
+	['brush_moveforward', 'brush_turnright', 'controls_repeat'],
+	['brush_moveforward', 'brush_turnright', 'brush_set_color', 'controls_repeat'],
+	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat'],
+	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat'],
+	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat'],
+	['brush_moveforward', 'brush_moveback', 'brush_turnright', 'controls_repeat', 'brush_set_color'],
+	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat', 'brush_pen_up', 'brush_pen_down'],
+	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat', 'brush_set_color', 'brush_pen_up', 'brush_pen_down']
 ];
 
 /**
@@ -41,6 +46,16 @@ Painting.MAXPAUSE = 160;
  */
 Painting.MINPAUSE = 40;
 
+/**
+*	If game is playing.
+*/
+Painting.isPlay = false;
+
+/**
+* The x and y position of lighted stars.
+*/
+Painting.lightStar = [];
+
 Painting.init = function() {
 	var visilization = document.getElementById('visilazation');
 	var canvasScratch = document.createElement('canvas');
@@ -63,7 +78,7 @@ Painting.init = function() {
 
 	// Background image.
 	var img = document.createElement('img');
-	img.src = 'img/bg.jpg';
+	img.src = 'img/bg.gif';
 	img.width = Painting.WIDTH;
 	img.height = Painting.HEIGHT;
 	visilization.appendChild(img);
@@ -76,12 +91,23 @@ Painting.init = function() {
 	canvasDisplay.width = Painting.WIDTH;
 	canvasDisplay.height = Painting.HEIGHT;
 
+	// Set game name.
+	var h = document.querySelector('#innertop_name h3');
+	h.innerHTML = '星花海';
+
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
 	Painting.initSlider();
+	Painting.initDialog();
+
+	if (Game.LEVEL == 1) {
+		Painting.beginDialog();
+	}else {
+		Painting.popover(DIALOG.painting[Game.LEVEL - 1].begin);
+	}
 
 	// Load images.
-	var src = ['img/pen.png', 'img/star_blue.png', 'img/star_green.png', 'img/star_purple.png', 'img/star_yellow.png'];
+	var src = ['img/flower.png'];
 	Game.loadImages(src, function(){
 		Painting.drawAnswer();
 		Painting.reset();
@@ -128,29 +154,80 @@ Painting.initSlider = function() {
 	sliderHandle.addEventListener('mouseleave', onDragend);
 };
 
-// Painting.loadImage = function(callback) {
-// 	var num = 0
-// 	Painting.imgs = [];
-// 	for(var i in Painting.src){
-// 		Painting.imgs[i] = new Image();
-// 		Painting.imgs[i].src = Painting.src[i];
-// 		Painting.imgs[i].onload = function() {
-// 			num ++;
-// 			if(num >= Painting.src.length){
-// 				callback();
-// 			}
-// 		};
-// 	}
-// };
+/**
+* Set dialog image.
+*/
+Painting.initDialog = function() {
+	var dialogCodeImg = document.querySelector('#dialogCode img');
+	var dialogTipImg = document.querySelector('#dialogTip img');
+	var dialogWinImg = document.querySelector('#dialogWin img');
+	var popoverImg = document.querySelector('#popover img');
+	//console.log(dialogCodeImg);
+	dialogCodeImg.src = 'img/dialog3.jpg';
+	dialogTipImg.src = 'img/dialog4.jpg';
+	dialogWinImg.src = 'img/dialog4.jpg';
+	popoverImg.src = 'img/flower.png';
+};
+
+Painting.beginDialog = function() {
+	var dialogHeader = document.querySelector('#dialogTip h6');
+	var dialogContent = '';
+	dialogContent = DIALOG.painting[0].begin;
+	if (Game.LEVEL == 10) {
+		dialogContent = DIALOG.painting[9].win;
+	}
+	dialogHeader.textContent = dialogContent;
+	Game.showDialog('dialogTip');
+};
+
+Painting.successDialog = function() {
+	var dialogP = document.querySelector('#dialogWin .dialog-p');
+	var dialogContent = '';
+	dialogContent = DIALOG.painting[Game.LEVEL - 1].win;
+	dialogP.textContent = dialogContent;
+	Game.showDialog('dialogWin');
+};
+
+Painting.popover = function(content) {
+	var popover = document.getElementById('popover');
+	var popoverP = document.querySelector('#popover p');
+	var popoverBtn = document.querySelector('#popover button');
+	var isDisplay = false;
+	popoverP.textContent = content;
+	popover.style.display = 'block';
+	popover.addEventListener('mouseenter', function(){
+		isDisplay = true;
+	});
+	popover.addEventListener('mouseleave', function(){
+		popover.style.display = 'none';
+	});
+	setTimeout(function() {
+		if (!isDisplay) {
+			popover.style.display = 'none';
+		}
+	}, 2000);
+};
 
 Painting.initAnswer = function() {
-    var star = function() {
-    	for (var i = 0; i < 5; i++) {
+  var star = function() {
+  	for (var i = 0; i < 5; i++) {
+			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			Painting.turnright(144);
+		}
+  };
+
+	var diamond = function() {
+			for (var i = 1; i <= 4; i++) {
 				Painting.move();
 				Painting.stars.push([Painting.x, Painting.y]);
-				Painting.turnright(144);
+				if (i != 4) {
+					Painting.turnleft(60 * (i % 2 == 0 ? 2 : 1));
+				}else {
+					Painting.turnright(120);
+				}
 			}
-    };
+	};
 
 	switch(Game.LEVEL) {
 		case 1:
@@ -163,10 +240,10 @@ Painting.initAnswer = function() {
 			}
 			break;
 		case 2:
-			for(var i = 0; i < 5; i++) {
+			for(var i = 0; i < 4; i++) {
 				Painting.move();
 				Painting.stars.push([Painting.x, Painting.y]);
-				Painting.turnright(72);
+				Painting.turnright(90);
 			}
 			break;
 		case 3:
@@ -178,19 +255,86 @@ Painting.initAnswer = function() {
 			break;
 		case 4:
 			Painting.setColor('#ffff33');
-			star();
+			Painting.turnright(30);
+			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			Painting.turnright(120);
+			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			Painting.turnright(60);
+			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			Painting.turnright(120);
+			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
 			break;
 		case 5:
-			Painting.setColor('#ff6666');
-			star();
+			Painting.turnleft(90);
+			for (var i = 0; i < 3; i++) {
+				diamond();
+			}
+			break;
+		case 6:
+			Painting.turnleft(90);
+			for (var i = 0; i < 6; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnleft(60);
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnleft(120);
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnleft(60);
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(180);
+			}
+			break;
+		case 7:
+			Painting.turnright(18);
+			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			Painting.turnright(144);
+			Painting.move();
+			Painting.stars.push([Painting.x, Painting.y]);
+			break;
+		case 8:
+			Painting.turnright(18);
+			for (var i = 0; i < 5; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(144);
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnleft(72);
+			}
+			break;
+		case 9:
 			Painting.penUp();
-			Painting.heading += 180;
+			Painting.turnleft(90);
 			Painting.move();
-			Painting.move();
-			Painting.heading += 180;
+			Painting.turnright(90);
 			Painting.penDown();
-			Painting.setColor('#ffff33');
-			star();
+		  Painting.turnleft(30);
+			for (var i = 0; i < 6; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(120);
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnleft(60);
+			}
+			break;
+		case 10:
+			for (var i = 0; i < 5; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(144);
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnleft(72);
+			}
 			break;
 		default:
 			console.error('Level is undifined!');
@@ -211,12 +355,10 @@ Painting.drawAnswer = function() {
 Painting.drawStar = function() {
 	// Draw stars.
 	Painting.ctxDisplay.globalCompositeOperation = 'source-over';
-	Painting.ctxDisplay.globalAlpha = 0.8;
-	console.log(Painting.stars)
-	console.log(Painting.stars.length)
+
 	for (var i = 0; i < Painting.stars.length; i++) {
-		var index = Math.ceil(Math.random() * 4);
-		Painting.ctxDisplay.drawImage(Game.imgs[index], Painting.stars[i][0] - 15, Painting.stars[i][1] - 15, 30, 30);
+		Painting.ctxDisplay.globalAlpha = 0.3;
+		Painting.ctxDisplay.drawImage(Game.imgs[0], Painting.stars[i][0] - 32.5, Painting.stars[i][1] - 32.5, 65, 65);
 	}
 };
 
@@ -238,7 +380,11 @@ Painting.display = function() {
 	Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
 
 	// Draw the pen.
-	Painting.ctxDisplay.drawImage(Game.imgs[0], Painting.x - 25, Painting.y - 25);
+	for (var i = 0; i < Painting.lightStar.length; i++) {
+		//Painting.lightStar[i]
+		Painting.ctxDisplay.drawImage(Game.imgs[0], Painting.lightStar[i][0] - 32.5, Painting.lightStar[i][1] - 32.5, 65, 65);
+	}
+	Painting.ctxDisplay.drawImage(Game.imgs[0], Painting.x - 32.5, Painting.y - 32.5, 65, 65);
 };
 
 Painting.animate = function(id) {
@@ -263,6 +409,10 @@ Painting.move = function(id) {
 	Painting.x += Painting.DEFAULT_DIS * Math.sin(2 * Math.PI * Painting.heading / 360);
 	Painting.y -= Painting.DEFAULT_DIS * Math.cos(2 * Math.PI * Painting.heading / 360);
 
+	if (Painting.isPlay) {
+		Painting.lightStar.push([Painting.x, Painting.y]);
+	}
+
 	//   var bump = 0;
 	// } else {
 	//   // WebKit (unlike Gecko) draws nothing for a zero-length line.
@@ -278,6 +428,11 @@ Painting.move = function(id) {
 
 Painting.turnright = function(angle, id) {
 	Painting.heading += angle;
+	Painting.animate(id);
+};
+
+Painting.turnleft = function(angle, id) {
+	Painting.heading -= angle;
 	Painting.animate(id);
 };
 
@@ -337,9 +492,18 @@ Painting.initApi = function(interpreter, scope) {
 
 	wrapper = function(id) {
 		id = id ? id.toString(): '';
+		Painting.DEFAULT_DIS = Math.abs(Painting.DEFAULT_DIS);
 		return interpreter.createPrimitive(Painting.move(id));
 	};
 	interpreter.setProperty(scope, 'moveforward',
+		interpreter.createNativeFunction(wrapper));
+
+	wrapper = function(id) {
+		id = id ? id.toString(): '';
+		Painting.DEFAULT_DIS = -Painting.DEFAULT_DIS;
+		Painting.move(id);
+	};
+	interpreter.setProperty(scope, 'moveback',
 		interpreter.createNativeFunction(wrapper));
 
 	wrapper = function(angle, id) {
@@ -348,6 +512,14 @@ Painting.initApi = function(interpreter, scope) {
 		return interpreter.createPrimitive(Painting.turnright(angle, id));
 	};
 	interpreter.setProperty(scope, 'turnright',
+		interpreter.createNativeFunction(wrapper));
+
+	wrapper = function(angle, id) {
+		id = id ? id.toString(): '';
+		angle = angle.data;
+		return interpreter.createPrimitive(Painting.turnleft(angle, id));
+	};
+	interpreter.setProperty(scope, 'turnleft',
 		interpreter.createNativeFunction(wrapper));
 
 	wrapper = function(color, id) {
@@ -389,10 +561,11 @@ Painting.run = function() {
 	var interpreter = new Interpreter(code, Painting.initApi);
 	var pause = Game.clamp(Painting.MINPAUSE, (Painting.MAXPAUSE - Painting.MINPAUSE) * Painting.sliderHandle.value + Painting.MINPAUSE, Painting.MAXPAUSE)
 	try {
+		Painting.isPlay = true;
+
 		Painting.pid = setInterval(function(){
 			Painting.excute(interpreter);
 		}, pause);
-
 	} catch(e) {
 		alert(MSG['badCode'].replace('%1', e));
 	}
@@ -401,6 +574,9 @@ Painting.run = function() {
 Painting.reset = function() {
 	// Stop interval.
 	clearInterval(Painting.pid);
+
+	Painting.isPlay = false;
+	Painting.lightStar = [];
 
 	// Starting location and heading of the pen.
 	Painting.x = Painting.HEIGHT / 2;
@@ -442,11 +618,15 @@ Painting.checkAnswer = function() {
       // No congrats for last level, it is open ended.
       //BlocklyGames.workspace.playAudio('win', 0.5);
       //BlocklyDialogs.congratulations();
-      alert('Complete!')
-    }
+      //alert('Complete!')
+			Painting.successDialog();
+    }else {
+			Painting.beginDialog();
+		}
   } else {
     //Painting.penColour('#ff0000');
-    alert('error')
+    //alert('error')
+		console.log('answer error');
   }
 };
 

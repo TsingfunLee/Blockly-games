@@ -37,6 +37,11 @@ Blockly.JavaScript['brush_turnright'] = function(block) {
 	return 'turnright(' + angle + ', \'block_id_' + block.id + '\');\n';
 };
 
+Blockly.JavaScript['brush_turnleft'] = function(block) {
+	var angle = block.getFieldValue('ANGLE');
+	return 'turnleft(' + angle + ', \'block_id_' + block.id + '\');\n';
+};
+
 Blockly.JavaScript['brush_set_color'] = function(block) {
 	var color = '\'' + block.getFieldValue('COLOUR') + '\'';
 	return 'setcolor(' + color + ', \'block_id_' + block.id + '\');\n';

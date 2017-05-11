@@ -87,6 +87,22 @@ Blockly.Blocks['brush_moveforward'] = {
 	}
 };
 
+Blockly.Blocks['brush_moveback'] = {
+	/**
+	 * Block for moving back brush.
+	 * @this Blockly.Block
+	 */
+	init: function() {
+		this.jsonInit({
+			"message0": Blockly.Msg.BRUSH_MOVE_BACK,
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": Blockly.Blocks.brush.HUE,
+			"tooltip": Blockly.Msg.BRUSH_MOVE_BACK_TOOLTIP
+		});
+	}
+};
+
 Blockly.Blocks['brush_turnright'] = {
 	/**
 	 * Block for turning right brush.
@@ -100,6 +116,7 @@ Blockly.Blocks['brush_turnright'] = {
 				"name": "ANGLE",
 				"options": [
 					["15°", "15"],
+					["18°", "18"],
 					["30°", "30"],
 					["45°", "45"],
 					["60°", "60"],
@@ -113,6 +130,37 @@ Blockly.Blocks['brush_turnright'] = {
 			"nextStatement": null,
 			"colour": Blockly.Blocks.brush.HUE,
 			"tooltip": Blockly.Msg.BRUSH_TURN_RIGHT_TOOLTIP
+		});
+	}
+};
+
+Blockly.Blocks['brush_turnleft'] = {
+	/**
+	 * Block for turning left brush.
+	 * @this Blockly.Block
+	 */
+	init: function() {
+		this.jsonInit({
+			"message0": Blockly.Msg.BRUSH_TURN_LEFT + "%1",
+			"args0": [{
+				"type": "field_dropdown",
+				"name": "ANGLE",
+				"options": [
+					["15°", "15"],
+					["18°", "18"],
+					["30°", "30"],
+					["45°", "45"],
+					["60°", "60"],
+					["90°", "90"],
+					["72°", "72"],
+					["120°", "120"],
+					["144°", "144"]
+				]
+			}],
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": Blockly.Blocks.brush.HUE,
+			"tooltip": Blockly.Msg.BRUSH_TURN_LEFT_TOOLTIP
 		});
 	}
 };

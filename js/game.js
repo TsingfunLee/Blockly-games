@@ -61,7 +61,7 @@ Game.getNumberParamFromUrl = function(name, minValue, maxValue) {
  * @return {string} User's language.
  */
 Game.getLang = function() {
-	var lang = Game.getStringParamFromUrl('lang', '');
+	var lang = Game.getStringParamFromUrl('lang', 'zh');
 	if(Game.LANGUAGE_NAME[lang] === undefined) {
 		// Default to Chinese.
 		lang = 'zh';
@@ -83,10 +83,8 @@ Game.getLevel = function() {
 * @return {String} Game's name.
 */
 Game.getGameName = function() {
-	var name = Game.getStringParamFromUrl('game', '');
-	if(name === '') {
-		name = 'maze';
-	}
+	var name = Game.getStringParamFromUrl('name', 'maze');
+
 	return name;
 };
 
@@ -158,7 +156,7 @@ Game.changeLanguage = function() {
 		languageMenu.options[languageMenu.selectedIndex].value);
 	var search = window.location.search;
 	if(search.length <= 1) {
-		search = '?lang=' + newLang + '&level=' + Game.LEVEL;
+		search = '?lang=' + newLang + '&level=' + Game.LEVEL + '&name=' + Game.NAME;
 	} else if(search.match(/[?&]lang=[^&]*/)) {
 		search = search.replace(/([?&]lang=)[^&]*/, '$1' + newLang);
 	} else {
@@ -275,6 +273,7 @@ Game.btnEvent = function() {
  * Initialize Blockly.
  */
 Game.init = function() {
+
 	Game.initLanguage();
 	Game.displayLevelLink();
 	Game.btnEvent();
@@ -291,7 +290,9 @@ Game.init = function() {
   Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
 
 	// Lazy-load the syntax-highlighting.
-	window.setTimeout(Game.importPrettify, 1);
+	// window.setTimeout(Game.importPrettify, 1);
+	//Game.importGameScript();
+	//window.setTimeout(Game.importGameScript, 1000);
 };
 
 /**
@@ -309,6 +310,7 @@ Game.initLanguage = function() {
 
 	// Populate the language selection menu.
 	var languageMenu = document.getElementById('languageMenu');
+	console.log(languageMenu);
 	languageMenu.options.length = 0;
 	for(var i = 0; i < languages.length; i++) {
 		var tuple = languages[i];
@@ -325,6 +327,22 @@ Game.initLanguage = function() {
 	document.getElementById('playBtn').textContent = MSG['play'];
 	document.getElementById('resetBtn').textContent = MSG['reset'];
 	document.getElementsByClassName('showcode')[0].textContent = MSG['showcode'];
+};
+
+/**
+* Load game JavaScript.
+*/
+Game.importGameScript = function() {
+	var script = '';
+	if (Game.NAME == 'maze') {
+		script = ['<script type="text/javascript" src="js/maze.js"></script>\n',
+		'<script type="text/javascript" src="js/maze.source.js"></script>\n',
+		'<script type="text/javascript" src="js/maze.draw.js"></script>\n',
+		'<script type="text/javascript" src="js/maze.core.js"></script>\n'].join('');
+	}else if (Game.NAME == 'painting') {
+		script = '<script type="text/javascript" src="js/painting.js"></script>';
+	}
+	document.write(script);
 };
 
 /**
@@ -446,11 +464,41 @@ Game.hideDialog = function(id) {
 	layer.style.display = 'none';
 }
 
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l = this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;
+        }
+        else if (this[i] != array[i]) {
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;
+        }
+    }
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+
 // Load the language strings.
 document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
 document.write('<script src="blockly/msg/js/' + Game.LANG + '.js"></script>\n');
 // Load dialog language strings.
 document.write('<script src="msg/dialogContent_' + Game.LANG + '.js"></script>\n');
-
+Game.importGameScript();
 window.addEventListener('load', Game.init);

@@ -3,21 +3,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>关于我们</title>
-		<link href="css/comment/header.css" rel="stylesheet" />
-		<link href="css/comment/footer.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/reset.css" rel="stylesheet" />
+		<link href="css/aboutus.css" rel="stylesheet" />
 		<script src="js/lib/jquery.min.js"></script>
 	</head>
 	<body>
 		<div class="toolbar">
 			<div id="top_tool">
 				<div id="logo_img">
-					LOGO
+					<img src="img/logo.jpg"  style="height:60%; margin-left:15%;margin-top:3%;"/>
 				</div>
 				<div id="nav">
 					<div class="nav-menu">
 					<a href="index.html" target="_blank">首页</a>
-					<a href="selcet.html" target="_blank" >游戏</a>
+					<a href="Selectgame.html" target="_blank" >游戏</a>
 					<a href="aboutus.html" target="_blank"  class="current">关于我们</a>
 					</div>
 					<div class="nav-current"></div>
@@ -31,10 +31,81 @@
 				</select>
 			</div>
 		</div>
+		<div class="container">
+			<div class="cont_top">
+				<h1 id="op" class="header">关于我们</h1>
+			</div>
+			<div class="cont_main">
+				<div class="main_contro">
+					<section class="contro_left"><img src="img/aboutus/bg01.jpg" style="height: 320px;"/></section>
+					<section class="contro_right">
+						<p style="font-size: 27px;">我们做的是什么？</p>
+						<p class="text_01" style="font-size: 14px;">完全致力于提供最简单<br/>最具吸引力和创造性的方式<br/>教孩子们如何编写代码</p>
+						<p class="text_01" style="font-size: 14px;">在这个任务中<br/>我们需要你的帮助<br/>随时向我们发送您<br/>诚实地反馈</p>
+					</section>
+				</div>
+				<div class="main_members">
+					<section class="membox member_01">
+						<div class=multi-hover>
+							<span>蔡锦珊</span>
+							<span>蔡锦珊</span>
+							<span>蔡锦珊</span>
+							<span>蔡锦珊</span>
+							<img src="img/aboutus/member01.jpg" style="width: 212.5px;"/>
+						</div>
+						<h2>蔡锦珊</h2>
+						<p>页面前端开发，包括：<br/>网页布局实现、动效实现<br/>积木块工作区视觉开发</p>
+					</section>
+					<section class="membox member_02">
+						<div class=multi-hover>
+							<span>陈志杰</span>
+							<span>陈志杰</span>
+							<span>陈志杰</span>
+							<span>陈志杰</span>
+							<img src="img/aboutus/member02.jpg" style="width: 212.5px;"/>
+						</div>
+						<h2>陈志杰</h2>
+						<p></p>
+					</section>
+					<section class="membox member_03">
+						<div class=multi-hover>
+							<span>李庆芳</span>
+							<span>李庆芳</span>
+							<span>李庆芳</span>
+							<span>李庆芳</span>
+							<img src="img/aboutus/member03.jpg" style="width: 212.5px;"/>
+						</div>
+						<h2>李庆芳</h2>
+						<p></p>
+					</section>
+					<section class="membox member_04">
+						<div class=multi-hover>
+							<span>郑眉眉</span>
+							<span>郑眉眉</span>
+							<span>郑眉眉</span>
+							<span>郑眉眉</span>
+							<img src="img/aboutus/member04.jpg" style="width: 212.5px;"/>
+					    </div>
+					    <h2>郑眉眉</h2>
+						<p>视觉部分设计，包括：<br/>网页界面设计和游戏ui设计<br />以及动画制作</p>
+					</section>
+				</div>
+				<div class="main_mail">
+					<p>联系我们</p>
+					<form action="https://formspree.io/caijinshan123@sina.cn" method="POST">
+					    <input class="samecss" id="name" type="text"  placeholder="您的姓名" name="name">
+					    <input class="samecss" id="email" type="email"  placeholder="您的邮箱地址" name="_replyto">
+					    <input id="message" type="text"  placeholder="您的宝贵意见" name="messages">
+					    <input id="submitbtn" type="submit" value="提交">
+					</form> 
+				</div>
+			</div>
+		</div>
 		<div class="footer">
-				数字媒体技术
+				Copyright © ICode Inc,All Right Reserved
 		</div>
 		<script src="js/btn.js" async="true"></script>
 		<script src="js/page.js" async="true"></script>
+		<script src="js/aboutus.js" async="true"></script>
 	</body>
 </html>

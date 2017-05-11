@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>游戏</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/reset.css" rel="stylesheet" />
+		<link href="css/selectgame.css" rel="stylesheet" />
+		<script src="js/lib/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="toolbar">
+			<div id="top_tool">
+				<div id="logo_img">
+					<img src="img/logo.jpg"  style="height:60%; margin-left:15%;margin-top:3%;"/>
+				</div>
+				<div id="nav">
+					<div class="nav-menu">
+					<a href="index.html" target="_blank">首页</a>
+					<a href="Selectgame.html" target="_blank"  class="current">游戏</a>
+					<a href="aboutus.html" target="_blank" >关于我们</a>
+					</div>
+					<div class="nav-current"></div>
+				</div>
+			</div>
+
+			<div class="styled-select">
+				<select id="languageMenu">
+					<option>中文</option>
+					<option>English</option>
+				</select>
+			</div>
+		</div>
+		<div id="particles">
+			<div class="intro" style="height: 760px;">
+				<!--<img id="getheight" src="img/select/selectbg2.jpg" width="100%" style="position: absolute;visibility: hidden;"/>-->
+				<div class="parallax">
+					<div class="para_text">
+						<p id="text_1">I CODE 爱编程</p>
+						<p id="text_2">Let's  go!</p>
+					</div>
+					<div class="photo"  data-stellar-background-ratio="0.5"><img class="man" src="img/select/man.png"/></div>
+					<div class="photo " data-stellar-background-ratio="0.5"><img class="plane" src="img/select/plane.png"/></div>
+					<div class="photo "  data-stellar-background-ratio="0.5"><img class="star" src="img/select/star.png"/></div>
+				</div>
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="560px" xmlns:xlink="http://www.w3.org/1999/xlink" id="svgAnimation">
+				    <g transform="translate(0,-50)">
+				    	 <!--<defs>
+					        <pattern id="avatar1" width="100%" height="100%" patternContentUnits="objectBoundingBox">
+					            <image width="1" height="1" xlink:href="img/select/point1.png"/>
+					        </pattern>
+					        <pattern id="avatar2" width="100%" height="100%" patternContentUnits="objectBoundingBox">
+					            <image width="1" height="1" xlink:href="img/select/point2.png"/>
+					        </pattern>
+					        <pattern id="avatar3" width="100%" height="100%" patternContentUnits="objectBoundingBox">
+					            <image width="1" height="1" xlink:href="img/select/point3.png"/>
+					        </pattern>
+					    </defs>-->
+				    	<svg height="100%" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  preserveAspectRatio="none" x="0" y="0">
+							<path id="m3path" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#FBF1DB"
+								stroke-width="7" stroke-miterlimit="10"
+								d="M0,524.699 c0,0,85.09-58.511,127.961-105.021
+								c0,0,57.216-83.026,135.299-76.516 c0,0,57.623,4.501,121.93,69.014
+								c0,0,46.256,57.012,107.179,61.513 c0,0,71.077,18.004,165.845-61.513
+
+								c0,0,174.393-144.029,273.35-148.53c0,0,123.751-19.504,291.301,118.524
+
+								c0,0,100.989,75.016,195.758,90.02c0,0,71.679,11.261,181.377-41.63"/>
+
+						</svg>
+
+						<!--<svg height="100%" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+					        <path id="m3path1" xmlns="http://www.w3.org/2000/svg" fill="none"  stroke="#fff" stroke-width="10" stroke-miterlimit="10" visibility="hidden"
+								d="M0,524.699 c0,0,85.09-58.511,127.961-105.021"/>
+							<path id="m3path2" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#eee" stroke-width="7" stroke-miterlimit="10" visibility="hidden"
+								d="M0,524.699 c0,0,85.09-58.511,127.961-105.021
+						           c0,0,57.216-83.026,135.299-76.516 c0,0,57.623,4.501,121.93,69.014
+								   c0,0,46.256,57.012,107.179,61.513 c0,0,71.077,18.004,165.845-61.513
+								   c0,0,150.393-124.029,100.35 -65.53"/>
+							<path id="m3path3" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ffe" stroke-width="7" stroke-miterlimit="10" visibility="hidden"
+								d="M0,524.699 c0,0,85.09-58.511,127.961-105.021
+						           c0,0,57.216-83.026,135.299-76.516 c0,0,57.623,4.501,121.93,69.014
+								   c0,0,46.256,57.012,107.179,61.513 c0,0,71.077,18.004,165.845-61.513
+								   c0,0,174.393-144.029,273.35-148.53c0,0,123.751-19.504,291.301,118.524"/>
+						    <circle id="circle1" r="4%" cx="0" cy="0" fill="url(#avatar1)"/>
+					        <circle id="circle2" r="4%" cx="0" cy="0" fill="url(#avatar2)"/>
+					        <circle id="circle3" r="4%" cx="0" cy="0" fill="url(#avatar3)"/>
+						    <animateMotion id="nn"
+						           xlink:href="#circle1"
+						           dur="0.5s"
+						           begin="0s"
+						           fill="freeze">
+						           <mpath xlink:href="#m3path1" />
+						    </animateMotion>
+						    <animateMotion
+						           xlink:href="#circle2"
+						           dur="1.2s"
+						           begin="0.5s"
+						           fill="freeze">
+						           <mpath xlink:href="#m3path2" />
+						    </animateMotion>
+						    <animateMotion
+						           xlink:href="#circle3"
+						           dur="2s"
+						           begin="1.7s"
+						           fill="freeze">
+						           <mpath xlink:href="#m3path3" />
+						    </animateMotion>
+
+						</svg>-->
+					<img class="icon" id="icon_01" src="img/select/point1.png" width="7%" style="position: relative;top: -36%;left:7%;" />
+
+					<img class="icon" id="icon_02" src="img/select/point2.png" width="7%" style="position: relative;top: -42%;left: 39%;" />
+
+					<img class="icon" id="icon_03" src="img/select/point3.png" width="7%" style="position: relative;top: -39%;left: 61.4%;" />
+					</g>
+				</svg>
+				<div class="gameselect_cont">
+					<div class="gamebox" id="draw1">
+						<p>星花海</p>
+						<a class="img_hover" href="game.html?name=painting"><img id="img01" src="img/select/draw1.png" width="69%"/></a>
+					</div>
+					<div class="gamebox" id="rabbit2">
+						<p>兔子历险记</p>
+						<a class="img_hover" href="game.html?name=maze"><img id="img02" src="img/select/rabbit1.png" width="58%"/></a>
+					</div>
+					<div class="gamebox" id="tank3">
+						<p>飞机大战</p>
+						<a class="img_hover" href="game.html"><img id="img03" src="img/select/rabbit1.png" width="60%"/></a>
+					</div>
+				</div>
+			</div>
+        </div>
+		<div class="footer">
+				Copyright © ICode Inc,All Right Reserved
+		</div>
+		<script src="js/btn.js" async="true"></script>
+		<script src="js/page.js" async="true"></script>
+		<script>
+			function setSVGWidth (){
+				var width = document.body.clientWidth;
+				var scalevalue = width/1510;
+			    document.getElementById('svgAnimation').setAttribute('width', width);
+			    document.body.style.width = width;
+			    document.getElementById('m3path').setAttribute('transform','scale(' + scalevalue + ' 1)');
+//				document.getElementById('m3path').setAttribute('transform','scale(' + scalevalue +','+ scalevalue + ' )');
+			}
+			window.onload = setSVGWidth;
+			window.onresize = setSVGWidth;
+		</script>
+	</body>
+</html>

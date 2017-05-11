@@ -1,0 +1,169 @@
+* { 
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-width: 1280px;
+  /*min-height: 760px;*/
+  /*height: 645px;*/
+}
+
+
+#particles {
+	position: relative;
+  width: 100%;
+  height: 100%;
+  top: 60px;
+}
+
+.intro {
+  position: relative;
+  width: 100%;
+  background-image: url(../img/select/select_bg.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 760px;
+  
+}
+#m3path{
+	stroke-dasharray: 2800;
+	stroke-dashoffset: 2800;
+	opacity: 0.7;
+	animation: draw  4s forwards;
+}
+
+@keyframes draw{
+	to{
+		stroke-dashoffset: 0;
+	}
+}
+
+.icon{
+	visibility: hidden;
+	
+}
+#icon_01{
+	animation: iconanim 2s ease-in 0.3s 1 forwards;
+}
+#icon_02{
+	animation: iconanim 2s ease-in 0.9s 1 forwards;
+}
+#icon_03{
+	animation: iconanim 2s ease-in 1.2s 1 forwards;
+}
+@keyframes iconanim{
+	
+	to{
+		visibility: visible;
+	}
+}
+/*零件图片*/
+/****basic****/
+.parallax {
+  position: absolute;
+  width: 100%;
+  height: 400px;
+  top: -15px;
+  /*border: 2px solid #FFFAF5;*/
+}
+.para_text{
+	text-align: center;
+	font-family: "微软雅黑";
+	color: #f39a38;
+}	
+.para_text #text_1{
+	font-size: 36px;
+	margin-top: 3%;
+}
+.para_text #text_2{
+	font-size: 30px;
+	margin-top: 24px;
+}
+.photo {
+	width: 10%;
+	height: 35%;
+	float: left;
+}
+.man {
+	width: 100%;
+	margin-left: 25%;
+	margin-top: -35%;
+}
+.plane {
+	width: 90%;
+	margin-left: 220%;
+	margin-top: 45%;
+}
+.star {
+	width: 60%;
+	margin-left: 700%;
+	margin-top: -10%;
+}
+
+/*关卡图片文字大盒子*/
+.gameselect_cont{
+	position: absolute;
+	top: 33%;
+	/*border: 2px solid #FFFAF5;*/
+	width:100%;
+	height: 55%;
+	/*overflow: hidden;*/
+	visibility: hidden;
+	animation: iconanim 8s ease-in 1.4s forwards;
+}
+/*图片文字盒子*/
+.gamebox{
+	/*border: 1px solid #000;*/
+	float: left;
+	font-family: "微软雅黑";
+	font-size: 30px;
+	text-align: center;
+}
+/*a标签*/
+.img_hover{
+	opacity: 0.7;
+}
+.img_hover:hover,active{
+	opacity: 1;
+}
+
+}
+.gamebox #img01{
+	margin-top: 25%;
+	margin-left: 0.65%;
+}
+.gamebox img{
+	transition: all 1.5s;  
+}
+.gamebox img:hover{
+	transform: scale(1.2);  
+}
+#draw1{
+	width: 20%;
+	height: 60%;
+	color: #1c759b;
+	margin: 9% 0 0 2%;
+}
+.gamebox #img02{
+	margin-top: 8%;
+	margin-left: 12%;
+}
+#rabbit2{
+	width: 25%;
+	height: 70%;
+	margin: 6.5% 1% 0 18%;
+	color: #eea17d;
+}
+.gamebox #img03{
+	margin-top: 8%;
+	margin-left: 13%;
+}
+#tank3{
+	width: 20%;
+	height: 62%;
+	margin: 8% 2% 0 5%;
+	margin-top: 120px;
+	color: #4382c4;
+}

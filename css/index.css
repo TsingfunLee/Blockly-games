@@ -279,7 +279,7 @@ html[xmlns] .flexslider .slides {
 }
 /*主体内容*/
 .main_body{
-	width:100%;
+	/*width:100%;*/
 	background-color: #f3ceca;
 	background-image:url(../img/index/circle.png);
 	height:1130px;
@@ -446,3 +446,12 @@ p.game_text{
 	margin-left: 640px;
 	background-color: #e3ce5f;
 }
+
+/*@media  screen and (max-width: 1520px) {
+	.main_body{
+	width:1520px;
+    }
+    .footer{
+    	width: 1520px;
+    }
+}*/
