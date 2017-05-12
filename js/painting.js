@@ -123,6 +123,8 @@ Painting.init = function() {
 Painting.initSlider = function() {
 	// display slider bar.
 	document.querySelector('.slider').style.display = 'block';
+	document.querySelector('.slow').style.display = 'inline-block';
+	document.querySelector('.fast').style.display = 'inline-block';
 
 	Painting.sliderHandle = document.getElementById('sliderHandle');
 	Painting.sliderHandle.value = 0.5;

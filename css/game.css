@@ -53,10 +53,12 @@
 	position: relative;
 	left: 30px;
 	top: 5px;
+	display: none;
 }
 
 .slow {
 	position: relative;
 	left: 182px;
 	top: 5px;
+	display: none;
 }
