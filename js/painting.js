@@ -107,7 +107,7 @@ Painting.init = function() {
 	}
 
 	// Load images.
-	var src = ['img/flower.png'];
+	var src = ['img/flower.png', 'img/arrow.png'];
 	Game.loadImages(src, function(){
 		Painting.drawAnswer();
 		Painting.reset();
@@ -385,6 +385,11 @@ Painting.display = function() {
 		Painting.ctxDisplay.drawImage(Game.imgs[0], Painting.lightStar[i][0] - 32.5, Painting.lightStar[i][1] - 32.5, 65, 65);
 	}
 	Painting.ctxDisplay.drawImage(Game.imgs[0], Painting.x - 32.5, Painting.y - 32.5, 65, 65);
+	// Draw the arrow.
+	Painting.ctxDisplay.translate(Painting.x, Painting.y);
+	Painting.ctxDisplay.rotate((Math.PI / 180) * Painting.heading);
+	Painting.ctxDisplay.translate(-Painting.x, -Painting.y);
+	Painting.ctxDisplay.drawImage(Game.imgs[1], Painting.x - 17.5, Painting.y - 60, 35, 40);
 };
 
 Painting.animate = function(id) {

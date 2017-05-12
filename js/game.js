@@ -441,7 +441,7 @@ Game.nextLevel = function() {
     if (Game.LEVEL < Game.MAX_LEVEL) {
         window.location = window.location.protocol + '//' +
         window.location.host + window.location.pathname +
-        '?lang=' + Game.LANG + '&level=' + (Game.LEVEL + 1);
+        '?lang=' + Game.LANG + '&level=' + (Game.LEVEL + 1) + '&name=' + Game.NAME;
     } else {
     	alert('Exceed max level!!!!');
     }

@@ -114,54 +114,21 @@ z-index: 1;
 	position: relative;
 	overflow: hidden;
 }
-.multi-hover span {
-	position: absolute;
+
+.desc{
+	height:100%;
 	width: 100%;
-	height: 100%;
-	line-height: 120px;
-	font-weight: 100;
-	text-align: center;
-	box-sizing: border-box;
 	font-size: 3em;
-	z-index: 2;
-	transition: .3s linear;
-	color: white;
-	padding: 15%;
-	opacity: 0;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
+	text-align: center;
+	line-height: 182px;
+	font-weight: 100;
+	padding: 0;
+	position:absolute;
+	top:-300px;
+	left:0px;
+	background:url(../img/aboutus/1px.png) repeat;
+	color: #FFFFFF;
 }
-.multi-hover span:hover { opacity: 1; cursor:pointer;}
-
-.multi-hover span:nth-child(odd):hover { left: 0; z-index: 3; }
-.multi-hover span:nth-child(odd).hover { left: 0; z-index: 1; }
-.multi-hover span:nth-child(even):hover { top: 0; z-index: 3; }
-.multi-hover span:nth-child(even).hover { top: 0; z-index: 1; } 
-
-.multi-hover span:nth-child(1) { /* right panel */
-	top: 0;
-	left: 90%;
-	background: hsla(180,70%,50%,0.6);  
-	}
-	 
-.multi-hover span:nth-child(2) { /* top panel */ 
-	top: -90%;
-	left: 0;
-	background: hsla(180,70%,50%,0.6); 
-	}   
-
-.multi-hover span:nth-child(3) { /* left panel */ 
-	top: 0;
-	left: -90%;
-	background: hsla(180,70%,50%,0.6); 
-	}  
-	
-.multi-hover span:nth-child(4) { /* bottom panel */
-	top: 90%;
-	left: 0;
-	background: hsla(180,70%,50%,0.6); } 
-
-
 .main_mail{
 	width: 900px;
 	height: 230px;
@@ -197,6 +164,7 @@ z-index: 1;
 	color: #83817b;
 	font-size: 1.3em;
 	padding-left: 10px;
+	outline: none;
 }
 #name{
 	position: absolute;
@@ -218,10 +186,12 @@ z-index: 1;
 	padding-left: 10px;
 	position: absolute;
 	left: 365px;
+	outline: none;
 }
 #submitbtn{
 	width: 185px;
 	height: 41.5px;
+	border: 1px solid #8FC8C3;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 	-moz-border-border-radius: 3px;
@@ -233,4 +203,12 @@ z-index: 1;
 	position: absolute;
 	top: 113px;
 	left: 265px;
+	transition: all 200ms ease-in-out;
+	outline: none;
 }
+#submitbtn:hover,:active{
+	border: 2px solid #8FC8C3;
+	background-color: transparent;
+	color: #8FC8C3;
+}
+
