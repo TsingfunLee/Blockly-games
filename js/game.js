@@ -341,6 +341,36 @@ Game.importGameScript = function() {
 		'<script type="text/javascript" src="js/maze.core.js"></script>\n'].join('');
 	}else if (Game.NAME == 'painting') {
 		script = '<script type="text/javascript" src="js/painting.js"></script>';
+	}else {
+		script = ['<script src="./js/lib/jquery.min.js"></script>\n',
+	'<script src="./js/plugins/json-2.3.min.js"></script>\n',
+	'<script src="./js/crafty-dev.js"></script>',
+	'<script src="./js/soundmanager.js"></script>',
+	'<script src="./js/class.js"></script>',
+	'<script src="./js/classes/settings.js"></script>',
+	'<script src="./js/classes/sound.js"></script>',
+	'<script src="./js/classes/app.js"></script>',
+	// '<script src="./js/classes/overlay.js"></script>',
+	'<script src="./js/classes/program.js"></script>',
+	'<script src="./js/classes/blocklyprogram.js"></script>',
+	'<script src="./js/classes/level.js"></script>',
+	'<script src="./js/classes/map_object.js"></script>',
+	'<script src="./js/classes/map.js"></script>',
+	'<script src="./js/classes/dir.js"></script>',
+	'<script src="./js/classes/pos.js"></script>',
+	'<script src="./js/classes/tank.js"></script>',
+	'<script src="./js/classes/mine.js"></script>',
+	'<script src="./js/classes/base.js"></script>',
+	'<script src="./js/classes/tree.js"></script>',
+	'<script src="./js/classes/rock.js"></script>',
+	'<script src="./js/classes/wall.js"></script>',
+	'<script src="./js/classes/bullet.js"></script>',
+	'<script src="./js/classes/beam_tower.js"></script>',
+	'<script src="./js/classes/beam.js"></script>',
+	'<script src="./js/classes/explosion.js"></script>',
+	'<script src="./blocks/tank.js"></script>',
+	'<script src="./js/planeWar.js"></script>',
+  '<script src="./js/planeWar.app.js"></script>'].join('');
 	}
 	document.write(script);
 };

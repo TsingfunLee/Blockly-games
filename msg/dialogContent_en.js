@@ -52,6 +52,54 @@ var DIALOG = {
     }
   ],
   painting: [
-    
-  ]
+    {
+      begin: "Can you connect these four stars with magic wand? Come and try!",
+	  lose: "After each step,you need to be turned before starting the next step.",
+      win: "Awesome! You have finished the first star painting! Try the next level!"
+    },
+    {
+      begin: "Try to finish this star painting with fewer blocks!",
+	  lose:"This level must be done using 'repeat' blocks"
+      win: "You have a preliminary grasp of the 'repeat' block the use of blocks! Try the next level!"
+    },
+    {
+      begin: "Try to change the angle and the frequency of repeat blocks, draw a positive pentagon star map.",
+	  lose:"Failed!Maybe the angle you turned went wrong!",
+      win: "Awesome! It seems that the polygon is not a problem for you! Ready to meet new challenges!"
+    },
+    {
+      begin: "Now try to change the color of the pattern we painted!",
+	  lose:"Notice that we want to draw the shape in yellow,you need to use the 'set color' blocks! Perhaps the angle you turn went wrong either!",
+      win:"Very good! You have mastered the change of color operation! Let's go to the next level!"
+    },
+    {
+      begin: "Let's try to draw a more complicated picture! Draw three diamonds to make this graphic!",
+	  lose:"After completing a diamond, you need to turn right at 120 degrees to continue drawing the next diamond!",
+      win:"Awesome! It seems you have a very skilled master! Hurry up to the next level!"
+    },
+    {
+      begin: "On the basis of last level, by modifying the frequency of repeat blocks and the last paragraph of the steering angle can complete the graphics!",
+	  lose:"After completing a diamond, you need to turn right 180 degrees to continue drawing the next diamond!",
+      win: "Awesome! It seems you have a very skilled master! Hurry up to the next level!"
+    },
+    {
+      begin: "Want to draw your own stars? Let's start with this little step!",
+	  lose:"Must be turned to the wrong angle, try to make changes to it!",
+      win: "Great! You finished the first step in painting the stars! Quickly go to the next level to draw the complete star!"
+    },
+    {
+      begin: " Try on the basis of last level, coupled with a change of perspective, repeat five such operations, you can draw the star!",
+	  lose:"After each completion of a corner, you need to turn left to 72 degrees to draw the next corner!",
+      win: "Very good! You've finished a perfect five-pointed star! Then there will be more interesting challenges!"
+    },
+    {
+      begin: "Try on the basis of the last level, modify the number of repeat blocks and the last paragraph of the steering angle, to complete the hexagram!",
+	  lose:"After every corner, we need to turn 60 degrees to the left to draw the next corner",
+      win: "Very good! You've finished a hexagram! Then there will be more interesting challenges!"
+    },
+	{
+	  begin:"On the basis of the last level, fill the hexagram internal pattern!",
+	  lose:"Think about it is not a turning point of the problem?",
+	  win:"Congratulations!You have finished all the star painting!"
+	}
 }

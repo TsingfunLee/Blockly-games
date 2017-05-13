@@ -1,0 +1,392 @@
+/*样式重置*/
+body,p,ol,ul,li,h1,h2,h3,h4,h5,h6,dl,dt,dd,form,input,select,textarea,strong { margin:0; padding:0;font-size:14px;font-weight:normal;font-family:"Microsoft YaHei";/* font-family:"宋体";*/}
+ol,ul,li {list-style:none;}
+textarea{resize:none; overflow:auto; outline:none;}
+table {border-collapse: collapse; border-spacing: 0;margin:0 auto;table-layout:fixed;}
+a {
+    text-decoration:none;
+}
+.hand{
+    cursor: pointer;
+}
+.f_l {
+    float:left;
+}
+.f_r {
+    float:right;
+}
+.pt_r{
+    position: relative;
+}
+.pt_a{
+    position: absolute;
+}
+
+.mar_l60 {
+    margin-left:60px;
+}
+
+.mar_t10 {
+    margin-top:10px;
+}
+.mar_t20 {
+    margin-top:20px;
+}
+
+.mar_t30 {
+    margin-top:30px;
+}
+
+.pad_l20 {
+    padding-left:20px;
+}
+body {
+  background: #EEF2E0;
+  font-family: sans-serif;
+}
+
+a, a:visited {
+  color: #888;
+  text-decoration: none;
+}
+a:hover, a:active {
+  text-decoration: underline;
+}
+
+
+
+.main{
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.header{
+    height: 80px;
+    width: 100%;
+    min-width:800px;
+    background: #000;
+}
+.header .icon{
+    background: url("../img/header_icon.png") no-repeat;
+}
+.header  .user{
+    background: url("../img/header_icon.png") no-repeat 0 -60px;
+    padding-left: 30px;
+}
+.header  .quit{
+    background: url("../img/header_icon.png") no-repeat 0 -118px;
+    padding-left: 30px;
+
+}
+.header li{
+    float: left;
+}
+
+.sec_l li,.sec_r li{
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+
+}
+.sec_r li{
+    width: 100px;
+}
+.sec_l li a{
+    color: #636363;
+}
+.sec_l li.active a{
+    color: #fff;
+}
+
+#body {
+  /* position: relative; */
+}
+
+.view_l{
+    float: left;
+    width: 420px;
+    min-width:420px;
+    /* height: calc(100% - 80px); */
+    height:100%;
+    background: #eef2e0;
+    position: relative;
+    left:10px;
+}
+.view_r{
+    float: left;
+    width: calc(100% - 420px);
+    height: calc(100% - 80px);
+    background: #f2f2f2;
+}
+
+.view_l.full{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+}
+.gameview{
+}
+
+.gameview.full{
+	position:absolute;
+	margin:10px  300px;
+}
+
+.gamecanvas {
+  width: 500px;
+  height: 500px; 
+  
+  background: url(../images/bggrass512.png);
+  background-size:500px 500px;
+	background-repeat:no-repeat;
+}
+
+.gamecanvas.full {
+  width: 512px;
+  height: 512px;
+  border: 2px solid #888;
+  background: url(../images/bggrass512.png);
+  background-size:512px 512px;
+	background-repeat:no-repeat;
+}
+
+.gameoverlay {
+  display: none;
+  position: absolute;
+  left: 15px;
+  top: 50px;
+  opacity: 0.5;
+  background: #000;
+  width: 380px;
+  height: 380px;
+}
+
+.gameoverlay.full {
+  width: 492px;
+  height: 492px;
+}
+
+.gameoverlycontent {
+  display: none;
+  position: absolute;
+  left: 15px;
+  top: 50px;
+  padding: 25px;
+  width: 330px;
+  height: 330px;
+  color: #fff !important;
+  font-family: sans-serif;
+  line-height: 20px;
+}
+
+.gameoverlycontent.full{
+
+  width: 442px;
+  height: 442px;
+
+}
+#overlay-contents h1 {
+  font-size: 25px;
+  color: #fff; 
+}
+#overlay-contents td {
+  color: #fff; 
+}
+#overlay-contents a {
+  color: #aca !important;
+}
+
+.btntable{
+	margin:20px 80px;
+}
+.sidebar {
+
+  float: left;
+  /* width: 300px;
+  height: 600px; */
+  width:auto;
+  height:100%;
+  background: #fff;
+}
+
+#program {
+  border: 2px solid #888;
+  width:auto;
+  height: 300px; 
+  padding: 5px;
+  color: #cdf;
+  background: #222;
+  font-size: 18px;
+  line-height: 22px; 
+}
+
+
+.blocktabs{
+	
+}
+
+.prgrambtns {
+	width: 100%; 
+	margin: 8px 0px;
+	min-width:420px;
+}
+ul.blocktabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px;
+	/* border-bottom: 1px solid #999; */
+	border-left: 1px solid #999;
+	width: 230px;
+}
+ul.blocktabs li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px;
+	line-height: 31px;
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px;
+	background: #e0e0e0;
+	overflow: hidden;
+	position: relative;
+}
+ul.blocktabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 1.2em;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	outline: none;
+}
+ul.blocktabs li a:hover {
+	background: #ccc;
+}
+ul.blocktabs li.active, ul.blocktabs li.active a:hover  {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+
+#blocklyDiv {
+  position: relative;
+  height:100%;
+  width:100%;
+}
+
+#editor {
+  font-size: 16pt;
+  position: relative;
+  height: auto !important;
+  border: 1px solid #ddd;
+}
+
+.boxed {
+  
+  padding: 18px; 
+  box-shadow: 1px 3px 8px #000;
+  border: 2px solid #aaa;
+  border-radius: 8px;
+}
+
+.fullscreen{
+    bottom:10px;
+    right: 30px;
+    width: 44px;
+    height: 32px;
+    line-height: 32px;
+    color: #fff;
+    padding-left:40px;
+    background:  url("../img/fullscreen.png") no-repeat;
+}
+.fullscreen.active{
+    background:  url("../img/fullscreen1.png") no-repeat;
+}
+
+#title {
+  height: 20px;
+  line-height: 16px;
+  margin: 10px 10px;
+  color: #666;
+  font-weight: bold; 
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Elements', verdana;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  font-weight: normal;
+  color: #444;
+}
+
+button {
+  font-size: 16px;
+    margin: 2px 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+
+  background-color: #eee;
+  color: #000;
+}
+button.toggle.on {
+}
+button.toggle.off {
+  background: #ddd;
+  background-image: 0;
+  box-shadow: none;
+  border-color: #888;
+}
+button.toggle.off img {
+  opacity: 0.4;
+}
+
+.section {
+  margin-bottom: 10px;
+}
+
+.indent {
+  margin-left: 15px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+
+
+
+
+table {
+  border-collapse: collapse;
+}
+td {
+  padding: 4px;
+}
+
+.level {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-weight: bold;
+  float: left;
+  margin-right: 10px;
+  border: 1px solid #fff;
+  text-align: center;
+}
+.level:hover {
+  background: #444; 
+}
+.level.completed {
+  background: #553;
+  color: #ffa;
+  border-color: #aa6; 
+}

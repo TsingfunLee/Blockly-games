@@ -329,13 +329,25 @@ Painting.initAnswer = function() {
 			}
 			break;
 		case 10:
-			for (var i = 0; i < 5; i++) {
+			Painting.penUp();
+			Painting.turnleft(90);
+			Painting.move();
+			Painting.turnright(90);
+			Painting.penDown();
+			Painting.turnleft(30);
+			for (var i = 0; i < 6; i++) {
 				Painting.move();
 				Painting.stars.push([Painting.x, Painting.y]);
-				Painting.turnright(144);
+				Painting.turnright(120);
 				Painting.move();
 				Painting.stars.push([Painting.x, Painting.y]);
-				Painting.turnleft(72);
+				Painting.turnleft(60);
+			}
+			Painting.turnright(60);
+			for (i = 0; i < 6; i++) {
+				Painting.move();
+				Painting.stars.push([Painting.x, Painting.y]);
+				Painting.turnright(60);
 			}
 			break;
 		default:

@@ -20,6 +20,10 @@
 	display: none;
 }
 
+#cr-stage{
+	background-image: url('../images/bggrass500.jpg');
+}
+
 /**
 * Slider
 */
