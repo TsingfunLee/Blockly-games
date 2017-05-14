@@ -207,7 +207,7 @@ Painting.popover = function(content) {
 		if (!isDisplay) {
 			popover.style.display = 'none';
 		}
-	}, 2000);
+	}, 4000);
 };
 
 Painting.initAnswer = function() {

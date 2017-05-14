@@ -59,7 +59,7 @@ var DIALOG = {
     },
     {
       begin: "Try to finish this star painting with fewer blocks!",
-	  lose:"This level must be done using 'repeat' blocks"
+	  lose:"This level must be done using 'repeat' blocks",
       win: "You have a preliminary grasp of the 'repeat' block the use of blocks! Try the next level!"
     },
     {
@@ -108,7 +108,7 @@ var DIALOG = {
       begin:"Start your first plane war game, use the building blocks to destroy the enemies` fortress!",
 	  lose:"You just need to use the 'fire' block to finish this level!",
 	  win:"You successfully destroyed the fortress,let`s get to the next level!"
-  }
+  },
   {
       begin:"Use the 'turn' block to attack the enemies`s fortress in the right side!",
 	  lose:"You must use the turn block in this level!",
@@ -153,5 +153,6 @@ var DIALOG = {
       begin:"You need to determine the timing of the laser, the use of 'stop' blocks to avoid being hit, and finally through and destroy the enemy fortress!",
 	  lose:"You need to change the path you choose!",
 	  win:"Congratulations!You have finished all the plane war games!"
-  },
-  ],
+  }
+  ]
+}

@@ -23,5 +23,17 @@ var MSG = {
   
   play: "运行",
   reset: "重置",
-  showcode: "显示代码"
+  showcode: "显示代码",
+  index: "首页",
+  selegame:"游戏",
+  about:"关于我们",
+  maze:"兔子历险记",
+  painting:"星花海",
+  tank: "飞机大战",
+  success: "成功!",
+  replay: "重玩",
+  nextLevel: "下一关",
+  sure: "确定",
+  code: "代码",
+  reduceDiff: "降低难度"
 };

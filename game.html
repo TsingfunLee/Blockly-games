@@ -3,13 +3,42 @@
 
 	<head>
 		<meta charset="utf-8" />
-		<title>积木块编程工具</title>
+		<title>I CODE</title>
 		<link href="css/reset.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/mycss.css" rel="stylesheet" />
 		<link href="css/game.css" rel="stylesheet" />
 		<link href="css/dialog.css" rel="stylesheet" />
-
+		
+		<script type="text/javascript">
+        	var favIcon = function(){
+	        	var pathname = window.location.search;
+	    		console.log(pathname)
+	    		var head = document.getElementsByTagName('head')[0];
+	    		var style = document.createElement('link');
+	    		style.rel = 'icon';
+//	    		style.href = 'img/favicon/favicon1.ico';
+//	    		head.appendChild(style);
+	    		if(pathname.match(/maze/)){
+	    			console.log('1')
+	    			style.href ='img/favicon/maze.ico';
+	    			head.appendChild(style);
+	    			document.title = '兔子历险记'
+	    		}
+	    		if(pathname.match(/painting/)){
+	    			style.href ='img/favicon/painting.ico';
+	    			head.appendChild(style);
+	    			document.title = '星花海'
+	    		}
+	    		if(pathname.match(/tank/)){
+	    			style.href ='img/favicon/tank.ico';
+	    			head.appendChild(style);
+	    			document.title = '飞机大战'
+	    		}
+    		}
+        	favIcon()
+        </script>
+		
 		<script type="text/javascript" src="blockly/blockly_uncompressed.js"></script>
 		<!-- Begin define blocks -->
 		<script type="text/javascript" src="blockly/blocks/variables.js"></script>
@@ -39,9 +68,10 @@
 		<!-- Custom JavaScript generators -->
 		<script type="text/javascript" src="generators/JavaScript/action.js"></script>
 		<script type="text/javascript" src="generators/JavaScript/brush.js"></script>
+		<!-- End generating code from blocks -->
 
-		<script type="text/javascript" src="blockly/msg/messages.js"></script>
-		<script type="text/javascript" src="msg/messages.js"></script>
+		<!-- <script type="text/javascript" src="blockly/msg/messages.js"></script> -->
+		<!-- <script type="text/javascript" src="msg/messages_en.js"></script> -->
 
 		<!-- Begin syntax hightlight -->
 		<link rel="stylesheet" href="prettify/prettify.css" />
@@ -62,7 +92,7 @@
 		<!-- <script type="text/javascript" src="js/maze.draw.js"></script> -->
 		<!-- <script type="text/javascript" src="js/maze.core.js"></script> -->
 		<!-- <script type="text/javascript" src="js/painting.js"></script> -->
-
+        
 	</head>
 
 	<body>
@@ -73,9 +103,9 @@
 				</div>
 				<div id="nav">
 					<div class="nav-menu">
-					<a href="index.html" target="_blank">首页</a>
-					<a href="Selectgame.html" target="_blank" class="current">游戏</a>
-					<a href="aboutus.html" target="_blank" >关于我们</a>
+					<a href="index.html" target="_blank"  id="html_index">首页</a>
+					<a href="Selectgame.html" target="_blank" class="current" id="html_game">游戏</a>
+					<a href="aboutus.html" target="_blank" id="html_about">关于我们</a>
 					</div>
 					<div class="nav-current"></div>
 				</div>
@@ -91,7 +121,7 @@
 			<div class="cont_main">
 				<div class="cont_inner_top">
 					<div id="innertop_name">
-						<h3>兔子历险记</h3></div>
+						<h3></h3></div>
 					<div class="dots" id="levelLink">
 						<button class="select">1</button>
 					</div>
@@ -132,7 +162,7 @@
 			<div class="dialog-div">
 				<h6 class="dialog-h">代码</h6>
 				<p class="dialog-p">dsf</p>
-				<button class="dialog-btn dialog-btn-small">确定</button>
+				<button id="dialogCodeBtn" class="dialog-btn dialog-btn-small">确定</button>
 			</div>
 		</div>
 		<!-- Dialog for game tip -->

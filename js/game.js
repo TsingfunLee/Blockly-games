@@ -146,7 +146,12 @@ Game.changeLanguage = function() {
 	// not load Blockly.
 	// MSIE 11 does not support sessionStorage on file:// URLs.
 	if(typeof Blockly != 'undefined' && window.sessionStorage) {
-		var xml = Blockly.Xml.workspaceToDom(Game.workspace);
+		if(Game.NAME != 'tank'){
+			var xml = Blockly.Xml.workspaceToDom(Game.workspace);
+		}else {
+			var xml = Blockly.Xml.workspaceToDom(DDBlockly.workspace);
+		}
+		
 		var text = Blockly.Xml.domToText(xml);
 		window.sessionStorage.loadOnceBlocks = text;
 	}
@@ -270,6 +275,21 @@ Game.btnEvent = function() {
 };
 
 /**
+ * Load the Prettify CSS and JavaScript.
+ */
+Game.importPrettify = function() {
+  //<link rel="stylesheet" href="../prettify.css">
+  //<script src="../prettify.js"></script>
+  var link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('href', 'prettify/prettify.css');
+  document.head.appendChild(link);
+  var script = document.createElement('script');
+  script.setAttribute('src', 'prettify/prettify.js');
+  document.head.appendChild(script);
+};
+
+/**
  * Initialize Blockly.
  */
 Game.init = function() {
@@ -290,9 +310,7 @@ Game.init = function() {
   Blockly.JavaScript && (Blockly.JavaScript.ONE_BASED_INDEXING = false);
 
 	// Lazy-load the syntax-highlighting.
-	// window.setTimeout(Game.importPrettify, 1);
-	//Game.importGameScript();
-	//window.setTimeout(Game.importGameScript, 1000);
+	window.setTimeout(Game.importPrettify, 1);
 };
 
 /**
@@ -327,6 +345,17 @@ Game.initLanguage = function() {
 	document.getElementById('playBtn').textContent = MSG['play'];
 	document.getElementById('resetBtn').textContent = MSG['reset'];
 	document.getElementsByClassName('showcode')[0].textContent = MSG['showcode'];
+	document.getElementById('html_index').textContent = MSG['index'];
+	document.getElementById('html_game').textContent = MSG['selegame'];
+	document.getElementById('html_about').textContent = MSG['about'];
+	document.querySelector('#innertop_name h3').textContent = MSG[Game.NAME];
+	document.querySelector('#dialogCode .dialog-h').textContent = MSG['code'];
+	document.querySelector('#dialogCode #dialogCodeBtn').textContent = MSG['sure'];
+	document.querySelector('#dialogTip .dialog-btn').textContent = MSG['sure'];
+	document.querySelector('#dialogWin .dialog-h').textContent = MSG['success'];
+	document.querySelector('#dialogWin .dialog-btn-left').textContent = MSG['replay'];
+	document.querySelector('#dialogWin .dialog-btn-right').textContent = MSG['nextLevel'];
+	document.querySelector('#popover button').textContent = MSG['reduceDiff'];
 };
 
 /**
@@ -528,6 +557,7 @@ Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 document.write('<script src="msg/' + Game.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
 document.write('<script src="blockly/msg/js/' + Game.LANG + '.js"></script>\n');
+document.write('<script src="msg/messages_' + Game.LANG + '.js"></script>\n');
 // Load dialog language strings.
 document.write('<script src="msg/dialogContent_' + Game.LANG + '.js"></script>\n');
 // Load game JavaScript.

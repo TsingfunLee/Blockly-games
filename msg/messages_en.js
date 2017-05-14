@@ -46,3 +46,13 @@ Blockly.Msg.BRUSH_PEN_UP = 'up';
 Blockly.Msg.BRUSH_PEN_UP_TOOLTIP = 'Lift up bar.';
 Blockly.Msg.BRUSH_PEN_DOWN = 'down';
 Blockly.Msg.BRUSH_PEN_DOWN_TOOLTIP = 'Put down bar.';
+
+Blockly.Msg.TANK_MOVE = 'move forward';
+Blockly.Msg.TANK_MOVE_TOOLTIP = 'Move forward.';
+Blockly.Msg.TANK_TURN_LEFT = 'turn left';
+Blockly.Msg.TANK_TURN_RIGHT = 'turn right';
+Blockly.Msg.TANK_TURN_TOOLTIP = 'Change direction.';
+Blockly.Msg.TANK_FIRE = 'fire';
+Blockly.Msg.TANK_FIRE_TOOLTIP = 'Take fire!';
+Blockly.Msg.TANK_STOP = 'stop';
+Blockly.Msg.TANK_STOP_TOOLTIP = 'Stop moving.';

@@ -3,11 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>关于我们</title>
+		<link rel="icon" href="img/favicon/favicon1.ico" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/reset.css" rel="stylesheet" />
 		<link href="css/aboutus.css" rel="stylesheet" />
 		<script src="js/lib/jquery.min.js"></script>
-		<script src="js/lib/jquery-1.8.2.min.js"></script>
+		
 	</head>
 	<body>
 		<div class="toolbar">
@@ -17,9 +18,9 @@
 				</div>
 				<div id="nav">
 					<div class="nav-menu">
-					<a href="index.html" target="_blank">首页</a>
-					<a href="Selectgame.html" target="_blank" >游戏</a>
-					<a href="aboutus.html" target="_blank"  class="current">关于我们</a>
+					<a href="index.html" target="_blank" id="html_index">首页</a>
+					<a href="Selectgame.html" target="_blank" id="html_game">游戏</a>
+					<a href="aboutus.html" target="_blank" id="html_about"  class="current">关于我们</a>
 					</div>
 					<div class="nav-current"></div>
 				</div>
@@ -40,53 +41,68 @@
 				<div class="main_contro">
 					<section class="contro_left"><img src="img/aboutus/bg01.jpg" style="height: 320px;"/></section>
 					<section class="contro_right">
-						<p style="font-size: 27px;">我们做的是什么？</p>
-						<p class="text_01" style="font-size: 14px;">完全致力于提供最简单<br/>最具吸引力和创造性的方式<br/>教孩子们如何编写代码</p>
-						<p class="text_01" style="font-size: 14px;">在这个任务中<br/>我们需要你的帮助<br/>随时向我们发送您<br/>诚实地反馈</p>
+						<p style="font-size: 27px;" id="box1_1">我们做的是什么？</p>
+						<p class="text_01" style="font-size: 14px;" id="box1_2">我们完全致力于提供最简单</p>
+						<p class="text_02" style="font-size: 14px;" id="box1_3">最具吸引力和创造性的方式</p>
+						<p class="text_02" style="font-size: 14px;" id="box1_4">教孩子们如何编写代码</p>
+						<p class="text_01" style="font-size: 14px;" id="box1_5">在这个任务中</p>
+						<p class="text_02" style="font-size: 14px;" id="box1_6">我们需要你的帮助</p>
+						<p class="text_02" style="font-size: 14px;" id="box1_7">随时向我们发送您</p>
+						<p class="text_02" style="font-size: 14px;" id="box1_8">诚实的反馈</p>
 					</section>
 				</div>
 				<div class="main_members">
 					<section class="membox member_01">
 						<div class="multi-hover">
-							<div class="desc">蔡锦珊</div>
+							<div class="desc" class="memname1">蔡锦珊</div>
 							<img src="img/aboutus/member01.jpg" style="width: 212.5px;"/>
 						</div>
-						<h2>蔡锦珊</h2>
-						<p>页面前端开发，包括：<br/>网页布局实现、动效实现<br/>积木块工作区视觉开发</p>
+						<h2 class="memname1">蔡锦珊</h2>
+						<p class="passage" id="pa1_1">页面前端开发，包括：</p>
+						<p id="pa1_2">网页布局实现、动效实现</p>
+						<p id="pa1_3">积木块工作区视觉开发</p>
 					</section>
 					<section class="membox member_02">
 						<div class="multi-hover">
-							<div class="desc">陈志杰</div>
+							<div class="desc" class="memname2">陈志杰</div>
 							<img src="img/aboutus/member02.jpg" style="width: 212.5px;"/>
 						</div>
-						<h2>陈志杰</h2>
-						<p>游戏方案设计，包括：<br/>游戏关卡设计和趣味性设计<br/>以及部分功能完善</p>
+						<h2 class="memname2">陈志杰</h2>
+						<p class="passage" id="pa2_1">游戏方案设计，包括：</p>
+						<p id="pa2_2">游戏关卡设计和趣味性设计</p>
+						<p id="pa2_3">以及部分功能完善</p>
 					</section>
 					<section class="membox member_03">
 						<div class="multi-hover">
-							<div class="desc">李庆芳</div>
+							<div class="desc" class="memname3">李庆芳</div>
 							<img src="img/aboutus/member03.jpg" style="width: 212.5px;"/>
 						</div>
-						<h2>李庆芳</h2>
-						<p>游戏开发，包括：<br/>Blockly整合、定义积木块<br/>关联解释器API、游戏逻辑开发</p>
+						<h2 class="memname3">李庆芳</h2>
+						<p class="passage" id="pa3_1">游戏开发，包括：</p>
+						<p id="pa3_2">Blockly整合、定义积木块</p>
+						<p id="pa3_3">关联解释器API、游戏逻辑开发</p>
 					</section>
 					<section class="membox member_04">
 						<div class="multi-hover">
-							<div class="desc">郑眉眉</div>
+							<div class="desc" class="memname4">郑眉眉</div>
 							<img src="img/aboutus/member04.jpg" style="width: 212.5px;"/>
 					    </div>
-					    <h2>郑眉眉</h2>
-						<p>视觉部分设计，包括：<br/>网页界面设计和游戏ui设计<br />以及动画制作</p>
+					    <h2 class="memname4">郑眉眉</h2>
+						<p class="passage" id="pa4_1">视觉部分设计，包括：</p>
+						<p id="pa4_2">网页界面设计和游戏ui设计</p>
+						<p id="pa4_3">以及动画制作</p>
 					</section>
 				</div>
 				<div class="main_mail">
-					<p>联系我们</p>
-					<form action="https://formspree.io/caijinshan123@sina.cn" method="POST">
-					    <input class="samecss" id="name" type="text"  placeholder="您的姓名" name="name">
-					    <input class="samecss" id="email" type="email"  placeholder="您的邮箱地址" name="_replyto">
-					    <input id="message" type="text"  placeholder="您的宝贵意见" name="messages">
-					    <input id="submitbtn" type="submit" value="提交">
+					<p id="contact">联系我们</p>
+					<form id="form" action="https://formspree.io/caijinshan123@sina.cn" method="POST">
+					    <input class="samecss" id="name" type="text"  placeholder="您的昵称" 
+					    	onkeyup="if(/[^0-9a-zA-Z]/g.test(value))alert('不能使用特殊符号')" name="name">
+					    <input class="samecss" id="email" type="email"  placeholder="您的邮箱地址"   name="_replyto"> 
+					    <textarea  id="message" placeholder="您的宝贵意见" name="messages"></textarea>
+					    <input id="submitbtn" type="button" value="提交" onclick="checkUser()">
 					</form> 
+
 				</div>
 			</div>
 		</div>
@@ -96,5 +112,58 @@
 		<script src="js/btn.js" async="true"></script>
 		<script src="js/page.js" async="true"></script>
 		<script src="js/aboutus.js" async="true"></script>
+		<script src="js/lang.js"></script>
+		<script type="text/javascript">
+			 function checkEmail(){
+			 	var uemail = document.getElementById("email").value;
+			 	if (uemail != "") {
+
+	     				var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+
+	     				isok= reg.test(uemail );
+
+				       if (!isok) {
+			
+				            alert("邮箱格式不正确，请重新输入！");
+			
+				            document.getElementById("email").focus();
+				            document.getElementById("email").removeEventListener('blur', checkEmail)
+			
+				            return false;
+			
+				        }
+
+	   			 };
+			 }
+			  function checkName(){
+			 	var uname = document.getElementById("name").value;
+			 	if (uname == "") {
+			
+				            alert("请填写您的昵称，不能为空！");
+			
+				            document.getElementById("name").focus();
+				            document.getElementById("name").removeEventListener('blur', checkEmail)
+				            return false;
+
+	   			 };
+			 }
+			 function checkUser(){
+			   var username = document.getElementById("name").value;
+			   var uemail = document.getElementById("email").value;
+			   var umessage = document.getElementById("message").value;
+			  
+			   if(username != "" && uemail != "" && umessage !=""){
+			   	   document.getElementById("form").submit();
+			   }else{
+			      alert("请正确输入信息！");
+			   }
+			    
+			}
+			 document.getElementById('email').addEventListener('focus', function(){
+			 	document.getElementById('email').addEventListener('blur',checkEmail);
+			 })
+			 
+
+		</script>
 	</body>
 </html>

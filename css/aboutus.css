@@ -63,7 +63,10 @@ z-index: 1;
 }
 .text_01{
 	padding-top: 30px;
-	line-height: 20px;
+	padding-bottom: 2.5px;
+}
+.text_02{
+	padding: 2.5px 0 2.5px;
 }
 .main_members{
 	width: 940px;
@@ -84,11 +87,13 @@ z-index: 1;
 	padding-top: 14px;
 }
 .main_members p{
-	padding-top: 12px;
 	font-size: 0.9em;
 	color: #66676B;
 	text-align: center;
 	line-height: 20px;
+}
+.passage{
+	padding-top: 12px;
 }
 .membox{
 	margin: 0;
@@ -118,7 +123,7 @@ z-index: 1;
 .desc{
 	height:100%;
 	width: 100%;
-	font-size: 3em;
+	font-size: 1.8em;
 	text-align: center;
 	line-height: 182px;
 	font-weight: 100;
@@ -169,10 +174,12 @@ z-index: 1;
 #name{
 	position: absolute;
 }
+
 #email{
 	position: absolute;
 	top: 48.5px;
 }
+
 #message{
 	width: 340px;
 	height: 90px;
@@ -183,11 +190,13 @@ z-index: 1;
 	border: none;
 	color: #83817b;
 	font-size: 1.3em;
+	font-family: 'Microsoft Yahe';
 	padding-left: 10px;
 	position: absolute;
 	left: 365px;
 	outline: none;
 }
+
 #submitbtn{
 	width: 185px;
 	height: 41.5px;
@@ -206,7 +215,7 @@ z-index: 1;
 	transition: all 200ms ease-in-out;
 	outline: none;
 }
-#submitbtn:hover,:active{
+#submitbtn:hover{
 	border: 2px solid #8FC8C3;
 	background-color: transparent;
 	color: #8FC8C3;

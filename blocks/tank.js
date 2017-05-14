@@ -3,15 +3,20 @@
  */
 'use strict';
 
+goog.provide('Blockly.Blocks.tank');
+
+goog.require('Blockly');
+goog.require('Blockly.Blocks');
+
 // Extensions to Blockly's language and JavaScript generator.
 Blockly.Blocks['tank_moveForward'] = {
   init: function() {
     this.setColour(208);
     this.appendDummyInput()
-        .appendField('向前移动');
+        .appendField(Blockly.Msg.TANK_MOVE);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('向前移动');
+    this.setTooltip(Blockly.Msg.TANK_MOVE_TOOLTIP);
   }
 };
 
@@ -27,8 +32,8 @@ Blockly.Blocks['tank_turn'] = {
    */
   init: function() {
     var DIRECTIONS =
-        [['向左转', 'turnLeft'],
-         ['向右转','turnRight']];
+        [[Blockly.Msg.TANK_TURN_LEFT, 'turnLeft'],
+         [Blockly.Msg.TANK_TURN_RIGHT,'turnRight']];
     // Append arrows to direction messages.
     DIRECTIONS[0][0] += ' \u21BA';
     DIRECTIONS[1][0] += ' \u21BB';
@@ -37,7 +42,7 @@ Blockly.Blocks['tank_turn'] = {
         .appendField(new Blockly.FieldDropdown(DIRECTIONS), 'DIR');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('改变坦克方向');
+    this.setTooltip(Blockly.Msg.TANK_TURN_TOOLTIP);
   }
 };
 
@@ -92,10 +97,10 @@ Blockly.Blocks['tank_fire'] = {
   init: function() {
     this.setColour(208);
     this.appendDummyInput()
-        .appendField('开炮');
+        .appendField(Blockly.Msg.TANK_FIRE);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('坦克开炮');
+    this.setTooltip(Blockly.Msg.TANK_FIRE_TOOLTIP);
   }
 };
 
@@ -109,10 +114,10 @@ Blockly.Blocks['tank_stop'] = {
   init: function() {
     this.setColour(208);
     this.appendDummyInput()
-        .appendField('停止');
+        .appendField(Blockly.Msg.TANK_STOP);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('坦克停止前进');
+    this.setTooltip(Blockly.Msg.TANK_STOP_TOOLTIP);
   }
 };
 

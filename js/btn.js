@@ -1,5 +1,6 @@
-$(function() {
-  (function() {
+//$(function() {
+//(function() {
+var navBtn= function() {
     var $navcur = $(".nav-current");
     var $nav = $("#nav");
     var current = ".current";   
@@ -28,6 +29,9 @@ $(function() {
         width: itemW
       }, 300)
     })
-  })();
+   }
+//})();
+//
+//});
 
-});
+window.addEventListener('load', navBtn);

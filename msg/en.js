@@ -23,5 +23,17 @@ var MSG = {
 
   play: "Run",
   reset: "Reset",
-  showcode: "Toggle Code"
+  showcode: "Toggle Code",
+  index:"Home",
+  selegame:"Game",
+  about:"About",
+  maze:"Rabbit Adventures",
+  painting:"Stars-flowers",
+  tank: "Plane for war",
+  success: "Success!",
+  replay: "REPLAY",
+  nextLevel: "NEXT",
+  sure: "COMFIRM",
+  code: "CODE",
+  reduceDiff: "Reduce Difficulty"
 };

@@ -49,7 +49,7 @@
 	height: 100%;
 }
 #workspce_block .blocklyToolboxDiv{
-	width:125px;
+	width:300px;
 }
 .game_view{
 	height:500px;
@@ -102,7 +102,8 @@
 /*主体的头部*/
 #innertop_name{
 	height:60px;
-	width:180px;
+	/*width:180px;*/
+	padding: 0 20px 0 50px;
 	margin: 0;
 	color: #0493FF;
 	font-size: 22px;

@@ -368,9 +368,13 @@ html[xmlns] .flexslider .slides {
 	color: #65676A;
     padding-top: 47px;
 }
-#con2_right p{
-	padding:15px 0 15px 0;
+#senten2{
+	padding: 15px 0 15px 0;
 	line-height: 30px;
+}
+#senten3{
+	padding:15px 0 10px 0;
+	/*line-height:30px;*/
 }
 /*第三*/
 .construct3{
@@ -422,8 +426,10 @@ img#conl_img_up{
 }
 /*游戏名称*/
 a.game{
-	display: block;
-	width: 147px;
+	display: inline-block;
+	/*width: 147px;*/
+	padding-left: 17px;
+	padding-right: 17px;
 	height: 40px;
 	border-radius: 4px;
 	margin-left: auto;
@@ -440,9 +446,15 @@ a#game_01{
 a#game_02{
 	background-color: #517aa2;
 }
+a#game_03{
+	background-color: #dfc640;
+}
 p.game_text{
 	position: relative;
 	bottom: -29px;
+}
+#game_01_2{
+	padding-top: 30px;
 }
 #con3_l{
 	background-color: #e3ce5f;

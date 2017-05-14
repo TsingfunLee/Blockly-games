@@ -3,11 +3,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>首页</title>
+		<link rel="icon" href="img/favicon/favicon1.ico" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/reset.css" rel="stylesheet" />
 		<link href="css/index.css" rel="stylesheet"></link>
 		<script src="js/lib/jquery.min.js"></script>
 		<script src="js/lib/jquery.flexslider-min.js"></script>
+		
 	</head>
 	<body>
 		<header class="toolbar">
@@ -17,9 +19,9 @@
 				</div>
 				<div id="nav">
 					<div class="nav-menu">
-					<a href="index.html" target="_blank" class="current">首页</a>
-					<a href="Selectgame.html" target="_blank" >游戏</a>
-					<a href="aboutus.html" target="_blank" >关于我们</a>
+					<a href="index.html" target="_blank" class="current" id="html_index">首页</a>
+					<a href="Selectgame.html" target="_blank" id="html_game">游戏</a>
+					<a href="aboutus.html" target="_blank" id="html_about">关于我们</a>
 					</div>
 					<div class="nav-current"></div>
 				</div>
@@ -53,27 +55,28 @@
 					<ul id="con1_img">
 						<li>
 							<img src="img/index/construct1-1.jpg" style="margin: 0 75px 0 ;" />
-							<br /><br /><br /><br />趣味性
+							<br /><br /><br /><br /><p id="char1">趣味性</p>
 						</li>
 						<li style="display: block; border-left: 2px solid #dbdadc;border-right: 2px solid #dbdadc;">
 							<img src="img/index/construct1-2.jpg" style="margin: 0 70px 0; "/>
-							<br /><br /><br /><br />导向性
+							<br /><br /><br /><br /><p id="char2">导向性</p>
 						</li>
 						<li>
 							<img src="img/index/construct1-3.jpg" style="margin: 0 75px 0; "/>
-							<br /><br /><br /><br />专家研发
+							<br /><br /><br /><br /><p id="char3">专家研发</p>
 						</li>
 					</ul>
 					<div class="squra">
-						<span>在这里，编程不再单调乏味！在这里，小小的积木块！</span>
+						<span id="senten1">在这里，编程不再单调乏味！在这里，小小的积木块！</span>
 					</div>
 				</div>
 				<div class="construct2">
 					<section id="con2_left"><img src="img/index/620x320.jpg" style="height: 320px;"/></section>
 					<section id="con2_right">
-						<p style="font-size: 27px;">开发基于</p>
+						<p style="font-size: 1.8em;" id="senten2">开发基于</p>
 						<img src="img/index/blockly-c.png"/>
-						<p style="font-size: 18px;">可视化语言的编程标准源于<br />谷歌开发的blockly</p>
+						<p style="font-size: 1.1em;" id="senten3">可视化语言的编程标准源于</p>
+						<p style="font-size: 1.1em;" id="senten4">谷歌开发的blockly</p>
 					</section>
 
 				</div>
@@ -84,7 +87,8 @@
 							<img src="img/index/260x267.png" id="conl_img_up" />
 							<div class="con3_game_bottom">
 								<a class="game" id="game_01">兔子历险记</a>
-								<p class="game_text">帮助可爱的兔子走出森林<br />并采沿途的胡萝卜!</p>
+								<p class="game_text" id="game_01_1">帮助可爱的兔子走出森林</p>
+								<p id="game_01_2">并采沿途的胡萝卜!</p>
 							</div>
 						</div>
 					</section>
@@ -94,7 +98,7 @@
 							<img src="img/index/star.png" id="conl_img_up" />
 							<div class="con3_game_bottom">
 								<a class="game" id="game_02">星花海</a>
-								<p class="game_text">用美丽的花朵出连结璀璨的星河！</p>
+								<p class="game_text" id="game_02_1">用美丽的花朵连结出璀璨的星河！</p>
 							</div>
 						</div>
 					</section>
@@ -103,8 +107,8 @@
 							<img src="img/index/260x267 .6.jpg" id="conl_img_bg"/>
 							<img src="img/index/plane.png" id="conl_img_up" />
 							<div class="con3_game_bottom">
-								<a class="game" id="game_01">飞机大战</a>
-								<p class="game_text">用你的想象力战胜你的敌人！</p>
+								<a class="game" id="game_03">飞机大战</a>
+								<p class="game_text" id="game_03_1">用你的想象力战胜你的敌人！</p>
 							</div>
 						</div>
 					</section>
@@ -127,6 +131,7 @@
 		</script>
 		<script src="js/btn.js" async="true"></script>
 		<script src="js/page.js" async="true"></script>
+		<script src="js/lang.js"></script>
 		
 	</body>
 </html>

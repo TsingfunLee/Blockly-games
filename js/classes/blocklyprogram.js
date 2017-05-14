@@ -202,7 +202,7 @@ Class.subclass('BlocklyProgram', {
         setTimeout(function() {
           var bullet = new Bullet(map);
           var startPos = tank.getScreenPos();
-          startPos.addDir(tank.getDir(), 32);
+          startPos.addDir(tank.getDir(), 25);
           bullet.setScreenPos(startPos);
           bullet.setDir(tank.getDir());
           var endMapPos = tank.getMapPos().addDir(tank.getDir(), 1);
@@ -210,7 +210,7 @@ Class.subclass('BlocklyProgram', {
             endMapPos.addDir(tank.getDir(), 1);
           }
           var endPos = endMapPos.toScreenPos();
-          endPos.addDir(tank.getDir(), -22);
+          endPos.addDir(tank.getDir(), -10);
           if (map.onMap(endMapPos)) {
             // Hit!
             var target = null;
