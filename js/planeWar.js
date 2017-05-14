@@ -137,99 +137,6 @@ DDBlockly.popover = function(content) {
 	}, 2000);
 };
 
-
-DDBlockly.getToolboxXML = function(diff,num) {
-	/*
-	 * 第一级积木： 只有前进和开炮
-	 * 第二级积木：坦克，前进，转弯，开炮，停止
-	 * 第三级别：增加循环次数空间
-	 * 第四级别：数学、变量、逻辑
-	 * 第五级别：函数
-	 */
-	var boxLevel = 2;
-	if(diff=='intro'){
-		if(num == 0){
-			boxLevel = 1;
-		}
-		else if(num >4){
-			boxLevel = 3;
-		}
-	}
-	if(diff=='beginner'){
-		if(num < 3){
-			boxLevel = 4;
-		}
-		else{
-			boxLevel = 5;
-		}
-	}
-
-		var toolbox = '<xml>';
-		toolbox += 		'<block type="tank_fire"></block>';
-		toolbox += 		'<block type="tank_moveForward"></block>';
-	if(boxLevel >= 2){
-		toolbox +=		'<block type="tank_turn"> <field name="DIR">turnLeft</field> </block>'+
-						'<block type="tank_turn"> <field name="DIR">turnRight</field> </block>';
-		toolbox +=		'<block type="tank_stop"></block> ';
-	}//
-
-		//toolbox += '<sep></sep>';
-
-	if(boxLevel >= 3){
-		toolbox += '<category name="循环">'+
-						'<block type="controls_repeat_ext">'+
-							'<value name="TIMES"> <shadow type="math_number"> '+
-								'<field name="NUM">10</field> </shadow> </value>'+
-						'</block> ';
-		toolbox += '</category>';
-	}
-	if(boxLevel >= 4){
-		toolbox += '<category name="逻辑">';
-		toolbox += 		'<block type="controls_if"></block> ';
-		toolbox += 		'<block type="logic_compare"></block> ';
-		toolbox += 		'<block type="logic_operation"></block> ';
-		toolbox += 		'<block type="logic_boolean"></block> ';
-		toolbox += '</category>';
-
-		toolbox += '<category name="数学">';
-		toolbox += 		'<block type="math_number"></block> ';
-		toolbox += 		'<block type="math_arithmetic">'+
-							'<value name="A"> <shadow type="math_number"> <field name="NUM">1</field> </shadow> </value>'+
-							'<value name="B"> <shadow type="math_number"> <field name="NUM">1</field> </shadow> </value> </block> ';
-		toolbox += 		'<block type="math_single"> '+
-							'<value name="NUM"> <shadow type="math_number"> <field name="NUM">9</field>  </shadow> </value> </block> ';
-		toolbox += '</category>';
-
-		toolbox += '<category name="变量" custom="VARIABLE">';
-		toolbox += 		'<block type="variables_get"></block>';
-		toolbox += 		'<block type="variables_set"></block>';
-		toolbox += '</category>';
-	}
-
-	if(boxLevel >= 5){
-		toolbox += '<category name="文本"> ';
-		toolbox += 		'<block type="text"></block> ';
-		toolbox += 		'<block type="text_join"></block>';
-		toolbox += 		'<block type="text_print"></block> ';
-		toolbox += 		'<block type="text_prompt_ext"></block>';
-		toolbox += '</category>';
-
-		toolbox += '<category name="文本"> ';
-		toolbox += 		'<block type="text"></block> ';
-		toolbox += 		'<block type="text_join"></block>';
-		toolbox += 		'<block type="text_print"></block> ';
-		toolbox += 		'<block type="text_prompt_ext"></block>';
-		toolbox += '</category>';
-
-		toolbox += '<category name="函数过程" custom="PROCEDURE">';
-		toolbox += '</category>';
-	}
-
-
-	toolbox += '</xml>';
-	return toolbox;
-
-}
 /**
  * Set the given code (XML or JS) to the editor (Blockly or ACE).
  * @param {string} code XML or JS code.
@@ -545,28 +452,6 @@ DDBlockly.cmdStop = function(id) {
   DDBlockly.log.push(['wait', id]);
 };
 
-// DDBlockly.displayOverlay = function(pageId) {
-//
-//     var contentNode = $('#overlay-contents');
-//     //display
-//     var content = $('#'+pageId).html();
-//     contentNode.html(content);
-//     //console.log("displayOverlay:"+content)
-//     $('#overlay').show();
-//     contentNode.show();
-// };
-//
-// DDBlockly.hideOverlay = function(){
-// 	$('#overlay').hide();
-//     $('#overlay-contents').hide();
-// }
-
-//保存用户名按钮
-//DDBlockly.saveNameBtnClick = function(){
-//	$('#overlay').hide();
-//	$('#overlay-contents').hide();
-//}
-
 DDBlockly.retryBtnClick = function(e){
 	console.log("retryBtnClick");
 	// Prevent double-clicks or double-taps.
@@ -581,13 +466,3 @@ DDBlockly.retryBtnClick = function(e){
 	  //game reset
 	DDBlockly.game.resetLevel();
 }
-
-/**
- * Convert the user's code to raw JavaScript.
- * @param {string} code Generated code.
- * @return {string} The code without serial numbers and timeout checks.
- */
-DDBlockly.stripCode = function(code) {
-  // Strip out serial numbers.
-  return goog.string.trimRight(code.replace(/(,\s*)?'block_id_[^']+'\)/g, ')'));
-};
