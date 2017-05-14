@@ -30,7 +30,7 @@ Class.subclass('App', {
 
     // Load our resources
     Crafty.load([
-      './images/sprites.png'
+      './img/sprites.png'
     ], function() {
       app.setup();
     });
@@ -70,8 +70,8 @@ Class.subclass('App', {
   },
 
   setupSprites: function() {
-    Crafty.sprite(64,  './images/sprites.png', App.SPRITES);
-    Crafty.sprite(90, './images/explosion-sprites.png', {explosion: [0,0]});
+    Crafty.sprite(64,  './img/sprites.png', App.SPRITES);
+    Crafty.sprite(90, './img/explosion-sprites.png', {explosion: [0,0]});
   },
 
   setupControls: function() {
@@ -102,7 +102,6 @@ Class.subclass('App', {
   resetLevel: function() {
     if (this.level) {
       this.loadLevel(this.level.difficulty, this.level.num);
-
     }
   },
 
@@ -113,12 +112,10 @@ Class.subclass('App', {
   },
 
   resizeCanvas: function(){
-	  //console.log("resizeCanvas,full:" + full);
-
-		  $("#cr-stage > canvas").css("width","500px");
-		    $("#cr-stage > canvas").css("height","500px");
-		    $("#cr-stage").css("width","500px");
-		    $("#cr-stage").css("height","500px");
+	  $("#cr-stage > canvas").css("width","500px");
+    $("#cr-stage > canvas").css("height","500px");
+    $("#cr-stage").css("width","500px");
+    $("#cr-stage").css("height","500px");
 
   }
 

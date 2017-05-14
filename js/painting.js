@@ -645,6 +645,8 @@ Painting.checkAnswer = function() {
   } else {
     //Painting.penColour('#ff0000');
     //alert('error')
+		var content = DIALOG.painting[Game.LEVEL - 1].lose;
+		Painting.popover(content);
 		console.log('answer error');
   }
 };

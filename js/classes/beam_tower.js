@@ -9,6 +9,15 @@ MapObject.subclass('BeamTower', {
 
   instantiate: function() {
     this.entity = this.basicEntity('tower-off');
+    this.animate({
+      towerblink: {
+        spriteRow: 3,//3,
+        spriteColRange: [4,7],
+        duration: 14,
+        loop: true,
+        autoplay: true
+      }
+    });
   },
 
   setMapPos: function(x,y) {
@@ -55,12 +64,12 @@ MapObject.subclass('BeamTower', {
   },
 
   onCycle: function() {
-    this.counter = (this.counter + 1) % 3;
-    var sprites = ['tower-off', 'tower-on1', 'tower-on2', 'tower-on3'];
-    for (var i = 0; i < sprites.length; i++) {
-      this.entity.removeComponent(sprites[i], false);
-    }
-    this.entity.addComponent('tower-on' + (this.counter + 1));
+    // this.counter = (this.counter + 1) % 3;
+    // var sprites = ['tower-off', 'tower-on1', 'tower-on2', 'tower-on3'];
+    // for (var i = 0; i < sprites.length; i++) {
+    //   this.entity.removeComponent(sprites[i], false);
+    // }
+    // this.entity.addComponent('tower-on' + (this.counter + 1));
   }
 
 });

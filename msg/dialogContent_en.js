@@ -102,4 +102,56 @@ var DIALOG = {
 	  lose:"Think about it is not a turning point of the problem?",
 	  win:"Congratulations!You have finished all the star painting!"
 	}
-}
+  ],
+  tank: [
+  {
+      begin:"Start your first plane war game, use the building blocks to destroy the enemies` fortress!",
+	  lose:"You just need to use the 'fire' block to finish this level!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  }
+  {
+      begin:"Use the 'turn' block to attack the enemies`s fortress in the right side!",
+	  lose:"You must use the turn block in this level!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  },
+    {
+      begin:"Move forward a distance to attack the enemy's fortress!",
+	  lose:"Think about it will not be the frequency of progressive mistakes!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  },  
+  {
+      begin:"This need to travel further path to attack the enemy fortress!",
+	  lose:"Think about it will not be the frequency of progressive mistakes!",
+	  win:""
+  },  
+  {
+      begin:"You need to break the wall to destroy the fortress!",
+	  lose:"Think about it will not be the frequency of progressive mistakes!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  },  
+  {
+      begin:"To avoid the mines around you , attack the enemy fortress! Minimize the use of blocks!",
+	  lose:"Pay attention to this matter to use to repeat the building block!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  },  
+  {
+      begin:"Destroy the barrier opon your path, then attack the fortress!",
+	  lose:"You must choose the right path to move!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  },  
+  {
+      begin:"Choose the right  path to move, attack the enemy fortress!",
+	  lose:"You need to change the path you choose!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  },  
+  {
+      begin:"You need to pass the left side of the channel to destroy the enemy fortress, you need to use to repeat blocks!",
+	  lose:"You need to change the path you choose!",
+	  win:"You successfully destroyed the fortress,let`s get to the next level!"
+  },  
+  {
+      begin:"You need to determine the timing of the laser, the use of 'stop' blocks to avoid being hit, and finally through and destroy the enemy fortress!",
+	  lose:"You need to change the path you choose!",
+	  win:"Congratulations!You have finished all the plane war games!"
+  },
+  ],

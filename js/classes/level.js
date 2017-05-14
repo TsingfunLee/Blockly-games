@@ -75,8 +75,15 @@ Class.subclass('Level', {
     this.program.running = false;
     Level.complete(this.key);
     setTimeout(function() {
+      //alert('win')
+      if (Game.LEVEL != 10) {
+        DDBlockly.successDialog();
+      }else {
+        DDBlockly.beginDialog();
+      }
+
       //app.overlay.displayPage('win');
-    	app.blockly.displayOverlay('doc_gameWin');
+    	//app.blockly.displayOverlay('doc_gameWin');
     }, 1000);
   },
 
@@ -84,7 +91,10 @@ Class.subclass('Level', {
     this.program.running = false;
     setTimeout(function() {
       //app.overlay.displayPage('lose');
-    	app.blockly.displayOverlay('doc_gameLose');
+    	//app.blockly.displayOverlay('doc_gameLose');
+      //alert('lose')
+      var content = DIALOG.tank[Game.LEVEL - 1].lose;
+      DDBlockly.popover(content);
     }, 1000);
   }
 
@@ -115,12 +125,12 @@ App.LEVELS = {
       name: 'Turn, Then Fire!',
       map: [
         '..........',
-        '......T...',
+        '......R...',
         '...T......',
         '..........',
-        '.......T..',
-        '....T.....',
-        '...T......',
+        '.......R..',
+        '...TT.....',
+        '..........',
         '...^...B..',
         '......T...',
         '..........'
@@ -136,8 +146,8 @@ App.LEVELS = {
         '..r.......',
         '..........',
         '.....T....',
-        '...T......',
-        '..T....BT.',
+        '...R......',
+        '..T....Br.',
         '...R.T....',
         '..^T..T...',
         '..........'
@@ -152,7 +162,7 @@ App.LEVELS = {
         '.....|....',
         '..>....|R.',
         '...|.|....',
-        '...|.|....',
+        '...r.|....',
         '...|...B..',
         '...R.|R...',
         '...|.TT...',
@@ -166,9 +176,9 @@ App.LEVELS = {
       name: 'Trees Go Boom',
       map: [
         '..........',
-        '.R.TTTrT..',
+        '.R.++Tr+..',
         '..*T.B.T..',
-        '...T...T..',
+        '...*...T..',
         '.T.TTrT+..',
         '..R.......',
         '....T.....',
@@ -183,12 +193,12 @@ App.LEVELS = {
       name: 'Mines Go Boom, Too',
       map: [
         '..........',
-        '..........',
+        '.T........',
         '...|.*<*..',
         '.B.|..*T..',
         '...|......',
-        '..---+R...',
-        '......T...',
+        '.----rRR..',
+        '......r...',
         '.T........',
         '...RT.....',
         '..........'
@@ -200,13 +210,13 @@ App.LEVELS = {
       name: 'Mines',
       map: [
         '..........',
-        '..R...T...',
-        '...RTT....',
+        '..R...rO..',
+        '..|RTT....',
         '..TB..*T..',
         '....|.....',
         '...--+^...',
         '..T....T..',
-        '....T.....',
+        '.r..T.....',
         '.....R....',
         '..........'
       ]
@@ -217,14 +227,14 @@ App.LEVELS = {
       name: 'Secret Entrance',
       map: [
         '..........',
-        '..RvR.....',
+        '..RvRrr...',
         '......T...',
-        '..--*.....',
+        '.|--*.....',
         '.T..*.....',
-        '..TR----..',
-        '......+...',
-        '....+.B...',
-        '......+...',
+        '..TR--++..',
+        '.....O+...',
+        '....|.B...',
+        '.....O|...',
         '..........'
       ]
     },
@@ -234,13 +244,13 @@ App.LEVELS = {
       name: 'Maze',
       map: [
         '..........',
-        '..R.......',
-        '...T..<...',
-        '..........',
-        '..R..T.R..',
-        '.RT.R.RR..',
-        '..RT.R....',
-        '..R.....T.',
+        '..*++-....',
+        '.|.T..<...',
+        '.|........',
+        '.|R.OT.*..',
+        '.rT...**..',
+        '..rT.R....',
+        '..r.O..OT.',
         '..TT..R.B.',
         '..........'
       ]
@@ -251,14 +261,14 @@ App.LEVELS = {
       name: 'Beam Towers Never Wait',
       map: [
         '..........',
-        '....T.....',
-        '......T...',
-        '..B....R..',
-        '..TR..O...',
-        '...T......',
-        '..O...O...',
-        '..T.|...|.',
-        '..|.^.|...',
+        '.O.ORTTrr.',
+        '.....TT...',
+        '..B..**R..',
+        '.OTr..O...',
+        '..*T......',
+        '.O....O...',
+        '..T.-...*.',
+        '..|+^.|...',
         '..........'
       ]
     }

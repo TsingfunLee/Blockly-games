@@ -29,8 +29,8 @@ DDBlockly.blocks = [
 	['tank_turn', 'tank_fire'],
 	['tank_moveForward', 'tank_turn', 'tank_fire'],
 	['tank_moveForward', 'tank_turn', 'tank_fire'],
-	['tank_moveForward', 'tank_turn', 'tank_fire', 'tank_stop'],
-	['tank_moveForward', 'tank_turn', 'tank_fire', 'tank_stop'],
+	['tank_moveForward', 'tank_turn', 'tank_fire', 'tank_stop', 'controls_repeat'],
+	['tank_moveForward', 'tank_turn', 'tank_fire', 'tank_stop', 'controls_repeat'],
 	['tank_moveForward', 'tank_turn', 'tank_fire', 'tank_stop', 'controls_repeat'],
 	['tank_moveForward', 'tank_turn', 'tank_fire', 'tank_stop', 'controls_repeat'],
 	['tank_moveForward', 'tank_turn', 'tank_fire', 'tank_stop', 'controls_repeat'],
@@ -56,6 +56,7 @@ DDBlockly.init = function(param){
 
 		Game.initToolbox(DDBlockly);
 		//Game.initWorkspace();
+		DDBlockly.initDialog();
 
     DDBlockly.workspace = Blockly.inject(blocklyDiv,
     {
@@ -70,12 +71,70 @@ DDBlockly.init = function(param){
 		trashcan: true,
 		zoom: {controls: true, wheel: false}
 		 });
-    var defaultXml =
-        '<xml>' +
-        '  <block type="tank_fire" x="70" y="70"></block>' +
-        '</xml>';
-    DDBlockly.setCode(defaultXml, false);
 
+		if (Game.LEVEL == 1) {
+			var defaultXml =
+	        '<xml>' +
+	        '  <block type="tank_fire" x="70" y="70"></block>' +
+	        '</xml>';
+	    DDBlockly.setCode(defaultXml, false);
+
+			DDBlockly.beginDialog();
+		}
+};
+
+/**
+* Set dialog image.
+*/
+DDBlockly.initDialog = function() {
+	var dialogCodeImg = document.querySelector('#dialogCode img');
+	var dialogTipImg = document.querySelector('#dialogTip img');
+	var dialogWinImg = document.querySelector('#dialogWin img');
+	var popoverImg = document.querySelector('#popover img');
+	//console.log(dialogCodeImg);
+	dialogCodeImg.src = 'img/dialog5.jpg';
+	dialogTipImg.src = 'img/dialog6.jpg';
+	dialogWinImg.src = 'img/dialog6.jpg';
+	popoverImg.src = 'img/plane.png';
+};
+
+DDBlockly.beginDialog = function() {
+	var dialogHeader = document.querySelector('#dialogTip h6');
+	var dialogContent = '';
+	dialogContent = DIALOG.tank[0].begin;
+	if (Game.LEVEL == 10) {
+		dialogContent = DIALOG.tank[9].win;
+	}
+	dialogHeader.textContent = dialogContent;
+	Game.showDialog('dialogTip');
+};
+
+DDBlockly.successDialog = function() {
+	var dialogP = document.querySelector('#dialogWin .dialog-p');
+	var dialogContent = '';
+	dialogContent = DIALOG.tank[Game.LEVEL - 1].win;
+	dialogP.textContent = dialogContent;
+	Game.showDialog('dialogWin');
+};
+
+DDBlockly.popover = function(content) {
+	var popover = document.getElementById('popover');
+	var popoverP = document.querySelector('#popover p');
+	var popoverBtn = document.querySelector('#popover button');
+	var isDisplay = false;
+	popoverP.textContent = content;
+	popover.style.display = 'block';
+	popover.addEventListener('mouseenter', function(){
+		isDisplay = true;
+	});
+	popover.addEventListener('mouseleave', function(){
+		popover.style.display = 'none';
+	});
+	setTimeout(function() {
+		if (!isDisplay) {
+			popover.style.display = 'none';
+		}
+	}, 2000);
 };
 
 
@@ -486,21 +545,21 @@ DDBlockly.cmdStop = function(id) {
   DDBlockly.log.push(['wait', id]);
 };
 
-DDBlockly.displayOverlay = function(pageId) {
-
-    var contentNode = $('#overlay-contents');
-    //display
-    var content = $('#'+pageId).html();
-    contentNode.html(content);
-    //console.log("displayOverlay:"+content)
-    $('#overlay').show();
-    contentNode.show();
-};
-
-DDBlockly.hideOverlay = function(){
-	$('#overlay').hide();
-    $('#overlay-contents').hide();
-}
+// DDBlockly.displayOverlay = function(pageId) {
+//
+//     var contentNode = $('#overlay-contents');
+//     //display
+//     var content = $('#'+pageId).html();
+//     contentNode.html(content);
+//     //console.log("displayOverlay:"+content)
+//     $('#overlay').show();
+//     contentNode.show();
+// };
+//
+// DDBlockly.hideOverlay = function(){
+// 	$('#overlay').hide();
+//     $('#overlay-contents').hide();
+// }
 
 //保存用户名按钮
 //DDBlockly.saveNameBtnClick = function(){
