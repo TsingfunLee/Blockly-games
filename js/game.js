@@ -249,11 +249,14 @@ Game.btnEvent = function() {
 	var codebtnEvent = function(){
 		//alert("显示代码窗口");
 		var dialogCode = document.getElementById('dialogCode');
-		var dialogP = document.querySelector('#dialogCode p');
+		var dialogP = document.querySelector('#dialogCode pre');
 		var layer = document.getElementsByClassName('layer')[0];
 		var code = Blockly.JavaScript.workspaceToCode(Game.workspace);
 		code = code.replace(/(,\s*)?'block_id_[^']+'\)/g, ')');
-		dialogP.textContent = code;
+		if(typeof prettyPrintOne == 'function') {
+			code = prettyPrintOne(code, 'js');
+		}	
+		dialogP.innerHTML = code;
 		dialogCode.style.display = 'block';
 		layer.style.display = 'block';
 	};
