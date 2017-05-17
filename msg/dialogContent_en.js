@@ -105,12 +105,12 @@ var DIALOG = {
   ],
   tank: [
   {
-      begin:"Start your first plane war game, use the building blocks to destroy the enemies` fortress!",
+      begin:"Start your first plane war game, use the fire blocks to destroy the enemies' fortress!",
 	  lose:"You just need to use the 'fire' block to finish this level!",
 	  win:"You successfully destroyed the fortress,let`s get to the next level!"
   },
   {
-      begin:"Use the 'turn' block to attack the enemies`s fortress in the right side!",
+      begin:"Use the 'turn' block to attack the enemies's fortress in the right side!",
 	  lose:"You must use the turn block in this level!",
 	  win:"You successfully destroyed the fortress,let`s get to the next level!"
   },

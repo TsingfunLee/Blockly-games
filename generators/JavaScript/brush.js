@@ -48,9 +48,9 @@ Blockly.JavaScript['brush_set_color'] = function(block) {
 };
 
 Blockly.JavaScript['brush_pen_up'] = function(block) {
-  return 'upBar(\'block_id_' + block.id + '\');\n';
+  return 'penUp(\'block_id_' + block.id + '\');\n';
 };
 
 Blockly.JavaScript['brush_pen_down'] = function(block) {
-  return 'downBar(\'block_id_' + block.id + '\');\n';
+  return 'penDown(\'block_id_' + block.id + '\');\n';
 };

@@ -322,7 +322,7 @@ Maze.initApi = function(interpreter, scope) {
 		Maze.moveforward(id);
 	};
 	interpreter.setProperty(scope, 'moveforward', interpreter.createNativeFunction(wrapper));
-
+	
 	wrapper = function(id) {
 		id = id ? id.toString() : '';
 		Maze.turnleft(id);
