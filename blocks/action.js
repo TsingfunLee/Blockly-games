@@ -94,9 +94,6 @@ Blockly.Blocks['action_if'] = {
     // Append arrows to direction messages.
     DIRECTIONS[1][0] += Blockly.Blocks.LEFT_TURN;
     DIRECTIONS[2][0] += Blockly.Blocks.RIGHT_TURN;
-		// this.jsonInit({
-		// 	"message0": Blockly.Msg.ACTION_IF,
-		// });
     this.setColour(Blockly.Blocks.action.HUE);
     this.appendDummyInput()
 				.appendField(Blockly.Msg.ACTION_IF)

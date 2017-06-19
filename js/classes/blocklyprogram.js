@@ -141,16 +141,14 @@ Class.subclass('BlocklyProgram', {
 
     console.log("executeCommand:" + code.cmd + ";blockid:" + blocklyid);
     switch(code.cmd) {
-
       case 'move':
         // Move forward
-
         var newPos = tank.getMapPos().addDir(tank.getDir(), 1);
         if (map.isPassable(newPos)) {
-          // Do the move!
-          app.audio.play('move-tank');
-          tank.playAnimation('move'); //aronkin
-          tank.tween({x: newPos.x*50, y: newPos.y*50}, 45, function() {
+            // Do the move!
+            app.audio.play('move-tank');
+            tank.playAnimation('move'); 
+            tank.tween({x: newPos.x*50, y: newPos.y*50}, 45, function() {
             app.audio.stop('move-tank');
             tank.stopAnimation('move');
             tank.setMapPos(newPos);
@@ -229,7 +227,6 @@ Class.subclass('BlocklyProgram', {
           });
         }, 50);
         break;
-
     }
   }
 

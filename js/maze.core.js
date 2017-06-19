@@ -209,7 +209,7 @@ Maze.isPath = function(direction, id) {
  *     (0 = forward, 1 = right, 2 = backward, 3 = left).
  */
 Maze.checkWall = function(x, y, direction) {
-	var i, j;
+  var i, j;
   var effectiveDirection = Maze.DIRECTION + direction;
   effectiveDirection = effectiveDirection % 4;
   if (effectiveDirection < 0) {
@@ -239,7 +239,6 @@ Maze.checkWall = function(x, y, direction) {
 	if(Maze.map[i][j] === Maze.pathType.WALL) {
 		Maze.result = Maze.resultType.CRASH;
 		//alert('Crash')
-		//Maze.displayResult();
 		return false;
 	}else {
 		return true;

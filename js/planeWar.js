@@ -420,16 +420,14 @@ DDBlockly.cmdMoveForward = function(id) {
 };
 
 DDBlockly.cmdTurn = function(direction, id) {
-	  if (direction) {
-	    // Right turn (clockwise).
+	if (direction) {
+	    // Right turn
 	    DDBlockly.log.push(['right', id]);
-	  } else {
-	    // Left turn (counterclockwise).
-
-		  DDBlockly.log.push(['left', id]);
-	  }
-
-	};
+	} else {
+	    // Left turn
+		DDBlockly.log.push(['left', id]);
+	}
+};
 
 DDBlockly.cmdMove = function(angel,id) {
   var angleRadians = goog.math.toRadians(angle);

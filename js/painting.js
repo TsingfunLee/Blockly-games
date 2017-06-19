@@ -19,9 +19,12 @@ Painting.blocks = [
 	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat'],
 	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat'],
 	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat'],
-	['brush_moveforward', 'brush_moveback', 'brush_turnright', 'controls_repeat', 'brush_set_color'],
-	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat', 'brush_pen_up', 'brush_pen_down'],
-	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat', 'brush_set_color', 'brush_pen_up', 'brush_pen_down']
+	['brush_moveforward', 'brush_moveback', 'brush_turnright', 'controls_repeat', 
+	'brush_set_color'],
+	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat', 
+	'brush_pen_up', 'brush_pen_down'],
+	['brush_moveforward', 'brush_turnright', 'brush_turnleft', 'controls_repeat', 
+	'brush_set_color', 'brush_pen_up', 'brush_pen_down']
 ];
 
 /**
@@ -90,10 +93,6 @@ Painting.init = function() {
 	canvasAnswer.height = Painting.HEIGHT;
 	canvasDisplay.width = Painting.WIDTH;
 	canvasDisplay.height = Painting.HEIGHT;
-
-	// Set game name.
-	var h = document.querySelector('#innertop_name h3');
-	h.innerHTML = '星花海';
 
 	Game.initToolbox(Painting);
 	Game.initWorkspace();
@@ -389,7 +388,6 @@ Painting.display = function() {
 	Painting.drawStar();
 
 	// Draw the user layer.
-	//Painting.ctxDisplay.globalCompositeOperation = 'source-over';
 	Painting.ctxDisplay.globalAlpha = 1;
 	Painting.ctxDisplay.drawImage(Painting.ctxScratch.canvas, 0, 0);
 
@@ -410,9 +408,6 @@ Painting.animate = function(id) {
 	Painting.display();
 	if(id) {
 		Game.highlight(id);
-		// Scale the speed non-linearly, to give better precision at the fast end.
-		// var stepSpeed = 1000 * Math.pow(1 - Painting.speedSlider.getValue(), 2);
-		// Painting.pause = Math.max(1, stepSpeed);
 	}
 };
 
@@ -424,7 +419,7 @@ Painting.move = function(id) {
 		Painting.ctxScratch.beginPath();
 		Painting.ctxScratch.moveTo(Painting.x, Painting.y);
 	}
-	//if (distance) {
+
 	Painting.x += Painting.DEFAULT_DIS * Math.sin(2 * Math.PI * Painting.heading / 360);
 	Painting.y -= Painting.DEFAULT_DIS * Math.cos(2 * Math.PI * Painting.heading / 360);
 
@@ -432,17 +427,11 @@ Painting.move = function(id) {
 		Painting.lightStar.push([Painting.x, Painting.y]);
 	}
 
-	//   var bump = 0;
-	// } else {
-	//   // WebKit (unlike Gecko) draws nothing for a zero-length line.
-	//   var bump = 0.1;
-	// }
 	if(Painting.penDownValue) {
 		Painting.ctxScratch.lineTo(Painting.x, Painting.y);
 		Painting.ctxScratch.stroke();
 	}
 	Painting.animate(id);
-	console.log('mo')
 };
 
 Painting.turnright = function(angle, id) {
